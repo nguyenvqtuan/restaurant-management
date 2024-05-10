@@ -20,7 +20,7 @@ const Signup = () => {
       userName: userName,
       password: password,
       fullName: fullName,
-      birthDayRef: birthDayRef.toString(),
+      birthDay: birthDay.toString(),
     };
     const resp = await ApiClient.post("/v1/sign-up", formData).then((e) => e);
 
