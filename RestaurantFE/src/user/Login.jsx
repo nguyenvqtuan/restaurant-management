@@ -1,11 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
 
 const Login = () => {
+  const userNameRef = useRef();
+  const passwordRef = useRef();
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log();
+
+    const userName = userNameRef.current.value;
+    const password = passwordRef.current.value;
+
+    const formData = {
+      userName: userName,
+      password: password,
+    };
+    const resp = await ApiClient.post("/login", formData);
+    if (resp.status == 200) {
+      localStorage.setItem("token", resp.data.accessToken);
+      navigate("/home");
+    } else {
+    }
   };
   return (
     <div className="container">
@@ -23,19 +41,20 @@ const Login = () => {
                     <form className="user" onSubmit={handleSubmit}>
                       <div className="form-group">
                         <input
-                          type="email"
+                          ref={userNameRef}
+                          type="text"
                           className="form-control form-control-user"
-                          id="email"
-                          aria-describedby="emailHelp"
-                          placeholder="Enter Email Address..."
+                          id="userName"
+                          placeholder="Enter User name"
                         />
                       </div>
                       <div className="form-group">
                         <input
+                          ref={passwordRef}
                           type="password"
                           className="form-control form-control-user"
-                          id="password"
-                          placeholder="Password"
+                          id="pasword"
+                          placeholder="Enter your Password"
                         />
                       </div>
                       <div className="form-group">
