@@ -31,10 +31,25 @@ public class UserServiceImpl implements UserService{
 		return userRepo.findByUserName(userName).map(e -> convert(e));
 	}
 	
+	public Optional<UserDto> findByPasswordResetToken(String token) {
+		return userRepo.findByPasswordResetToken(token).map(e -> convert(e));
+	}
+	
 	@Override
 	public void store(UserDto userDto) {
 		UserEntity userEntity = convert(userDto);
 		userRepo.save(userEntity);
+	}
+	
+	@Override
+	public void updatePasswordReset(String userName, String token) {
+		userRepo.updatePasswordReset(userName, token);
+	}
+	
+	@Override
+	public void updatePasswordByToken(UserDto userDto) {
+		String newPassword = passwordEncoder.encode(userDto.getPassword());
+		userRepo.updatePasswordByToken(userDto.getPasswordResetToken(), newPassword);
 	}
 	
 	private UserDto convert(UserEntity userEntity) {

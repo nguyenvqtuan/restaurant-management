@@ -22,6 +22,8 @@ public class UserDto {
 	private String role;
 	private boolean enabled;
 	
+	private String passwordResetToken;
+	
 	private LocalDate createdAt;
 
 	private LocalDate updatedAt;

@@ -20,4 +20,5 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity, Inte
 	@Modifying
 	@Query("UPDATE InventoryEntity SET status = ?2 WHERE id = ?1")
 	void updateStatus(Integer id, Byte status);
+	
 }

@@ -23,13 +23,17 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id; 
 	
+	// Email
 	private String userName;
+	
 	private String password;
 	private String fullName;
 	private LocalDate birthDay;
 	
 	private String role;
 	private boolean enabled;
+	
+	private String passwordResetToken;
 	
 	@CreationTimestamp
 	private LocalDate createdAt;
