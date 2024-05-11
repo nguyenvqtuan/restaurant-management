@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -67,7 +68,8 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/v1/sign-up", "/v1/reset-password").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/update-password").permitAll()
+                .requestMatchers("/v1/sign-up", "/v1/reset-password", "/v1/verify-token").permitAll()
                 .requestMatchers("/login").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/**")

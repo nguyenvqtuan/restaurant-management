@@ -107,7 +107,7 @@ public class UserController {
 		res.append("This is email send from restaurant application!" + " \r\n");
 		res.append("Below is link reset your password! \r\n" + " \r\n");
 		
-		res.append(utilityService.getFEPath() + "/reset-password?token=" + token  + " \r\n");
+		res.append(utilityService.getFEPath() + "/verify-token?token=" + token  + " \r\n");
 		res.append("Thanks and regards!");
 		return res.toString();
 	}
