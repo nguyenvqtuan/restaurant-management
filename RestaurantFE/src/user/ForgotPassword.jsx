@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import ApiClient from "../assets/js/ApiClient";
 
 const ForgotPassword = () => {
+  const userNameRef = useRef();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const userName = userNameRef.current.value;
+
+    const resp = await ApiClient.get(
+      "/v1/reset-password?userName=" + userName
+    ).catch((err) => {
+      return err;
+    });
+  };
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -17,9 +29,10 @@ const ForgotPassword = () => {
                         Forgot password!
                       </h1>
                     </div>
-                    <form className="user">
+                    <form className="user" onSubmit={handleSubmit}>
                       <div className="form-group">
                         <input
+                          ref={userNameRef}
                           type="email"
                           className="form-control form-control-user"
                           id="email"
@@ -28,12 +41,12 @@ const ForgotPassword = () => {
                         />
                       </div>
 
-                      <a
-                        href="index.html"
+                      <button
+                        type="submit"
                         className="btn btn-primary btn-user btn-block"
                       >
                         Reset password
-                      </a>
+                      </button>
                     </form>
                     <hr />
                     <div className="text-center">
