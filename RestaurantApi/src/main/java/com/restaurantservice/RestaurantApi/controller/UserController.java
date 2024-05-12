@@ -42,7 +42,7 @@ public class UserController {
 	@Autowired
 	private UtilityService utilityService;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestBody UserDto userDto) {
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
