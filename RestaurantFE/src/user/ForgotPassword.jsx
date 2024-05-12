@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
+import { info } from "../assets/js/SweetCustom";
 
 const ForgotPassword = () => {
   const userNameRef = useRef();
@@ -13,6 +14,11 @@ const ForgotPassword = () => {
     ).catch((err) => {
       return err;
     });
+
+    info(
+      "Reset Password",
+      "Please check your mail. We had sent a email reset password!"
+    );
   };
   return (
     <div className="container">

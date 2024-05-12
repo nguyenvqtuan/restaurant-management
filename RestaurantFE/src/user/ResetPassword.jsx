@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
+import { success } from "../assets/js/SweetCustom";
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -22,6 +23,8 @@ const ResetPassword = () => {
         return err;
       }
     );
+
+    success("Update password success!", "");
     navigate("/login");
   };
 

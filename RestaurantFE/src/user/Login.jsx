@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
+import { success, failed } from "../assets/js/SweetCustom";
 
 const Login = () => {
   const userNameRef = useRef();
@@ -21,8 +22,10 @@ const Login = () => {
     const resp = await ApiClient.post("/login", formData);
     if (resp.status == 200) {
       localStorage.setItem("token", resp.data.accessToken);
+      success("Login success!", "");
       navigate("/home");
     } else {
+      failed("Login failed!", "");
     }
   };
   return (

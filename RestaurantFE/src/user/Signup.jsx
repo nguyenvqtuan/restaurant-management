@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
+import { success } from "../assets/js/SweetCustom";
 
 const Signup = () => {
   const userNameRef = useRef();
@@ -26,6 +27,7 @@ const Signup = () => {
 
     if (resp.status == 201) {
       localStorage.setItem("token", resp.data.accessToken);
+      success("Sign up success!", "");
       navigate("/home");
     } else {
     }
