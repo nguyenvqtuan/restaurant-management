@@ -25,4 +25,12 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
 	@Modifying
 	@Query("UPDATE UserEntity SET password = ?2 WHERE passwordResetToken = ?1")
 	void updatePasswordByToken(String token, String password);
+
+	@Modifying
+	@Query("UPDATE UserEntity SET role = ?2 WHERE userName = ?1")
+	void updateRole(String userName, String role);
+	
+	@Modifying
+	@Query("UPDATE UserEntity SET enabled = ?2 WHERE userName = ?1")
+	void activeUser(String userName, boolean enabled);
 }
