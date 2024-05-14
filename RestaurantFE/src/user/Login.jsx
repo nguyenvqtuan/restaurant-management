@@ -1,13 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
 import { success, failed } from "../assets/js/SweetCustom";
+import { AuthContext } from "../App";
 
 const Login = () => {
   const userNameRef = useRef();
   const passwordRef = useRef();
 
   const navigate = useNavigate();
+
+  const { auth, setAuth } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +24,16 @@ const Login = () => {
     };
     const resp = await ApiClient.post("/login", formData);
     if (resp.status == 200) {
-      localStorage.setItem("token", resp.data.accessToken);
+      const accessToken = resp?.data?.token;
+      const userName = resp?.data?.userName;
+      const refreshToken = resp?.data?.refreshToken;
+      console.log(accessToken, userName);
+      setAuth({
+        token: accessToken,
+        userName: userName,
+        refreshToken: refreshToken,
+      });
+
       success("Login success!", "");
       navigate("/home");
     } else {
@@ -99,9 +111,13 @@ const Login = () => {
                     </form>
                     <hr />
                     <div className="text-center">
-                      <a className="small" href="forgot-password.html">
+                      <Link
+                        to="/forgot-password"
+                        className="small"
+                        href="forgot-password.html"
+                      >
                         Forgot Password?
-                      </a>
+                      </Link>
                     </div>
                     <div className="text-center">
                       <Link to="/sign-up" className="small">
