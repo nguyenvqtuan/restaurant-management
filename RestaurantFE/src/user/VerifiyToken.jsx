@@ -11,7 +11,7 @@ const VerifiyToken = () => {
 
   const vertify = async () => {
     const resp = await ApiClient.get(
-      "/v1/verify-token?token=" + searchParams.get("token")
+      "/verify-token?token=" + searchParams.get("token")
     );
 
     const status = resp.status;

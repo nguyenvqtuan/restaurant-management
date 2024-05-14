@@ -68,8 +68,8 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/v1/update-password", "/login", "/refresh-token").permitAll()
-                .requestMatchers("/v1/sign-up", "/v1/reset-password", "/v1/verify-token").permitAll()
+                .requestMatchers(HttpMethod.POST, "/update-password", "/login", "/refresh-token").permitAll()
+                .requestMatchers("/sign-up", "/reset-password", "/verify-token").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/**")
                 .authenticated()

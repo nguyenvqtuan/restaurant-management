@@ -10,7 +10,7 @@ const ForgotPassword = () => {
     const userName = userNameRef.current.value;
 
     const resp = await ApiClient.get(
-      "/v1/reset-password?userName=" + userName
+      "/reset-password?userName=" + userName
     ).catch((err) => {
       return err;
     });

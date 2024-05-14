@@ -23,7 +23,7 @@ const Signup = () => {
       fullName: fullName,
       birthDay: birthDay.toString(),
     };
-    const resp = await ApiClient.post("/v1/sign-up", formData).then((e) => e);
+    const resp = await ApiClient.post("/sign-up", formData).then((e) => e);
 
     if (resp.status == 201) {
       localStorage.setItem("token", resp.data.accessToken);
