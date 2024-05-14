@@ -48,7 +48,7 @@ public class LoginController {
 		return ResponseEntity.badRequest().body("Login failed!");
 	}
 
-	@PostMapping("/v1/sign-up")
+	@PostMapping("/sign-up")
 	public ResponseEntity<?> store(@RequestBody UserDto userDto) {
 		if (userService.findByUserName(userDto.getUserName()).isPresent()) {
 			return ResponseEntity.badRequest().body("User name exists!");

@@ -21,7 +21,7 @@ import com.restaurantservice.RestaurantApi.dto.InventoryDto;
 import com.restaurantservice.RestaurantApi.service.InventoryService;
 
 @RestController
-@RequestMapping("v1/inventory")
+@RequestMapping("/inventory")
 public class InventoryController {
 
 	@Autowired

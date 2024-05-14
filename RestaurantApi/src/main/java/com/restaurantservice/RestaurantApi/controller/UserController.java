@@ -19,7 +19,7 @@ import com.restaurantservice.RestaurantApi.dto.UserDto;
 import com.restaurantservice.RestaurantApi.service.UserService;
 
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
