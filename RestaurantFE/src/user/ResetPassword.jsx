@@ -18,7 +18,7 @@ const ResetPassword = () => {
       password: password,
       passwordResetToken: searchParams.get("token"),
     };
-    const resp = await ApiClient.post("/v1/update-password", formData).catch(
+    const resp = await ApiClient.post("/update-password", formData).catch(
       (err) => {
         return err;
       }
