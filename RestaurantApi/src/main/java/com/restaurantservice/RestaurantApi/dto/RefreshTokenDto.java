@@ -1,5 +1,7 @@
 package com.restaurantservice.RestaurantApi.dto;
 
+import java.time.Instant;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,10 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtResponseDto {
+public class RefreshTokenDto {
 
+	private int id;
+	private int userId;
 	private String token;
-	private String type = "Bearer";
-	private String refreshToken;
-	private String userName;
+	private Instant expiryDate;
 }

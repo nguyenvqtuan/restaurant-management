@@ -9,6 +9,7 @@ public interface UserService {
 
 	Optional<UserDto> findByUserName(String userName);
 	Optional<UserDto> findByPasswordResetToken(String token);
+	Optional<UserDto> findById(int id);
 	List<UserDto> findAll();
 	
 	void store(UserDto userDto);
@@ -17,5 +18,5 @@ public interface UserService {
 	void updateRole(String userName, String role);
 	void activeUser(String userName, boolean enabled);
 	
-	void delete(String userName);
+	void delete(int id);
 }

@@ -31,10 +31,18 @@ public class UserServiceImpl implements UserService{
 		return res.stream().map(e -> convert(e)).toList();
 	}
 	
+	@Override
+	public Optional<UserDto> findById(int id) {
+		Optional<UserEntity> res = userRepo.findById(id);
+		return res.map(e -> convert(e));
+	}
+	
+	@Override
 	public Optional<UserDto> findByUserName(String userName) {
 		return userRepo.findByUserName(userName).map(e -> convert(e));
 	}
 	
+	@Override
 	public Optional<UserDto> findByPasswordResetToken(String token) {
 		return userRepo.findByPasswordResetToken(token).map(e -> convert(e));
 	}
@@ -67,8 +75,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void delete(String userName) {
-		userRepo.deleteById(userName);
+	public void delete(int id) {
+		userRepo.deleteById(id);
 	}
 	
 	private UserDto convert(UserEntity userEntity) {

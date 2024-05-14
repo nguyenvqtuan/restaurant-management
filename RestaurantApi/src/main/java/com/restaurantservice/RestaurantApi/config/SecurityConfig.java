@@ -68,7 +68,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/v1/update-password", "/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/update-password", "/login", "/refresh-token").permitAll()
                 .requestMatchers("/v1/sign-up", "/v1/reset-password", "/v1/verify-token").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/**")

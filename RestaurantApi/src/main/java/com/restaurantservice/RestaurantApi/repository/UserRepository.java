@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface UserRepository extends JpaRepository<UserEntity, String> {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
 	Optional<UserEntity> findByUserName(String userName);
 	Optional<UserEntity> findByPasswordResetToken(String token);
