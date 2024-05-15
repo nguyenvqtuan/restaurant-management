@@ -70,8 +70,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void activeUser(String userName, boolean enabled) {
-		userRepo.activeUser(userName, enabled);
+	public void activeUser(String userName) {
+		Optional<UserEntity> userEntity = userRepo.findByUserName(userName);
+		userRepo.activeUser(userName, userEntity.get().isEnabled() ? false : true);
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class UserServiceImpl implements UserService{
 	private UserEntity convert(UserDto userDto) {
 		UserEntity res = model.typeMap(UserDto.class, UserEntity.class)
 		.addMappings(mapper -> {
-			mapper.map(src -> UserRoleEnum.ROLE_EMPLOYEE.getName(), UserEntity::setRole);
+			mapper.map(src -> UserRoleEnum.EMPLOYEE.getName(), UserEntity::setRole);
 			mapper.map(src-> 1, UserEntity::setEnabled);
 		})
 		.map(userDto);

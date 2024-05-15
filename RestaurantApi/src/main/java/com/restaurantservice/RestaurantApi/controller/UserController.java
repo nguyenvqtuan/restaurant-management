@@ -1,5 +1,6 @@
 package com.restaurantservice.RestaurantApi.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantservice.RestaurantApi.dto.UserDto;
+import com.restaurantservice.RestaurantApi.enumeration.UserRoleEnum;
 import com.restaurantservice.RestaurantApi.exception.IdException;
 import com.restaurantservice.RestaurantApi.exception.UserException;
 import com.restaurantservice.RestaurantApi.service.UserService;
@@ -43,8 +45,8 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body("Update success!");
 	}
 	
-	@PutMapping("/{userName}")
-	public ResponseEntity<?> updateRole(@PathVariable String userName, 
+	@PutMapping("/update-role")
+	public ResponseEntity<?> updateRole(@RequestParam String userName, 
 			@RequestParam String role) {
 		userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
 		userService.updateRole(userName, role);
@@ -52,11 +54,15 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body("Update role success!");
 	}
 	
+	@GetMapping("/list-role")
+	public ResponseEntity<?> listRole() {
+		return ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(UserRoleEnum.values()));
+	}
+	
 	@PutMapping("/{userName}/active")
-	public ResponseEntity<?> activeUser(@PathVariable String userName, 
-			@RequestParam boolean active) {
+	public ResponseEntity<?> activeUser(@PathVariable String userName) {
 		userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
-		userService.activeUser(userName, active);
+		userService.activeUser(userName);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Active user success!");
 	}

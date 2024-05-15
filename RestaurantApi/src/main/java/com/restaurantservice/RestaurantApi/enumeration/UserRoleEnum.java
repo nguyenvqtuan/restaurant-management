@@ -1,7 +1,7 @@
 package com.restaurantservice.RestaurantApi.enumeration;
 
 public enum UserRoleEnum {
-	ROLE_EMPLOYEE(1, "EMPLOYEE"), ROLE_CHIEF(2, "CHIEF"), ROLE_ADMIN(3, "ADMIN");
+	EMPLOYEE(1, "EMPLOYEE"), CHIEF(2, "CHIEF"), ADMIN(3, "ADMIN");
 	
 	private int index;
 	private String name;

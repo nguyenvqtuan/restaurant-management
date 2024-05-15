@@ -17,7 +17,7 @@ public class UserDto {
 	private String userName;
 	private String password;
 	private String fullName;
-	private LocalDate birthDay;
+	private LocalDate birthDate;
 	
 	private String role;
 	private boolean enabled;

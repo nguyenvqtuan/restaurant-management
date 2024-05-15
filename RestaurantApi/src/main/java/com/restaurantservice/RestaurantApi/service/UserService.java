@@ -16,7 +16,7 @@ public interface UserService {
 	void updatePasswordReset(String userName, String token);
 	void updatePasswordByToken(UserDto userDto);
 	void updateRole(String userName, String role);
-	void activeUser(String userName, boolean enabled);
+	void activeUser(String userName);
 	
 	void delete(int id);
 }
