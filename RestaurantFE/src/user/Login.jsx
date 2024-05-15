@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
-import { success, failed } from "../assets/js/SweetCustom";
+import { success, error } from "../assets/js/SweetCustom";
 import { AuthContext } from "../App";
 
 const Login = () => {
@@ -27,17 +27,16 @@ const Login = () => {
       const accessToken = resp?.data?.token;
       const userName = resp?.data?.userName;
       const refreshToken = resp?.data?.refreshToken;
-      console.log(accessToken, userName);
       setAuth({
         token: accessToken,
         userName: userName,
         refreshToken: refreshToken,
       });
 
-      success("Login success!", "");
+      success("Login", resp.data);
       navigate("/home");
     } else {
-      failed("Login failed!", "");
+      error("Login failed!", "");
     }
   };
   return (

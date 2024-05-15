@@ -24,10 +24,10 @@ export function info(title, message) {
       });
 }
 
-export function failed(title, message) {
+export function error(title, message) {
   Swal.fire({
       title: title,
       text: message,
-      icon: "failed",
+      icon: "error",
     });
 }

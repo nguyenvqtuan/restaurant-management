@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ApiClient from "../assets/js/ApiClient";
-import { success } from "../assets/js/SweetCustom";
+import { success, error } from "../assets/js/SweetCustom";
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -20,11 +20,15 @@ const ResetPassword = () => {
     };
     const resp = await ApiClient.post("/update-password", formData).catch(
       (err) => {
-        return err;
+        error(title, err.response.data.message);
       }
     );
 
-    success("Update password success!", "");
+    const status = resp?.status;
+    if (status == 200) {
+      success("Update password success!", "");
+    }
+
     navigate("/login");
   };
 
