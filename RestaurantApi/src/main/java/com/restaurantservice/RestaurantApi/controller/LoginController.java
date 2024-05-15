@@ -17,6 +17,7 @@ import com.restaurantservice.RestaurantApi.dto.RefreshTokenDto;
 import com.restaurantservice.RestaurantApi.dto.TokenRefreshResponseDto;
 import com.restaurantservice.RestaurantApi.dto.UserDto;
 import com.restaurantservice.RestaurantApi.exception.TokenRefreshException;
+import com.restaurantservice.RestaurantApi.exception.UserException;
 import com.restaurantservice.RestaurantApi.service.JwtService;
 import com.restaurantservice.RestaurantApi.service.RefreshTokenService;
 import com.restaurantservice.RestaurantApi.service.UserService;
@@ -50,9 +51,8 @@ public class LoginController {
 
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> store(@RequestBody UserDto userDto) {
-		if (userService.findByUserName(userDto.getUserName()).isPresent()) {
-			return ResponseEntity.badRequest().body("User name exists!");
-		}
+		userService.findByUserName(userDto.getUserName())
+		.orElseThrow(() -> new UserException(userDto.getUserName(), "existed!"));
 
 		userService.store(userDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Sign up success!");

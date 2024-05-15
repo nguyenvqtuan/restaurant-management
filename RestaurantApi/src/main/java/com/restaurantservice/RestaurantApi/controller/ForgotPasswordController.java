@@ -1,7 +1,5 @@
 package com.restaurantservice.RestaurantApi.controller;
 
-import java.util.Optional;
-
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.restaurantservice.RestaurantApi.dto.UserDto;
+import com.restaurantservice.RestaurantApi.exception.TokenException;
+import com.restaurantservice.RestaurantApi.exception.UserException;
 import com.restaurantservice.RestaurantApi.service.MailService;
 import com.restaurantservice.RestaurantApi.service.UserService;
 import com.restaurantservice.RestaurantApi.service.UtilityService;
@@ -31,29 +31,29 @@ public class ForgotPasswordController {
 
 	@GetMapping("/reset-password")
 	public ResponseEntity<?> resetPassword(@RequestParam("userName") String userName) {
-		Optional<UserDto> user = userService.findByUserName(userName);
-		if (!user.isPresent()) {
-			return ResponseEntity.status(HttpStatus.OK).body("User not exists!");
-		}
-		
-		sendMailResetPassword(userName);
-		return ResponseEntity.status(HttpStatus.OK).body("Password reset link had sent to your email. Please check your email!");
+		return userService.findByUserName(userName).map((usr) -> {
+			sendMailResetPassword(userName);
+			return ResponseEntity.status(HttpStatus.OK).body("Password reset link had sent to your email. Please check your email!");
+		}).orElseThrow(() -> new UserException(userName, " Not found!"));
 	}
 	
 	@GetMapping("/verify-token")
 	public ResponseEntity<?> verifyToken(@RequestParam("token") String token) {
-		userService.findByPasswordResetToken(token).orElseThrow(() -> new RuntimeException("Token invalid!"));
-		
-		return ResponseEntity.status(HttpStatus.OK).body("Verify token success!");
+		return userService.findByPasswordResetToken(token)
+		.map(e -> {
+			return ResponseEntity.status(HttpStatus.OK).body("Verify token success!");
+		})
+		.orElseThrow(() -> new TokenException(token, "Token invalid!"));
 	}
 	
 	@PostMapping("/update-password")
 	public ResponseEntity<?> updatePassword(@RequestBody UserDto userDto) {
-		userService.findByPasswordResetToken(userDto.getPasswordResetToken()).orElseThrow(() -> new RuntimeException("Token invalid!"));
-		
-		userService.updatePasswordByToken(userDto);
-		
-		return ResponseEntity.status(HttpStatus.OK).body("Update password success!");
+		String token = userDto.getPasswordResetToken();
+		return userService.findByPasswordResetToken(token)
+				.map(e -> {
+					return ResponseEntity.status(HttpStatus.OK).body("Verify token success!");
+				})
+				.orElseThrow(() -> new TokenException(token, "Update password success!"));
 	}
 	
 	private void sendMailResetPassword(String userName) {

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantservice.RestaurantApi.dto.UserDto;
+import com.restaurantservice.RestaurantApi.exception.IdException;
+import com.restaurantservice.RestaurantApi.exception.UserException;
 import com.restaurantservice.RestaurantApi.service.UserService;
 
 @RestController
@@ -34,16 +36,17 @@ public class UserController {
 	
 	@PostMapping("")
 	public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
-		userService.findByUserName(userDto.getUserName()).orElseThrow(() -> new RuntimeException("Username not found!"));
-		userService.store(userDto);
+		userService.findByUserName(userDto.getUserName())
+		.orElseThrow(() -> new UserException(userDto.getUserName(), "Not found!"));
 		
+		userService.store(userDto);
 		return ResponseEntity.status(HttpStatus.OK).body("Update success!");
 	}
 	
 	@PutMapping("/{userName}")
 	public ResponseEntity<?> updateRole(@PathVariable String userName, 
 			@RequestParam String role) {
-		userService.findByUserName(userName).orElseThrow(() -> new RuntimeException("Username not found!"));
+		userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
 		userService.updateRole(userName, role);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Update role success!");
@@ -52,7 +55,7 @@ public class UserController {
 	@PutMapping("/{userName}/active")
 	public ResponseEntity<?> activeUser(@PathVariable String userName, 
 			@RequestParam boolean active) {
-		userService.findByUserName(userName).orElseThrow(() -> new RuntimeException("Username not found!"));
+		userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
 		userService.activeUser(userName, active);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Active user success!");
@@ -60,7 +63,7 @@ public class UserController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
-		userService.findById(id).orElseThrow(() -> new RuntimeException("Username not found!"));
+		userService.findById(id).orElseThrow(() -> new IdException(id, "Not found!"));
 		userService.delete(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Delete user success!");
