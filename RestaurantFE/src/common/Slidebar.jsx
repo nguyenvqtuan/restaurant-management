@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Slidebar = () => {
   return (
@@ -66,10 +67,10 @@ const Slidebar = () => {
       <div className="sidebar-heading">Addons</div>
 
       <li className="nav-item">
-        <a className="nav-link" href="charts.html">
+        <Link to="/user" className="nav-link">
           <i className="fas fa-fw fa-chart-area"></i>
           <span>Manage user</span>
-        </a>
+        </Link>
       </li>
 
       <hr className="sidebar-divider d-none d-md-block" />

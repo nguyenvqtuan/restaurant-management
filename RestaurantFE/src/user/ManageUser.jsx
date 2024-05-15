@@ -1,9 +1,70 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Slidebar from "../common/Slidebar";
 import Topbar from "../common/Topbar";
 import Footer from "../common/Footer";
+import { AuthContext } from "../App";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { success, error } from "../assets/js/SweetCustom";
 
 const ManageUser = () => {
+  const auth = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
+
+  const [user, setUser] = useState();
+  const [listRole, setListRole] = useState();
+
+  useEffect(() => {
+    fetchUser();
+  }, [user]);
+
+  useEffect(() => {
+    fetchListRole();
+  }, []);
+
+  const fetchUser = async () => {
+    const resp = await axiosPrivate.get("/user").then((e) => e.data);
+    setUser(resp);
+  };
+
+  const fetchListRole = async () => {
+    const resp = await axiosPrivate.get("/user/list-role").then((e) => e.data);
+    setListRole(resp);
+  };
+
+  const handleActive = async (userName) => {
+    const resp = await axiosPrivate
+      .put(`/user/${userName}/active`)
+      .catch((err) => {
+        error("User", err.response.data.message);
+      });
+    if (resp?.status == 200) {
+      success("User", resp.data);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const resp = await axiosPrivate.delete(`/user/${id}`).catch((err) => {
+      error("User", err.response.data.message);
+    });
+
+    if (resp?.status == 200) {
+      success("User", resp.data);
+      fetchUser();
+    }
+  };
+
+  const handleUpdateRole = async (role, userName) => {
+    const resp = await axiosPrivate
+      .put(`/user/update-role?userName=${userName}&role=${role}`)
+      .catch((err) => {
+        error(err.response.data.message);
+      });
+
+    if (resp.status == 200) {
+      success("User", resp.data);
+    }
+  };
+
   return (
     <div id="wrapper">
       <Slidebar />
@@ -23,33 +84,74 @@ const ManageUser = () => {
               >
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>User name</th>
+                    <th>Full name</th>
+                    <th>Birth date</th>
+                    <th>Enabled</th>
+                    <th>Role</th>
+                    <th>Created at</th>
+                    <th>Updated at</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>User name</th>
+                    <th>Full name</th>
+                    <th>Birth date</th>
+                    <th>Enabled</th>
+                    <th>Role</th>
+                    <th>Created at</th>
+                    <th>Updated at</th>
+                    <th>Action</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                  </tr>
+                  {user?.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.userName}</td>
+                      <td>{item.fullName}</td>
+                      <td>{item.birthDate}</td>
+                      <td>
+                        <button
+                          className="btn btn-info"
+                          onClick={() =>
+                            handleActive(item.userName, item.enabled ? 0 : 1)
+                          }
+                        >
+                          <i className="fas ">
+                            {item.enabled == 1 ? "Disable" : "Enable"}
+                          </i>
+                        </button>
+                      </td>
+                      <td>
+                        <select
+                          className="form-select"
+                          aria-label="Default select example"
+                          value={item.role}
+                          onChange={(e) =>
+                            handleUpdateRole(e.target.value, item.userName)
+                          }
+                        >
+                          {listRole?.map((role) => (
+                            <option key={role} value={role}>
+                              {role}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>{item.createdAt}</td>
+                      <td>{item.updatedAt}</td>
+                      <td>
+                        <button
+                          className="btn btn-danger btn-circle"
+                          onClick={() => handleDelete(item.id)}
+                        >
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
