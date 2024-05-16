@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import ApiClient from "../assets/js/ApiClient";
+import ApiClient from "../../assets/js/ApiClient";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { success, error } from "../assets/js/SweetCustom";
+import { success, error } from "../../assets/js/SweetCustom";
 
 const title = "Verify token";
 

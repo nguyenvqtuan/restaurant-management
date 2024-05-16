@@ -7,7 +7,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { success, error } from "../../assets/js/SweetCustom";
 
 const ManageUser = () => {
-  const auth = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const axiosPrivate = useAxiosPrivate();
 
   const [user, setUser] = useState();
@@ -75,8 +75,8 @@ const ManageUser = () => {
             <div className="card-body">
               <div className="table-responsive">
                 <table
-                  className="table table-bordered"
                   id="dataTable"
+                  className="table table-bordered"
                   width="100%"
                   cellSpacing="0"
                 >
@@ -117,7 +117,7 @@ const ManageUser = () => {
                               handleActive(item.userName, item.enabled ? 0 : 1)
                             }
                           >
-                            <i className="fas ">
+                            <i className="fas">
                               {item.enabled == 1 ? "Disable" : "Enable"}
                             </i>
                           </button>
@@ -145,7 +145,7 @@ const ManageUser = () => {
                             className="btn btn-danger btn-circle"
                             onClick={() => handleDelete(item.id)}
                           >
-                            <i class="fas fa-trash"></i>
+                            <i className="fas fa-trash"></i>
                           </button>
                         </td>
                       </tr>
