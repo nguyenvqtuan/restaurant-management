@@ -20,7 +20,7 @@ public class TokenControllerAdvice {
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ResponseEntity<?> handleTokenRefreshException(TokenRefreshException ex, WebRequest request) {
 		ErrorMessageDto errorMessage =  ErrorMessageDto.builder()
-				.statusCode(HttpStatus.BAD_REQUEST.value())
+				.statusCode(HttpStatus.FORBIDDEN.value())
 				.timestamp(new Date())
 				.message(ex.getMessage())
 				.description(request.getDescription(false))
