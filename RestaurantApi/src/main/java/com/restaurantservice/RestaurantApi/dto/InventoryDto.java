@@ -17,7 +17,7 @@ public class InventoryDto {
 	
 	private String name;
 	private long price;
-	private byte quantity;
+	private int quantity;
 	
 	private LocalDate createdAt;
 	private LocalDate updatedAt;

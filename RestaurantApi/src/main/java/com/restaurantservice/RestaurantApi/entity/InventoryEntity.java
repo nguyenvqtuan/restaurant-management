@@ -25,7 +25,7 @@ public class InventoryEntity {
 	
 	private String name;
 	private long price;
-	private byte quantity;
+	private int quantity;
 	
 	@CreationTimestamp
 	private LocalDate createdAt;

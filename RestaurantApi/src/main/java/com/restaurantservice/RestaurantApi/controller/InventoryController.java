@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurantservice.RestaurantApi.config.ControllerFiled;
 import com.restaurantservice.RestaurantApi.dto.InventoryDto;
+import com.restaurantservice.RestaurantApi.exception.IdException;
 import com.restaurantservice.RestaurantApi.service.InventoryService;
 
 @RestController
@@ -39,6 +40,9 @@ public class InventoryController {
 	
 	@PostMapping("")
 	public ResponseEntity<?> store(@RequestBody InventoryDto inventoryDto) {
+		// TODO add entity list-type (table, char, ...) -> Check inventoryDto.getName() not exists in list-type -> exception
+		// inventoryService.findByName(inventoryDto.getName()).orElseThrow(() -> new InventoryException(inventoryDto.getName(), "Not found!"));
+		
 		inventoryService.store(inventoryDto);
 		String title = inventoryDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
 		return ResponseEntity.status(HttpStatus.CREATED).body(title + " success!");
@@ -46,9 +50,8 @@ public class InventoryController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
-		if (inventoryService.findById(id).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id not found!");
-		}
+		inventoryService.findById(id).orElseThrow(() -> new IdException(id, "Not found!"));
+		
 		inventoryService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Delete success!");
 	}
