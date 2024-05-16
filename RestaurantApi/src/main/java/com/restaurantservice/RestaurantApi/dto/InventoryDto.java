@@ -19,12 +19,6 @@ public class InventoryDto {
 	private long price;
 	private byte quantity;
 	
-	// 0: chair, 1: table
-	private byte type;
-	
-	// 0: available, 1: using
-	private boolean status;
-	
 	private LocalDate createdAt;
 	private LocalDate updatedAt;
 }

@@ -43,11 +43,6 @@ public class InventoryServiceImpl implements InventoryService{
 		inventoryRepo.deleteById(id);
 	}
 
-	@Override
-	public void updateStatus(Integer id, Byte status) {
-		inventoryRepo.updateStatus(id, status);
-	}
-
 	private InventoryDto convert(InventoryEntity input) {
 		return model.map(input, InventoryDto.class);
 	}

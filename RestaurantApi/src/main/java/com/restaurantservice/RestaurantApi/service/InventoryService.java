@@ -11,5 +11,4 @@ public interface InventoryService {
 	Optional<InventoryDto> findById(Integer id);
 	void store(InventoryDto inventoryDto);
 	void delete(Integer id);
-	void updateStatus(Integer id, Byte status);
 }

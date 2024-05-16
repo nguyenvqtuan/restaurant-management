@@ -39,13 +39,6 @@ public class InventoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(res);
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<?> updateStatus(@PathVariable Integer id, 
-			@RequestParam("status") Byte status) {
-		inventoryService.updateStatus(id, status);
-		return ResponseEntity.status(HttpStatus.OK).body("Update success!");
-	}
-	
 	@PostMapping("")
 	public ResponseEntity<?> store(@RequestBody InventoryDto inventoryDto) {
 		inventoryService.store(inventoryDto);

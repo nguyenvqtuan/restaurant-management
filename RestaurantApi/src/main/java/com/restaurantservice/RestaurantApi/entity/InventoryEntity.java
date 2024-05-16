@@ -27,12 +27,6 @@ public class InventoryEntity {
 	private long price;
 	private byte quantity;
 	
-	// 0: chair, 1: table
-	private byte type;
-	
-	// 0: available, 1: using
-	private boolean status;
-	
 	@CreationTimestamp
 	private LocalDate createdAt;
 
