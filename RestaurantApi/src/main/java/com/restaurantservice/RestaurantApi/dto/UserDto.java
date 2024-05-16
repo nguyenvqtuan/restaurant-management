@@ -1,6 +1,7 @@
 package com.restaurantservice.RestaurantApi.dto;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class UserDto {
 	private String userName;
 	private String password;
 	private String fullName;
-	private LocalDate birthDate;
+	private Date birthDate;
 	
 	private String role;
 	private boolean enabled;

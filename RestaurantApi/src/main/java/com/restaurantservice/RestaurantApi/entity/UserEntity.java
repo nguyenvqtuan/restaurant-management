@@ -1,6 +1,7 @@
 package com.restaurantservice.RestaurantApi.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -28,7 +29,7 @@ public class UserEntity {
 	
 	private String password;
 	private String fullName;
-	private LocalDate birthDate;
+	private Date birthDate;
 	
 	private String role;
 	private boolean enabled;

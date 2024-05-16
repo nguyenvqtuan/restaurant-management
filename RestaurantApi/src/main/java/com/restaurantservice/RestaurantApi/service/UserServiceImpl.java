@@ -54,6 +54,11 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
+	public void updateFullNameAndBirthDate(UserDto userDto) {
+		userRepo.updateFullNameAndBirthDate(userDto.getUserName(), userDto.getFullName(), userDto.getBirthDate());
+	}
+	
+	@Override
 	public void updatePasswordReset(String userName, String token) {
 		userRepo.updatePasswordReset(userName, token);
 	}

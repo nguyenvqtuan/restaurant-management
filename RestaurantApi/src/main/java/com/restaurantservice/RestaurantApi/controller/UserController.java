@@ -41,7 +41,7 @@ public class UserController {
 		userService.findByUserName(userDto.getUserName())
 		.orElseThrow(() -> new UserException(userDto.getUserName(), "Not found!"));
 		
-		userService.store(userDto);
+		userService.updateFullNameAndBirthDate(userDto);
 		return ResponseEntity.status(HttpStatus.OK).body("Update success!");
 	}
 	

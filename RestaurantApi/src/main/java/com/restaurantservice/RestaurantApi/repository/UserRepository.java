@@ -1,5 +1,6 @@
 package com.restaurantservice.RestaurantApi.repository;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
 	Optional<UserEntity> findByUserName(String userName);
 	Optional<UserEntity> findByPasswordResetToken(String token);
+	
+	@Modifying
+	@Query("UPDATE UserEntity SET fullName = ?2, birthDate = ?3 WHERE userName = ?1")
+	void updateFullNameAndBirthDate(String username, String fullName, Date birthDate);
 	
 	@Modifying
 	@Query("UPDATE UserEntity SET passwordResetToken = ?2 WHERE userName = ?1")
