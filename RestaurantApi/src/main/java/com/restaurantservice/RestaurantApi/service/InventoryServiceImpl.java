@@ -59,6 +59,12 @@ public class InventoryServiceImpl implements InventoryService{
 		
 		inventoryDetailService.deleteByInventoryId(id);
 	}
+	
+	@Override
+	public void updateQuantity(int id, int quantity) {
+		int currentQuantity = inventoryRepo.findById(id).map(e -> e.getQuantity()).orElse(1);
+		inventoryRepo.updateQuantity(id, currentQuantity - quantity);
+	}
 
 	private InventoryDto convert(InventoryEntity input) {
 		return model.map(input, InventoryDto.class);

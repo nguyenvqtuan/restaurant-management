@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.restaurantservice.RestaurantApi.dto.InventoryDetailDto;
 import com.restaurantservice.RestaurantApi.entity.InventoryDetailEntity;
 import com.restaurantservice.RestaurantApi.repository.InventoryDetailRepository;
-import com.restaurantservice.RestaurantApi.repository.InventoryRepository;
 
 @Service
 public class InventoryDetailServiceImpl implements InventoryDetailService{
@@ -19,7 +18,7 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 	private InventoryDetailRepository inventoryDetailRepo;
 	
 	@Autowired
-	private InventoryRepository inventoryRepo;
+	private InventoryService inventoryService;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -39,11 +38,19 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 	public void store(InventoryDetailDto inventoryDetailDto) {
 		InventoryDetailEntity res = convert(inventoryDetailDto);
 		inventoryDetailRepo.save(res);
+		
+		// When insert inventory-detail update quantity inventory
+		if (inventoryDetailDto.getId() == 0) {
+			inventoryService.updateQuantity(inventoryDetailDto.getInventoryId(), -1);
+		}
 	}
 
 	@Override
 	public void delete(Integer id) {
+		int inventoryId = inventoryDetailRepo.findById(id).map(e -> e.getInventoryId()).orElse(1);
 		inventoryDetailRepo.deleteById(id);
+		
+		inventoryService.updateQuantity(inventoryId, 1);
 	}
 	
 	@Override
