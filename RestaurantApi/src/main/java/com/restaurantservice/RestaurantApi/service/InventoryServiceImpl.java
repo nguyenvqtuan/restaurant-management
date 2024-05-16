@@ -22,6 +22,9 @@ public class InventoryServiceImpl implements InventoryService{
 	private InventoryDetailService inventoryDetailService;
 	
 	@Autowired
+	private InventoryTypeService inventoryTypeService;
+	
+	@Autowired
 	private ModelMapper model;
 	
 	@Override
@@ -87,8 +90,8 @@ public class InventoryServiceImpl implements InventoryService{
 	}
 	
 	private void newInventoryDetail(InventoryEntity inventoryEntity, int prevQuantity) {
-		byte inventoryType = 1;
-//		res.setType(inventoryDetailService.getType(inventoryEntity.getName()));
+		byte inventoryType = inventoryTypeService.findByName(inventoryEntity.getName()).map(e -> e.getId()).orElse((byte) 1);
+
 		int inventoryId = inventoryEntity.getId();
 		
 		for (int i = 0; i < inventoryEntity.getQuantity() - prevQuantity; ++i) {
