@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../App";
 
 const Topbar = () => {
+  const { auth, setAuth } = useContext(AuthContext);
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
       <form className="form-inline">
@@ -219,7 +222,7 @@ const Topbar = () => {
             aria-expanded="false"
           >
             <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-              Douglas McGee
+              {auth.userName}
             </span>
             <img
               className="img-profile rounded-circle"
@@ -230,10 +233,10 @@ const Topbar = () => {
             className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown"
           >
-            <a className="dropdown-item" href="#">
+            <Link to="/update-profile" className="dropdown-item">
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
-            </a>
+            </Link>
             <a className="dropdown-item" href="#">
               <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
               Settings
@@ -243,15 +246,15 @@ const Topbar = () => {
               Activity Log
             </a>
             <div className="dropdown-divider"></div>
-            <a
+            <Link
+              to="/logout"
               className="dropdown-item"
-              href="#"
               data-toggle="modal"
               data-target="#logoutModal"
             >
               <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
               Logout
-            </a>
+            </Link>
           </div>
         </li>
       </ul>

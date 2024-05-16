@@ -6,7 +6,9 @@ import ForgotPassword from "./user/ForgotPassword";
 import VerifiyToken from "./user/VerifiyToken";
 import ResetPassword from "./user/ResetPassword";
 import Home from "./Home";
-import ManageUser from "./user/ManageUser";
+import ManageUser from "./user/manage_user/ManageUser";
+import UpdateProfile from "./user/manage_user/UpdateProfile";
+import Logout from "./user/Logout";
 
 export const AuthContext = createContext();
 
@@ -19,11 +21,13 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-token" element={<VerifiyToken />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/home" element={<Home />} />
             <Route path="/user" element={<ManageUser />} />
+            <Route path="/update-profile" element={<UpdateProfile />} />
           </Routes>
         </BrowserRouter>
       </AuthContext.Provider>

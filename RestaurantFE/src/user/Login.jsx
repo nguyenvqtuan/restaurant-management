@@ -23,15 +23,18 @@ const Login = () => {
       password: password,
     };
     const resp = await ApiClient.post("/login", formData);
-    if (resp.status == 200) {
+    if (resp?.status == 200) {
       const accessToken = resp?.data?.token;
       const userName = resp?.data?.userName;
       const refreshToken = resp?.data?.refreshToken;
-      setAuth({
+      const role = resp?.data?.role;
+      const myAuth = {
         token: accessToken,
         userName: userName,
         refreshToken: refreshToken,
-      });
+        role: role,
+      };
+      setAuth(myAuth);
 
       success("Login", resp.data);
       navigate("/home");

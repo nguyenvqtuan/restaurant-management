@@ -5,14 +5,17 @@ import Footer from "./common/Footer";
 import { AuthContext } from "./App";
 
 const Home = () => {
-  const auth = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
+
   return (
     <div id="wrapper">
       <Slidebar />
-      <div id="content">
-        <Topbar />
-        <div>{JSON.stringify(auth)}</div>
-        <Footer />
+      <div id="content-wrapper" className="d-flex flex-column">
+        <div id="content">
+          <Topbar />
+          <div>{auth.userName}</div>
+          <Footer />
+        </div>
       </div>
     </div>
   );
