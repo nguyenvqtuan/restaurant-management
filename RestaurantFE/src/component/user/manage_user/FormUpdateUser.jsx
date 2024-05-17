@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
-import { success, error } from "../../assets/js/SweetCustom";
-import { AuthContext } from "../../App";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { success, error } from "../../../assets/js/SweetCustom";
+import { AuthContext } from "../../../App";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const FormUpdateUser = () => {
   const fullNameRef = useRef();

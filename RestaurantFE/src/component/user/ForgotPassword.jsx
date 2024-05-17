@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import ApiClient from "../assets/js/ApiClient";
-import { info } from "../assets/js/SweetCustom";
+import ApiClient from "../../assets/js/ApiClient";
+import { info } from "../../assets/js/SweetCustom";
 
 const ForgotPassword = () => {
   const userNameRef = useRef();

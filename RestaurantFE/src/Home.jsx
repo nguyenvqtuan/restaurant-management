@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Slidebar from "./common/Slidebar";
-import Topbar from "./common/Topbar";
-import Footer from "./common/Footer";
+import Slidebar from "./component/common/Slidebar";
+import Topbar from "./component/common/Topbar";
+import Footer from "./component/common/Footer";
 import { AuthContext } from "./App";
 
 const Home = () => {

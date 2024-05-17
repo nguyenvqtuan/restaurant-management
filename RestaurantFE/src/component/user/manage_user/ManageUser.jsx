@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import Slidebar from "../../common/Slidebar";
 import Topbar from "../../common/Topbar";
 import Footer from "../../common/Footer";
-import { AuthContext } from "../../App";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { success, error } from "../../assets/js/SweetCustom";
+import { AuthContext } from "../../../App";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { success, error } from "../../../assets/js/SweetCustom";
 
 const ManageUser = () => {
   const { auth, setAuth } = useContext(AuthContext);

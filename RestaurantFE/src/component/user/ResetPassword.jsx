@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import ApiClient from "../assets/js/ApiClient";
-import { success, error } from "../assets/js/SweetCustom";
+import ApiClient from "../../assets/js/ApiClient";
+import { success, error } from "../../assets/js/SweetCustom";
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();

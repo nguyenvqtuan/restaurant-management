@@ -1,8 +1,8 @@
 import React, { useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ApiClient from "../assets/js/ApiClient";
-import { success, error } from "../assets/js/SweetCustom";
-import { AuthContext } from "../App";
+import ApiClient from "../../assets/js/ApiClient";
+import { success, error } from "../../assets/js/SweetCustom";
+import { AuthContext } from "../../App";
 
 const Login = () => {
   const userNameRef = useRef();

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ApiClient from "../assets/js/ApiClient";
-import { success, error } from "../assets/js/SweetCustom";
+import ApiClient from "../../assets/js/ApiClient";
+import { success, error } from "../../assets/js/SweetCustom";
 
 const Signup = () => {
   const userNameRef = useRef();
@@ -29,7 +29,7 @@ const Signup = () => {
 
     if (resp.status == 201) {
       success("Sign up success!", "");
-      navigate("/home");
+      navigate("/login");
     }
   };
 

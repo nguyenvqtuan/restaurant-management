@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Slidebar from "../../common/Slidebar";
 import Topbar from "../../common/Topbar";
 import Footer from "../../common/Footer";
-import { AuthContext } from "../../App";
+import { AuthContext } from "../../../App";
 import FormUpdateUser from "./FormUpdateUser";
 
 const UpdateProfile = () => {

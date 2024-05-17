@@ -1,14 +1,14 @@
 import { createContext, useState } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Login from "./user/Login";
-import Signup from "./user/Signup";
-import ForgotPassword from "./user/ForgotPassword";
-import VerifiyToken from "./user/VerifiyToken";
-import ResetPassword from "./user/ResetPassword";
+import Login from "./component/user/Login";
+import Signup from "./component/user/Signup";
+import ForgotPassword from "./component/user/ForgotPassword";
+import VerifiyToken from "./component/user/VerifiyToken";
+import ResetPassword from "./component/user/ResetPassword";
 import Home from "./Home";
-import ManageUser from "./user/manage_user/ManageUser";
-import UpdateProfile from "./user/manage_user/UpdateProfile";
-import Logout from "./user/Logout";
+import ManageUser from "./component/user/manage_user/ManageUser";
+import UpdateProfile from "./component/user/manage_user/UpdateProfile";
+import Logout from "./component/user/Logout";
 
 export const AuthContext = createContext();
 
