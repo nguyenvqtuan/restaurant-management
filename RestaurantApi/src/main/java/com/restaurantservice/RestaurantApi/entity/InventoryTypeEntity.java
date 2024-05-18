@@ -20,7 +20,7 @@ public class InventoryTypeEntity {
 
 	@Id
 	@GeneratedValue
-	private byte id;
+	private int id;
 	
 	private String name;
 	

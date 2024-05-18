@@ -12,5 +12,5 @@ public interface InventoryTypeService {
 	Optional<InventoryTypeDto> findByName(String name);
 	
 	void store(InventoryTypeDto inventoryTypeDto);
-	void delete(byte id);
+	void delete(int id);
 }

@@ -1,5 +1,7 @@
 package com.restaurantservice.RestaurantApi.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,9 +53,9 @@ public class LoginController {
 
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> store(@RequestBody UserDto userDto) {
-		userService.findByUserName(userDto.getUserName())
-		.orElseThrow(() -> new UserException(userDto.getUserName(), "existed!"));
-
+		Optional<UserDto> res = userService.findByUserName(userDto.getUserName());
+		
+		if (res.isPresent()) new UserException(userDto.getUserName(), "existed!");
 		userService.store(userDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Sign up success!");
 	}

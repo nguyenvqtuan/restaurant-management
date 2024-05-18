@@ -19,10 +19,6 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity, Inte
 	Optional<InventoryEntity> findByName(String name);
 	
 	@Modifying
-	@Query("UPDATE InventoryEntity SET status = ?2 WHERE id = ?1")
-	void updateStatus(Integer id, Byte status);
-	
-	@Modifying
 	@Query("UPDATE InventoryEntity SET quantity = ?2 WHERE id = ?1")
 	void updateQuantity(Integer id, Integer quantity);
 	

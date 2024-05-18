@@ -24,7 +24,7 @@ public class InventoryDetailEntity {
 	private String name;
 	
 	// 0: char, 1: table
-	private byte type;
+	private int type;
 	
 	// 0: available, 1: using
 	private boolean status;

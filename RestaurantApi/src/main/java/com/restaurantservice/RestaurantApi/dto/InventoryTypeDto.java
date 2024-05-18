@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 public class InventoryTypeDto {
 
-	private byte id;
+	private int id;
 	private String name;
 }

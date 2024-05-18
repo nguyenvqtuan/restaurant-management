@@ -19,7 +19,7 @@ import com.restaurantservice.RestaurantApi.exception.IdException;
 import com.restaurantservice.RestaurantApi.service.InventoryDetailService;
 
 @RestController
-@RequestMapping("/inventory/{inventoryId}/inventory-detail")
+@RequestMapping("/inventory/{inventoryId}/detail")
 public class InventoryDetailController {
 
 	@Autowired

@@ -13,7 +13,6 @@ public interface InventoryService {
 	Optional<InventoryDto> findByName(String name);
 	
 	void store(InventoryDto inventoryDto);
-	void updateQuantity(int id, int quantity);
 	
 	void delete(Integer id);
 }

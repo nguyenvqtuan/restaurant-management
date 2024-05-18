@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.restaurantservice.RestaurantApi.dto.InventoryDetailDto;
 import com.restaurantservice.RestaurantApi.entity.InventoryDetailEntity;
 import com.restaurantservice.RestaurantApi.repository.InventoryDetailRepository;
+import com.restaurantservice.RestaurantApi.repository.InventoryRepository;
 
 @Service
 public class InventoryDetailServiceImpl implements InventoryDetailService{
@@ -18,7 +19,7 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 	private InventoryDetailRepository inventoryDetailRepo;
 	
 	@Autowired
-	private InventoryService inventoryService;
+	private InventoryRepository inventoryRepo;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -41,7 +42,7 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 		
 		// When insert inventory-detail update quantity inventory
 		if (inventoryDetailDto.getId() == 0) {
-			inventoryService.updateQuantity(inventoryDetailDto.getInventoryId(), -1);
+			updateQuantity(inventoryDetailDto.getInventoryId(), -1);
 		}
 	}
 
@@ -50,12 +51,7 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 		int inventoryId = inventoryDetailRepo.findById(id).map(e -> e.getInventoryId()).orElse(1);
 		inventoryDetailRepo.deleteById(id);
 		
-		inventoryService.updateQuantity(inventoryId, 1);
-	}
-	
-	@Override
-	public void deleteOrderByCreatedAt(int inventoryId, int removeQuantity) {
-		inventoryDetailRepo.deleteOrderCreatedAt(inventoryId, removeQuantity);
+		updateQuantity(inventoryId, 1);
 	}
 	
 	@Override
@@ -69,5 +65,10 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 	
 	private InventoryDetailDto convert(InventoryDetailEntity inventoryDetailEntity) {
 		return modelMapper.map(inventoryDetailEntity, InventoryDetailDto.class);
+	}
+	
+	private void updateQuantity(int inventoryId, int quantity) {
+		int currentQuantity = inventoryRepo.findById(inventoryId).map(e -> e.getQuantity()).orElse(1);
+		inventoryRepo.updateQuantity(inventoryId, currentQuantity - quantity);
 	}
 }

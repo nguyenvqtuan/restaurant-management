@@ -20,8 +20,8 @@ public interface InventoryDetailRepository extends JpaRepository<InventoryDetail
 	
 	@Transactional
 	@Modifying
-	@Query("DELETE FROM InventoryDetailEntity WHERE inventoryId = ?1 ORDER createdAt DESC LIMIT ?2")
-	void deleteOrderCreatedAt(int inventoryId, int removeQuantity);
+	@Query(nativeQuery=true, value = "DELETE FROM inventory_detail WHERE inventory_id = ?1 ORDER BY created_at DESC LIMIT ?2")
+	void deleteOrderByCreatedAt(int inventoryId, int removeQuantity);
 	
 	@Transactional
 	@Modifying

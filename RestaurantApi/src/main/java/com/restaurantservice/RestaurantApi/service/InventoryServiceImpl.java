@@ -7,10 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.restaurantservice.RestaurantApi.dto.InventoryDetailDto;
 import com.restaurantservice.RestaurantApi.dto.InventoryDto;
+import com.restaurantservice.RestaurantApi.entity.InventoryDetailEntity;
 import com.restaurantservice.RestaurantApi.entity.InventoryEntity;
+import com.restaurantservice.RestaurantApi.repository.InventoryDetailRepository;
 import com.restaurantservice.RestaurantApi.repository.InventoryRepository;
+import com.restaurantservice.RestaurantApi.repository.InventoryTypeRepository;
 
 @Service
 public class InventoryServiceImpl implements InventoryService{
@@ -19,10 +21,10 @@ public class InventoryServiceImpl implements InventoryService{
 	private InventoryRepository inventoryRepo;
 	
 	@Autowired
-	private InventoryDetailService inventoryDetailService;
+	private InventoryDetailRepository inventoryDetailRepo;
 	
 	@Autowired
-	private InventoryTypeService inventoryTypeService;
+	private InventoryTypeRepository inventoryTypeRepo;
 	
 	@Autowired
 	private ModelMapper model;
@@ -60,13 +62,7 @@ public class InventoryServiceImpl implements InventoryService{
 	public void delete(Integer id) {
 		inventoryRepo.deleteById(id);
 		
-		inventoryDetailService.deleteByInventoryId(id);
-	}
-	
-	@Override
-	public void updateQuantity(int id, int quantity) {
-		int currentQuantity = inventoryRepo.findById(id).map(e -> e.getQuantity()).orElse(1);
-		inventoryRepo.updateQuantity(id, currentQuantity - quantity);
+		inventoryDetailRepo.deleteByInventoryId(id);
 	}
 
 	private InventoryDto convert(InventoryEntity input) {
@@ -90,20 +86,20 @@ public class InventoryServiceImpl implements InventoryService{
 	}
 	
 	private void newInventoryDetail(InventoryEntity inventoryEntity, int prevQuantity) {
-		byte inventoryType = inventoryTypeService.findByName(inventoryEntity.getName()).map(e -> e.getId()).orElse((byte) 1);
+		int inventoryType = inventoryTypeRepo.findByName(inventoryEntity.getName()).map(e -> e.getId()).orElse(1);
 
 		int inventoryId = inventoryEntity.getId();
 		
 		for (int i = 0; i < inventoryEntity.getQuantity() - prevQuantity; ++i) {
 			String name = inventoryEntity.getName() + " " + (i + 1);
 			
-			InventoryDetailDto inventoryDetailDto = buildInventoryDetailDto(inventoryId, inventoryType, name);
-			inventoryDetailService.store(inventoryDetailDto);
+			InventoryDetailEntity inventoryDetailEntity = buildInventoryDetailEntity(inventoryId, inventoryType, name);
+			inventoryDetailRepo.save(inventoryDetailEntity);
 		}
 	}
 	
-	private InventoryDetailDto buildInventoryDetailDto(int inventoryId, byte inventoryType, String name) {
-		InventoryDetailDto res = new InventoryDetailDto();
+	private InventoryDetailEntity buildInventoryDetailEntity(int inventoryId, int inventoryType, String name) {
+		InventoryDetailEntity res = new InventoryDetailEntity();
 		res.setInventoryId(inventoryId);
 		res.setName(name);
 		res.setType(inventoryType);
@@ -112,6 +108,6 @@ public class InventoryServiceImpl implements InventoryService{
 	}
 	
 	private void deleteInventoryDetail(int inventoryId, int removeQuantity) {
-		inventoryDetailService.deleteOrderByCreatedAt(inventoryId, removeQuantity);
+		inventoryDetailRepo.deleteOrderByCreatedAt(inventoryId, removeQuantity);
 	}
 }

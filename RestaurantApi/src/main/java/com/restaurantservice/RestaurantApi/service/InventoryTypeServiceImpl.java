@@ -45,7 +45,7 @@ public class InventoryTypeServiceImpl implements InventoryTypeService{
 	}
 
 	@Override
-	public void delete(byte id) {
+	public void delete(int id) {
 		inventoryTypeRepo.deleteById(id);
 	}
 	

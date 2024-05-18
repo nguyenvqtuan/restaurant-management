@@ -13,5 +13,4 @@ public interface InventoryDetailService {
 	void store(InventoryDetailDto inventoryDetailDto);
 	void delete(Integer id);
 	void deleteByInventoryId(Integer inventoryId);
-	void deleteOrderByCreatedAt(int inventoryId, int removeQuantity);
 }
