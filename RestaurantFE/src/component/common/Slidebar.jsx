@@ -71,6 +71,14 @@ const Slidebar = () => {
           <i className="fas fa-fw fa-chart-area"></i>
           <span>Manage user</span>
         </Link>
+        <Link to="/inventory" className="nav-link">
+          <i className="fas fa-fw fa-chart-area"></i>
+          <span>Manage inventory</span>
+        </Link>
+        <Link to="/inventory-type" className="nav-link">
+          <i className="fas fa-fw fa-chart-area"></i>
+          <span>Manage inventory type</span>
+        </Link>
       </li>
 
       <hr className="sidebar-divider d-none d-md-block" />
