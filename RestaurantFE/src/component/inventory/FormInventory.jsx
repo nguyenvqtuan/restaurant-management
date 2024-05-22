@@ -5,10 +5,15 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const FormInventory = ({ show, handleClose, id }) => {
   const axiosPrivate = useAxiosPrivate();
+  const [inventoryType, setInventoryType] = useState();
   const [inventory, setInventory] = useState();
   const nameRef = useRef();
   const priceRef = useRef();
   const quantityRef = useRef();
+
+  useEffect(() => {
+    fetchInventoryType();
+  });
 
   useEffect(() => {
     getInventory();
@@ -38,6 +43,12 @@ const FormInventory = ({ show, handleClose, id }) => {
     }
   };
 
+  const fetchInventoryType = async () => {
+    const resp = axiosPrivate.get("/inventory-type");
+    console.log(resp);
+    if (resp?.status == 200) setInventoryType(resp.data);
+  };
+
   const getInventory = async () => {
     const resp = await axiosPrivate.get(`/inventory/${id}`).catch((err) => {
       error(err.response.data.message);
@@ -64,16 +75,18 @@ const FormInventory = ({ show, handleClose, id }) => {
             <input type="hidden" value={id} />
           </div>
           <div className="form-group">
-            <input
-              value={inventory?.name}
+            <select
               name="name"
+              className="form-control form-control-user"
               onChange={handleInputChange}
               ref={nameRef}
-              type="text"
-              className="form-control form-control-user"
-              id="name"
-              placeholder="Enter name"
-            />
+            >
+              {inventoryType?.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="form-group">
             <input

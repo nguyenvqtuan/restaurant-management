@@ -7,6 +7,7 @@ const FormInventoryType = ({ show, handleClose, id }) => {
   const axiosPrivate = useAxiosPrivate();
   const [inventoryType, setInventoryType] = useState();
   const nameRef = useRef();
+  const statusRef = useRef();
 
   useEffect(() => {
     getInventoryType();
@@ -43,7 +44,8 @@ const FormInventoryType = ({ show, handleClose, id }) => {
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
-    setInventoryType(value);
+    console.log(e.target.checked);
+    // setInventoryType(value);
   };
 
   return (
@@ -65,6 +67,18 @@ const FormInventoryType = ({ show, handleClose, id }) => {
               type="text"
               className="form-control form-control-user"
               id="name"
+              placeholder="Enter name"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              value={inventoryType?.status}
+              name="status"
+              onChange={handleInputChange}
+              ref={statusRef}
+              type="checkbox"
+              className="form-control form-control-user"
+              id="status"
               placeholder="Enter name"
             />
           </div>
