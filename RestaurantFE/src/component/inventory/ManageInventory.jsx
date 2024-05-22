@@ -55,7 +55,12 @@ const ManageInventory = () => {
               <Button variant="primary" onClick={() => handleShowForm(0)}>
                 Create new inventory
               </Button>
-              <FormInventory show={show} handleClose={handleClose} id={id} />
+              <FormInventory
+                show={show}
+                handleClose={handleClose}
+                id={id}
+                fetchInventory={fetchInventory}
+              />
             </div>
             <div className="card-body">
               <div className="table-responsive">

@@ -64,6 +64,7 @@ const ManageInventoryDetail = (inventoryId) => {
                 show={show}
                 handleClose={handleClose}
                 id={id}
+                fetchInventoryDetail={fetchInventoryDetail}
               />
             </div>
             <div className="card-body">

@@ -3,7 +3,13 @@ import { Button, Modal } from "react-bootstrap";
 import { success, error } from "../../assets/js/SweetCustom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-const FormInventoryDetail = ({ show, handleClose, inventoryId, id }) => {
+const FormInventoryDetail = ({
+  show,
+  handleClose,
+  inventoryId,
+  id,
+  fetchInventoryDetail,
+}) => {
   const axiosPrivate = useAxiosPrivate();
   const [inventoryDetail, setInventoryDetail] = useState();
   const nameRef = useRef();
@@ -32,6 +38,7 @@ const FormInventoryDetail = ({ show, handleClose, inventoryId, id }) => {
     handleClose();
     if (resp?.status == 200) {
       success(resp.data);
+      fetchInventoryDetail();
     }
   };
 
