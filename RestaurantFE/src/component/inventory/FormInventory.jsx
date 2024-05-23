@@ -13,7 +13,7 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
 
   useEffect(() => {
     fetchInventoryType();
-  });
+  }, []);
 
   useEffect(() => {
     getInventory();
@@ -38,27 +38,32 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
       });
 
     handleClose();
-    if (resp?.status == 200) {
+    if (resp?.status == 200 || resp?.status == 201) {
       success(resp.data);
       fetchInventory();
     }
   };
 
   const fetchInventoryType = async () => {
-    const resp = axiosPrivate.get("/inventory-type");
-    console.log(resp);
-    if (resp?.status == 200) setInventoryType(resp.data);
+    const resp = await axiosPrivate.get("/inventory-type");
+
+    if (resp?.status == 200) {
+      setInventoryType(resp.data);
+    }
   };
 
   const getInventory = async () => {
     const resp = await axiosPrivate.get(`/inventory/${id}`).catch((err) => {
       error(err.response.data.message);
     });
-    if (resp?.data != null) setInventory(resp.data);
+    if (resp?.status == 200) {
+      setInventory(resp.data);
+    }
   };
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
+    if (id == 0) return;
     setInventory((prevValue) => {
       prevValue[name] = value;
       return { ...prevValue };
@@ -78,9 +83,10 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
           <div className="form-group">
             <select
               name="name"
-              className="form-control form-control-user"
+              className="form-control"
               onChange={handleInputChange}
               ref={nameRef}
+              value={inventory?.name}
             >
               {inventoryType?.map((item) => (
                 <option key={item.id} value={item.name}>
