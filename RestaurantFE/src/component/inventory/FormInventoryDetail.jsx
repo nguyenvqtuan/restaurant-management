@@ -2,14 +2,15 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { success, error } from "../../assets/js/SweetCustom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useParams } from "react-router-dom";
 
 const FormInventoryDetail = ({
   show,
   handleClose,
-  inventoryId,
   id,
   fetchInventoryDetail,
 }) => {
+  const { inventoryId } = useParams();
   const axiosPrivate = useAxiosPrivate();
   const [inventoryDetail, setInventoryDetail] = useState();
   const nameRef = useRef();
@@ -21,13 +22,13 @@ const FormInventoryDetail = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const name = nameRef.current.value;
-    const status = statusRef.current.value;
+    const status = statusRef.current.checked;
     const formData = {
       id,
       name,
       status,
+      inventoryId,
     };
     const resp = await axiosPrivate
       .post(`/inventory/${inventoryId}/detail`, formData)
@@ -43,8 +44,10 @@ const FormInventoryDetail = ({
   };
 
   const getInventoryDetail = async () => {
+    if (id == 0) return;
+    console.log("123");
     const resp = await axiosPrivate
-      .get(`/inventory/${inventoryDetail}/detail/${id}`)
+      .get(`/inventory/${inventoryId}/detail/${id}`)
       .catch((err) => {
         error(err.response.data.message);
       });
@@ -52,6 +55,7 @@ const FormInventoryDetail = ({
   };
 
   const handleInputChange = (e) => {
+    if (id == 0) return;
     const { value, name } = e.target;
     setInventoryDetail(value);
   };
@@ -78,17 +82,18 @@ const FormInventoryDetail = ({
               placeholder="Enter name"
             />
           </div>
-          <div className="form-group">
+          <div className="form-check">
             <input
-              value={inventoryDetail?.status}
+              checked={inventoryDetail?.status}
               name="status"
               onChange={handleInputChange}
               ref={statusRef}
-              type="text"
-              className="form-control form-control-user"
+              type="checkbox"
+              className="form-check-input form-control-user"
               id="status"
               placeholder="Enter status"
-            />
+            />{" "}
+            <label className="form-check-label">Using</label>
           </div>
 
           <hr />

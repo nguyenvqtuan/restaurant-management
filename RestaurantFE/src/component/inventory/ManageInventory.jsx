@@ -6,6 +6,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { success, error } from "../../assets/js/SweetCustom";
 import FormInventory from "./FormInventory";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ManageInventory = () => {
   const [id, setId] = useState(0);
@@ -111,6 +112,9 @@ const ManageInventory = () => {
                           >
                             <i className="fas fa-trash"></i>
                           </button>
+                          <Link to={`/inventory/${item.id}/detail`}>
+                            Detail
+                          </Link>
                         </td>
                       </tr>
                     ))}

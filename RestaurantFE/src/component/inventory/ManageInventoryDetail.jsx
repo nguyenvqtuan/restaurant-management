@@ -5,19 +5,21 @@ import Footer from "../common/Footer";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { success, error } from "../../assets/js/SweetCustom";
 import { Button } from "react-bootstrap";
-import FormInventoryType from "./FormInventoryType";
+import FormInventoryDetail from "./FormInventoryDetail";
+import { useParams } from "react-router-dom";
 
-const ManageInventoryDetail = (inventoryId) => {
+const ManageInventoryDetail = () => {
+  const { inventoryId } = useParams();
   const [id, setId] = useState(0);
   const [inventoryDetail, setInventoryDetail] = useState();
   const axiosPrivate = useAxiosPrivate();
   useEffect(() => {
-    fetchInventoryType();
+    fetchInventoryDetail();
   }, []);
 
   const fetchInventoryDetail = async () => {
     const resp = await axiosPrivate.get(`/inventory/${inventoryId}/detail`);
-    setInventoryType(resp.data);
+    if (resp?.status == 200) setInventoryDetail(resp.data);
   };
 
   const handleDelete = async (id) => {
@@ -78,7 +80,6 @@ const ManageInventoryDetail = (inventoryId) => {
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Type</th>
                       <th>Status</th>
                       <th>Created at</th>
                       <th>Updated at</th>
@@ -88,7 +89,6 @@ const ManageInventoryDetail = (inventoryId) => {
                   <tfoot>
                     <tr>
                       <th>Name</th>
-                      <th>Type</th>
                       <th>Status</th>
                       <th>Created at</th>
                       <th>Updated at</th>
@@ -99,8 +99,7 @@ const ManageInventoryDetail = (inventoryId) => {
                     {inventoryDetail?.map((item) => (
                       <tr key={item.id}>
                         <td>{item.name}</td>
-                        <td>{item.type}</td>
-                        <td>{item.status}</td>
+                        <td>{item.status ? <p>Using</p> : <p>Available</p>}</td>
                         <td>{item.createdAt}</td>
                         <td>{item.updatedAt}</td>
                         <td>

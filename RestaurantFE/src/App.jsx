@@ -31,9 +31,11 @@ function App() {
             <Route path="/update-profile" element={<UpdateProfile />} />
             <Route path="/home" element={<Home />} />
             <Route path="/user" element={<ManageUser />} />
-            <Route path="/inventory" element={<ManageInventory />}>
-              <Route path=":id/detail" elemetn={<ManageInventoryDetail />} />
-            </Route>
+            <Route path="/inventory" element={<ManageInventory />}></Route>
+            <Route
+              path="/inventory/:inventoryId/detail"
+              element={<ManageInventoryDetail />}
+            />
             <Route path="/inventory-type" element={<ManageInventoryType />} />
           </Routes>
         </BrowserRouter>
