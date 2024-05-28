@@ -3,6 +3,7 @@ package com.restaurantservice.RestaurantApi.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.restaurantservice.RestaurantApi.entity.InventoryTypeEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,25 +33,25 @@ public class InventoryServiceImpl implements InventoryService{
 	@Override
 	public List<InventoryDto> findAll() {
 		List<InventoryEntity> res = inventoryRepo.findAll();
-		return res.stream().map(e -> convert(e)).toList();
+		return res.stream().map(this::convert).toList();
 	}
 
 	@Override
 	public Optional<InventoryDto> findById(Integer id) {
 		Optional<InventoryEntity> res = inventoryRepo.findById(id);
-		return res.map(e -> convert(e));
+		return res.map(this::convert);
 	}
 	
 	@Override
 	public Optional<InventoryDto> findByName(String name) {
 		Optional<InventoryEntity> res = inventoryRepo.findByName(name);
-		return res.map(e -> convert(e));
+		return res.map(this::convert);
 	}
 
 	@Override
 	public void store(InventoryDto inventoryDto) {
 		InventoryEntity inventoryEntity = convert(inventoryDto);
-		int prevQuatity = inventoryRepo.findById(inventoryDto.getId()).map(e -> e.getQuantity()).orElse(0);
+		int prevQuatity = inventoryRepo.findById(inventoryDto.getId()).map(InventoryEntity::getQuantity).orElse(0);
 		
 		InventoryEntity res = inventoryRepo.save(inventoryEntity);
 		
@@ -86,7 +87,7 @@ public class InventoryServiceImpl implements InventoryService{
 	}
 	
 	private void newInventoryDetail(InventoryEntity inventoryEntity, int prevQuantity) {
-		int inventoryType = inventoryTypeRepo.findByName(inventoryEntity.getName()).map(e -> e.getId()).orElse(1);
+		int inventoryType = inventoryTypeRepo.findByName(inventoryEntity.getName()).map(InventoryTypeEntity::getId).orElse(1);
 
 		int inventoryId = inventoryEntity.getId();
 		

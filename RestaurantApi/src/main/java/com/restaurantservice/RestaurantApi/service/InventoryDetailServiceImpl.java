@@ -3,6 +3,7 @@ package com.restaurantservice.RestaurantApi.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.restaurantservice.RestaurantApi.entity.InventoryEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +27,13 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 
 	@Override
 	public Optional<InventoryDetailDto> findById(Integer id) {
-		return inventoryDetailRepo.findById(id).map(e -> convert(e));
+		return inventoryDetailRepo.findById(id).map(this::convert);
 	}
 
 	@Override
 	public List<InventoryDetailDto> findByInventoryId(Integer inventoryId) {
 		List<InventoryDetailEntity> res = inventoryDetailRepo.findByInventoryId(inventoryId);
-		return res.stream().map(e -> convert(e)).toList();
+		return res.stream().map(this::convert).toList();
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 
 	@Override
 	public void delete(Integer id) {
-		int inventoryId = inventoryDetailRepo.findById(id).map(e -> e.getInventoryId()).orElse(1);
+		int inventoryId = inventoryDetailRepo.findById(id).map(InventoryDetailEntity::getInventoryId).orElse(1);
 		inventoryDetailRepo.deleteById(id);
 		
 		updateQuantity(inventoryId, 1);
@@ -68,7 +69,7 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 	}
 	
 	private void updateQuantity(int inventoryId, int quantity) {
-		int currentQuantity = inventoryRepo.findById(inventoryId).map(e -> e.getQuantity()).orElse(1);
+		int currentQuantity = inventoryRepo.findById(inventoryId).map(InventoryEntity::getQuantity).orElse(1);
 		inventoryRepo.updateQuantity(inventoryId, currentQuantity - quantity);
 	}
 }

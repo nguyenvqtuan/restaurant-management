@@ -32,6 +32,6 @@ public class MailService {
 		message.setText(body);
 		
 		mailSender.send(message);
-		log.info(this.getClass().getName() + ". Send mail end!");
+        log.info("{}. Send mail end!", this.getClass().getName());
 	}
 }

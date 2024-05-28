@@ -25,7 +25,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 	@Override
 	public Optional<RefreshTokenDto> findByToken(String token) {
 		Optional<RefreshTokenEntity> res = refreshTokenRepo.findByToken(token);
-		return res.map(e -> convert(e));
+		return res.map(this::convert);
 	}
 
 	@Override

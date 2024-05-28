@@ -28,23 +28,23 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<UserDto> findAll() {
 		List<UserEntity> res = userRepo.findAll();
-		return res.stream().map(e -> convert(e)).toList();
+		return res.stream().map(this::convert).toList();
 	}
 	
 	@Override
 	public Optional<UserDto> findById(int id) {
 		Optional<UserEntity> res = userRepo.findById(id);
-		return res.map(e -> convert(e));
+		return res.map(this::convert);
 	}
 	
 	@Override
 	public Optional<UserDto> findByUserName(String userName) {
-		return userRepo.findByUserName(userName).map(e -> convert(e));
+		return userRepo.findByUserName(userName).map(this::convert);
 	}
 	
 	@Override
 	public Optional<UserDto> findByPasswordResetToken(String token) {
-		return userRepo.findByPasswordResetToken(token).map(e -> convert(e));
+		return userRepo.findByPasswordResetToken(token).map(this::convert);
 	}
 	
 	@Override
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void activeUser(String userName) {
 		Optional<UserEntity> userEntity = userRepo.findByUserName(userName);
-		userRepo.activeUser(userName, userEntity.get().isEnabled() ? false : true);
+		userRepo.activeUser(userName, !userEntity.get().isEnabled());
 	}
 
 	@Override

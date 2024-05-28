@@ -23,19 +23,19 @@ public class InventoryTypeServiceImpl implements InventoryTypeService{
 	@Override
 	public List<InventoryTypeDto> findAll() {
 		List<InventoryTypeEntity> res = inventoryTypeRepo.findAll();
-		return res.stream().map(e -> convert(e)).toList();
+		return res.stream().map(this::convert).toList();
 	}
 
 	@Override
 	public Optional<InventoryTypeDto> findById(int id) {
 		Optional<InventoryTypeEntity> res = inventoryTypeRepo.findById(id);
-		return res.map(e -> convert(e));
+		return res.map(this::convert);
 	}
 	
 	@Override
 	public Optional<InventoryTypeDto> findByName(String name) {
 		Optional<InventoryTypeEntity> res = inventoryTypeRepo.findByName(name);
-		return res.map(e -> convert(e));
+		return res.map(this::convert);
 	}
 
 	@Override
