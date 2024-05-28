@@ -27,15 +27,21 @@ public class RefreshTokenEntity {
 	@Id
 	@GeneratedValue
 	private int id;
-	
+
+	@Column(name="user_id")
 	private int userId;
+
+	@Column(name="token")
 	private String token;
+
+	@Column(name="expiryDate")
 	private Instant expiryDate;
 	
 	@CreationTimestamp
-	@Column(updatable = false)
+	@Column(updatable=false, name="created_at")
 	private LocalDate createdAt;
 
 	@UpdateTimestamp
+	@Column(name="updated_at")
 	private LocalDate updatedAt;
 }

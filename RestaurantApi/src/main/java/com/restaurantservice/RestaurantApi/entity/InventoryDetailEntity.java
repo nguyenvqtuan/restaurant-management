@@ -22,20 +22,22 @@ public class InventoryDetailEntity {
 	@Id
 	@GeneratedValue
 	private int id;
+
+	@Column(name="name")
 	private String name;
 	
-	// 0: char, 1: table
-	private int type;
-	
 	// 0: available, 1: using
+	@Column(name="status")
 	private boolean status;
-	
+
+	@Column(name="inventoryId")
 	private int inventoryId;
 	
 	@CreationTimestamp
-	@Column(updatable = false)
+	@Column(updatable=false, name="created_at")
 	private LocalDateTime createdAt;
 	
 	@UpdateTimestamp
+	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 }

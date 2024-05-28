@@ -93,16 +93,15 @@ public class InventoryServiceImpl implements InventoryService{
 		for (int i = 0; i < inventoryEntity.getQuantity() - prevQuantity; ++i) {
 			String name = inventoryEntity.getName() + " " + (i + 1);
 			
-			InventoryDetailEntity inventoryDetailEntity = buildInventoryDetailEntity(inventoryId, inventoryType, name);
+			InventoryDetailEntity inventoryDetailEntity = buildInventoryDetailEntity(inventoryId, name);
 			inventoryDetailRepo.save(inventoryDetailEntity);
 		}
 	}
 	
-	private InventoryDetailEntity buildInventoryDetailEntity(int inventoryId, int inventoryType, String name) {
+	private InventoryDetailEntity buildInventoryDetailEntity(int inventoryId, String name) {
 		InventoryDetailEntity res = new InventoryDetailEntity();
 		res.setInventoryId(inventoryId);
 		res.setName(name);
-		res.setType(inventoryType);
 		res.setStatus(false);
 		return res;
 	}
