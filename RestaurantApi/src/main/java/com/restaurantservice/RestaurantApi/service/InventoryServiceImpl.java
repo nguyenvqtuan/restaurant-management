@@ -87,8 +87,6 @@ public class InventoryServiceImpl implements InventoryService{
 	}
 	
 	private void newInventoryDetail(InventoryEntity inventoryEntity, int prevQuantity) {
-		int inventoryType = inventoryTypeRepo.findByName(inventoryEntity.getName()).map(InventoryTypeEntity::getId).orElse(1);
-
 		int inventoryId = inventoryEntity.getId();
 		
 		for (int i = 0; i < inventoryEntity.getQuantity() - prevQuantity; ++i) {

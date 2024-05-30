@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.restaurantservice.RestaurantApi.config.ControllerFiled;
 import com.restaurantservice.RestaurantApi.dto.InventoryDto;
 import com.restaurantservice.RestaurantApi.exception.IdException;
-import com.restaurantservice.RestaurantApi.exception.InventoryException;
 import com.restaurantservice.RestaurantApi.service.InventoryService;
-import com.restaurantservice.RestaurantApi.service.InventoryTypeService;
 
 @RestController
 @RequestMapping("/inventory")
@@ -27,9 +25,6 @@ public class InventoryController {
 
 	@Autowired
 	private InventoryService inventoryService;
-	
-	@Autowired
-	private InventoryTypeService inventoryTypeService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> findAll() {
@@ -45,8 +40,7 @@ public class InventoryController {
 	
 	@PostMapping("")
 	public ResponseEntity<?> store(@RequestBody InventoryDto inventoryDto) {
-		inventoryTypeService.findByName(inventoryDto.getName()).orElseThrow(() -> new InventoryException(inventoryDto.getName(), "Not found!"));
-		
+
 		inventoryService.store(inventoryDto);
 		String title = inventoryDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
 		return ResponseEntity.status(HttpStatus.CREATED).body(title + " success!");

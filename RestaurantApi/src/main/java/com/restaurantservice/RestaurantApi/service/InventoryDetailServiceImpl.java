@@ -26,14 +26,19 @@ public class InventoryDetailServiceImpl implements InventoryDetailService{
 	private ModelMapper modelMapper;
 
 	@Override
+	public List<InventoryDetailDto> findByInventoryId(Integer inventoryId) {
+		List<InventoryDetailEntity> res = inventoryDetailRepo.findByInventoryId(inventoryId);
+		return res.stream().map(this::convert).toList();
+	}
+
+	@Override
 	public Optional<InventoryDetailDto> findById(Integer id) {
 		return inventoryDetailRepo.findById(id).map(this::convert);
 	}
 
 	@Override
-	public List<InventoryDetailDto> findByInventoryId(Integer inventoryId) {
-		List<InventoryDetailEntity> res = inventoryDetailRepo.findByInventoryId(inventoryId);
-		return res.stream().map(this::convert).toList();
+	public Optional<InventoryDetailDto> findByNameAndInventoryId(String name, Integer inventoryId) {
+		return inventoryDetailRepo.findByNameAndInventoryId(name, inventoryId).map(this::convert);
 	}
 
 	@Override

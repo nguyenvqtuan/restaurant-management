@@ -10,6 +10,7 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
   const nameRef = useRef();
   const priceRef = useRef();
   const quantityRef = useRef();
+  const inventoryTypeRef = useRef();
 
   useEffect(() => {
     fetchInventoryType();
@@ -25,11 +26,13 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
     const name = nameRef.current.value;
     const price = priceRef.current.value;
     const quantity = quantityRef.current.value;
+    const inventoryTypeSelect = inventoryTypeRef.value;
     const formData = {
       id,
       name,
       price,
       quantity,
+      inventoryType: inventoryTypeSelect,
     };
     const resp = await axiosPrivate
       .post("/inventory", formData)
@@ -80,22 +83,18 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
           <div className="form-group">
             <input type="hidden" value={id} />
           </div>
-          <div className="form-group">
-            <select
+          <div className="form-group mb-3">
+            <label for="floatingInput">Inventory Name</label>
+            <input
               name="name"
               className="form-control"
               onChange={handleInputChange}
               ref={nameRef}
               value={inventory?.name}
-            >
-              {inventoryType?.map((item) => (
-                <option key={item.id} value={item.name}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
+            />
           </div>
-          <div className="form-group">
+          <div className="form-group mb-3">
+            <label for="floatingInput">Price</label>
             <input
               value={inventory?.price}
               name="price"
@@ -106,7 +105,8 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
               id="price"
             />
           </div>
-          <div className="form-group">
+          <div className="form-group mb-3">
+            <label for="floatingInput">Quantity</label>
             <input
               value={inventory?.quantity}
               ref={quantityRef}
@@ -116,6 +116,22 @@ const FormInventory = ({ show, handleClose, id, fetchInventory }) => {
               className="form-control form-control-user"
               id="quantity"
             />
+          </div>
+          <div className="form-group mb-3">
+            <label for="floatingInput">Inventory type</label>
+            <select
+              name="inventoryType"
+              className="form-control"
+              onChange={handleInputChange}
+              ref={inventoryTypeRef}
+              value={inventoryType?.id}
+            >
+              {inventoryType?.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
           <hr />
         </form>

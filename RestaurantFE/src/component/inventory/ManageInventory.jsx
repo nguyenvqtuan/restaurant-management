@@ -53,7 +53,10 @@ const ManageInventory = () => {
                 Inventory table
               </h6>
 
-              <Button variant="primary" onClick={() => handleShowForm(0)}>
+              <Button
+                variant="primary float-right"
+                onClick={() => handleShowForm(0)}
+              >
                 Create new inventory
               </Button>
               <FormInventory

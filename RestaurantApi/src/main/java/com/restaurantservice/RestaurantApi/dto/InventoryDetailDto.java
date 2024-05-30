@@ -16,9 +16,6 @@ public class InventoryDetailDto {
 	private int id;
 	private String name;
 	
-	// 0: char, 1: table
-	private byte type;
-	
 	// 0: available, 1: using
 	private boolean status;
 	

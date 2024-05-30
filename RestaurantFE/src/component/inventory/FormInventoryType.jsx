@@ -45,7 +45,6 @@ const FormInventoryType = ({ show, handleClose, id, fetchInventoryType }) => {
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
-    console.log(e.target.checked);
     // setInventoryType(value);
   };
 
@@ -59,7 +58,8 @@ const FormInventoryType = ({ show, handleClose, id, fetchInventoryType }) => {
           <div className="form-group">
             <input type="hidden" value={id} />
           </div>
-          <div className="form-group">
+          <div className="form-group mb-3">
+            <label>Name</label>
             <input
               value={inventoryType?.name}
               name="name"
@@ -71,19 +71,6 @@ const FormInventoryType = ({ show, handleClose, id, fetchInventoryType }) => {
               placeholder="Enter name"
             />
           </div>
-          <div className="form-group">
-            <input
-              value={inventoryType?.status}
-              name="status"
-              onChange={handleInputChange}
-              ref={statusRef}
-              type="checkbox"
-              className="form-control form-control-user"
-              id="status"
-              placeholder="Enter name"
-            />
-          </div>
-
           <hr />
         </form>
       </Modal.Body>

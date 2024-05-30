@@ -70,7 +70,7 @@ const FormInventoryDetail = ({
           <div className="form-group">
             <input type="hidden" value={id} />
           </div>
-          <div className="form-group">
+          <div className="form-group mb-3">
             <input
               value={inventoryDetail?.name}
               name="name"
@@ -79,7 +79,7 @@ const FormInventoryDetail = ({
               type="text"
               className="form-control form-control-user"
               id="name"
-              placeholder="Enter name"
+              placeholder="Enter name..."
             />
           </div>
           <div className="form-check">

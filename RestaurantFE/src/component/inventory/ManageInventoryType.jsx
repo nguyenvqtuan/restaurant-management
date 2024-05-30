@@ -54,8 +54,7 @@ const ManageInventoryType = () => {
               </h6>
 
               <Button
-                variant="primary"
-                className="float-right"
+                variant="primary float-right"
                 onClick={() => handleShowForm(0)}
               >
                 Create new inventory type

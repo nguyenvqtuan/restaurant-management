@@ -1,7 +1,9 @@
 package com.restaurantservice.RestaurantApi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.restaurantservice.RestaurantApi.exception.InventoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +44,9 @@ public class InventoryDetailController {
 	
 	@PostMapping("")
 	public ResponseEntity<?> store(@RequestBody InventoryDetailDto inventoryDetailDto) {
+		Optional<InventoryDetailDto> res = inventoryDetailService.findByNameAndInventoryId(inventoryDetailDto.getName(), inventoryDetailDto.getInventoryId());
+		if (res.isPresent())  throw new InventoryException(inventoryDetailDto.getName(), "is exists!");
+
 		inventoryDetailService.store(inventoryDetailDto);
 		String title = inventoryDetailDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
 		
