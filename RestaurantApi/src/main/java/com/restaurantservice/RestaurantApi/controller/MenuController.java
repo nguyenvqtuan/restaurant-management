@@ -4,11 +4,13 @@ import com.restaurantservice.RestaurantApi.config.ControllerFiled;
 import com.restaurantservice.RestaurantApi.dto.MenuDto;
 import com.restaurantservice.RestaurantApi.exception.IdException;
 import com.restaurantservice.RestaurantApi.exception.MenuException;
+import com.restaurantservice.RestaurantApi.service.FirebaseImageService;
 import com.restaurantservice.RestaurantApi.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,9 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private FirebaseImageService firebaseImageService;
+
     @GetMapping()
     public ResponseEntity<?> findAll() {
         List<MenuDto> res = menuService.findAll();
@@ -29,6 +34,12 @@ public class MenuController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Integer id) {
         Optional<MenuDto> res = menuService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @PostMapping("/upload-image")
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile multipartFile) {
+        String res = firebaseImageService.upload(multipartFile);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
