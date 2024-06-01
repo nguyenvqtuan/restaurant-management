@@ -22,8 +22,6 @@ public class MailService {
 	}
 	
 	public void sendMail(String emailAddress, String title, String body) {
-		log.info(this.getClass().getName() + ". Send mail start!");
-		
 		SimpleMailMessage message = new SimpleMailMessage();
 		
 		message.setFrom(env.getProperty("spring.mail.username"));
@@ -32,6 +30,5 @@ public class MailService {
 		message.setText(body);
 		
 		mailSender.send(message);
-		log.info(this.getClass().getName() + ". Send mail end!");
 	}
 }
