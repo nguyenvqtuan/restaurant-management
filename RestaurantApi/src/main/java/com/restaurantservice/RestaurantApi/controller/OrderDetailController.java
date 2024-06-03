@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order/{id}")
+@RequestMapping("/order/{orderId}")
 public class OrderDetailController {
     @Autowired
     private OrderDetailService orderDetailService;

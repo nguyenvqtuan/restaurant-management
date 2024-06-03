@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="order")
+@Table(name="order_product")
 @Getter
 @Setter
 public class OrderEntity {

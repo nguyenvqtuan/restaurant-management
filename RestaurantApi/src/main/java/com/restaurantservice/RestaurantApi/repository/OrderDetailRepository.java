@@ -13,9 +13,8 @@ import java.util.Optional;
 @Transactional
 public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, Integer> {
     Optional<OrderDetailEntity> findById(Integer id);
-    Optional<OrderDetailEntity> findByName(String name);
 
     @Modifying
-    @Query("DELETE FROM OrderDetailEntity WHERE inventoryId = ?1")
+    @Query("DELETE FROM OrderDetailEntity WHERE orderId = ?1")
     void deleteByOrderId(Integer id);
 }

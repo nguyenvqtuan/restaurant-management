@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name="order_detail")
+@Table(name="order_product_detail")
 public class OrderDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

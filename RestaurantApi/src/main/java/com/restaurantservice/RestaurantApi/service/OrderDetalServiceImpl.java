@@ -29,10 +29,6 @@ public class OrderDetalServiceImpl implements OrderDetailService{
         return orderDetailRepo.findById(id).map(this::convert);
     }
 
-    @Override
-    public Optional<OrderDetailDto> findByName(String name) {
-        return orderDetailRepo.findByName(name).map(this::convert);
-    }
 
     @Override
     public void store(OrderDetailDto orderDetailDto) {
