@@ -12,6 +12,7 @@ import Logout from "./component/user/Logout";
 import ManageInventoryDetail from "./component/inventory/ManageInventoryDetail";
 import ManageInventoryType from "./component/inventory/ManageInventoryType";
 import ManageInventory from "./component/inventory/ManageInventory";
+import "./App.scss";
 
 export const AuthContext = createContext();
 
