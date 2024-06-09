@@ -12,7 +12,8 @@ const Router = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(userInfo)
+
+    // TODO call api get user
     const result = {
       username: "admin",
       password: "123",
@@ -30,7 +31,7 @@ const Router = () => {
   else
     return (
       <Layout>
-        <AuthRouter />
+        <AppRouter />
       </Layout>
     )
 }
