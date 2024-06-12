@@ -9,7 +9,6 @@ interface Props {
 
 const PrivateRoute = ({ children }: Props) => {
   const userInfo = useAppSelector(selectUserInfo)
-  console.log(userInfo.isLoggedIn)
   return userInfo.isLoggedIn === true ? (
     children
   ) : (

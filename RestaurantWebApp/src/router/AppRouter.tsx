@@ -21,6 +21,8 @@ const AppRouter = () => {
         </PrivateRoute> 
       } />
       <Route Component={Login} path="/login" />
+      {/* <Route Component={ForgotPassword} path="/forgot" /> */}
+      {/* <Route Component={} */}
     </Routes>
   )
 }

@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 import { Layout } from 'antd'
-
 import { useAppDispatch, useAppSelector } from '@/redux/redux-hook'
 import { selectUserInfo, setUserInfo } from '@/redux/slicers/userSlice'
 import AppRouter from "./AppRouter"
-import AuthRouter from "./AuthRouter"
+import Other from '@/layout/Other'
 
 const Router = () => {
   // const dispatch = useAppDispatch();
@@ -31,7 +30,9 @@ const Router = () => {
   else
     return (
       <Layout>
-        <AppRouter />
+        <Other>
+         <AppRouter />
+        </Other>
       </Layout>
     )
 }
