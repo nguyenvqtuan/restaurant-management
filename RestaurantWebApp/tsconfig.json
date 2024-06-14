@@ -9,7 +9,8 @@
       "@/redux/*": ["redux/*"],
       "@/components/*": ["components/*"],
       "@/types/*": ["types/*"],
-      "@/layout/*": ["layout/*"]
+      "@/layout/*": ["layout/*"],
+      "@/assets/*": ["assets/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

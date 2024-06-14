@@ -6,7 +6,6 @@ import AppRouter from "./AppRouter"
 import Other from '@/layout/Other'
 
 const Router = () => {
-  // const dispatch = useAppDispatch();
   const userInfo = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 
@@ -20,8 +19,8 @@ const Router = () => {
     }
     dispatch(setUserInfo(result))
   }, [])
- 
-  if (userInfo?.isLoggedIn) 
+
+  if (userInfo?.isLoggedIn)
     return (
       <Layout>
         <AppRouter />
@@ -31,7 +30,7 @@ const Router = () => {
     return (
       <Layout>
         <Other>
-         <AppRouter />
+          <AppRouter />
         </Other>
       </Layout>
     )
