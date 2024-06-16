@@ -10,12 +10,13 @@ import {
 }
   from 'mdb-react-ui-kit';
 import { useForm } from 'react-hook-form';
-import { SignupForm } from './type/Signup.type';
+import { ISignup } from './type/Signup.type';
+import { Link } from 'react-router-dom';
 
 function App() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignupForm>({})
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<ISignup>({})
 
-  const onSubmit = (data: SignupForm) => {
+  const onSubmit = (data: ISignup) => {
     console.log(data.userName)
 
   }
@@ -105,6 +106,14 @@ function App() {
                   Signup
                 </MDBBtn>
               </form>
+              <div className="mt-2">
+                <p className="mb-0">
+                  Do you already account? {" "}
+                  <Link to="/login" className="text-white-50 fw-bold">
+                    Login
+                  </Link>
+                </p>
+              </div>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>

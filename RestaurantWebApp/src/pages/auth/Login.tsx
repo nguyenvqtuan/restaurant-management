@@ -9,8 +9,19 @@ import {
   MDBInput,
   MDBIcon,
 } from "mdb-react-ui-kit";
+import { useForm } from "react-hook-form";
+import ILogin from "./type/Login.type";
+import { Link } from "react-router-dom";
+
+
 
 function App() {
+  const { register, handleSubmit } = useForm<ILogin>({})
+
+  const onSubmit = (data: ILogin) => {
+    console.log(data)
+  }
+
   return (
     <MDBContainer fluid>
       <MDBRow className="d-flex justify-content-center align-items-center h-100">
@@ -20,37 +31,48 @@ function App() {
             style={{ borderRadius: "1rem", maxWidth: "400px" }}
           >
             <MDBCardBody className="p-5 d-flex flex-column align-items-center mx-auto w-100">
-              <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+              <h2 className="fw-bold mb-2 text-uppercase">
+                Login
+              </h2>
               <p className="text-white-50 mb-5">
                 Please enter your login and password!
               </p>
+              <form
+                className="w-100"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <MDBInput
+                  wrapperClass="mb-4 mx-1 w-100"
+                  labelClass="text-white"
+                  label="User name"
+                  id="userName"
+                  type="text"
+                  size="lg"
+                  {...register("userName", {
+                    required: true
+                  })}
+                />
+                <MDBInput
+                  wrapperClass="mb-4 mx-1 w-100"
+                  labelClass="text-white"
+                  label="Password"
+                  id="password"
+                  type="password"
+                  size="lg"
+                  {...register("password", {
+                    required: true
+                  })}
+                />
 
-              <MDBInput
-                wrapperClass="mb-4 mx-5 w-100"
-                labelClass="text-white"
-                label="Email address"
-                id="formControlLg"
-                type="email"
-                size="lg"
-              />
-              <MDBInput
-                wrapperClass="mb-4 mx-5 w-100"
-                labelClass="text-white"
-                label="Password"
-                id="formControlLg"
-                type="password"
-                size="lg"
-              />
-
-              <p className="small mb-3 pb-lg-2">
-                <a className="text-white-50" href="#!">
-                  Forgot password?
-                </a>
-              </p>
-              <MDBBtn outline className="mx-2 px-5" color="white" size="lg">
-                Login
-              </MDBBtn>
-
+                <p className="small mb-3 pb-lg-2">
+                  <a className="text-white-50" href="#!">
+                    Forgot password?
+                  </a>
+                </p>
+                <MDBBtn outline className="mx-1 px-5" color="white" size="lg">
+                  Login
+                </MDBBtn>
+              </form>
               <div className="d-flex flex-row mt-3 mb-5">
                 <MDBBtn
                   tag="a"
@@ -83,9 +105,9 @@ function App() {
               <div>
                 <p className="mb-0">
                   Don't have an account?{" "}
-                  <a href="#!" className="text-white-50 fw-bold">
+                  <Link to="/signup" className="text-white-50 fw-bold">
                     Sign Up
-                  </a>
+                  </Link>
                 </p>
               </div>
             </MDBCardBody>
