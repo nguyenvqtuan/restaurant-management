@@ -12,14 +12,15 @@ import {
 import { useForm } from "react-hook-form";
 import ILogin from "./type/Login.type";
 import { Link } from "react-router-dom";
-
-
+import { login } from "@/redux/slicers/userSlice";
+import { useAppDispatch } from "@/redux/redux-hook";
 
 function App() {
   const { register, handleSubmit } = useForm<ILogin>({})
-
+  const dispatch = useAppDispatch()
   const onSubmit = (data: ILogin) => {
-    console.log(data)
+    // IF login success -> save to local storage
+    dispatch(login(data))
   }
 
   return (

@@ -20,13 +20,13 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserInfo: (state, action) => {
+    login: (state, action) => {
       state.UserInfo = action.payload
     }
   }
 })
 
-export const { setUserInfo } = userSlice.actions
+export const { login } = userSlice.actions
 
 export const selectUserInfo = (state: RootState) => state.user.UserInfo
 

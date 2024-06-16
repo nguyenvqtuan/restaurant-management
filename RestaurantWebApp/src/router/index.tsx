@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Layout } from 'antd'
 import { useAppDispatch, useAppSelector } from '@/redux/redux-hook'
-import { selectUserInfo, setUserInfo } from '@/redux/slicers/userSlice'
+import { selectUserInfo, login } from '@/redux/slicers/userSlice'
 import AppRouter from "./AppRouter"
 import Other from '@/layout/Other'
 
@@ -17,7 +17,7 @@ const Router = () => {
       password: "123",
       isLoggedIn: false,
     }
-    dispatch(setUserInfo(result))
+    dispatch(login(result))
   }, [])
 
   if (userInfo?.isLoggedIn)
