@@ -9,32 +9,107 @@ import {
   MDBInput
 }
   from 'mdb-react-ui-kit';
+import { useForm } from 'react-hook-form';
+import { SignupForm } from './type/Signup.type';
 
 function App() {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignupForm>({})
+
+  const onSubmit = (data: SignupForm) => {
+    console.log(data.userName)
+
+  }
+
   return (
     <MDBContainer fluid>
 
       <MDBRow className='d-flex justify-content-center align-items-center h-100'>
         <MDBCol col='12'>
 
-          <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }}>
+          <MDBCard
+            className='bg-dark text-white my-5 mx-auto'
+            style={{ borderRadius: '1rem', maxWidth: '400px' }}
+          >
             <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
 
-              <h2 className="fw-bold mb-2 text-uppercase">Signup</h2>
-              <p className="text-white-50 mb-5">Please enter your information</p>
-
-              <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Email address' id='email' type='email' size="lg" />
-              <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Full name' id='fullName' type='text' size="lg" />
-              <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Password' id='password' type='password' size="lg" />
-              <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Re Password' id='rePassword' type='password' size="lg" />
-              <MDBBtn outline className='mx-2 px-5' color='white' size='lg'>
+              <h2 className="fw-bold mb-2 text-uppercase">
                 Signup
-              </MDBBtn>
+              </h2>
+              <p className="text-white-50 mb-5">
+                Please enter your information
+              </p>
+              <form
+                className="w-100"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <MDBInput
+                  wrapperClass='mb-4 mx-1 w-100'
+                  labelClass='text-white'
+                  label='User names'
+                  id='userName'
+                  type='text'
+                  size="lg"
+                  {...register("userName", {
+                    required: true
+                  })}
+                />
+                {errors.userName && <p>{errors.userName.message}</p>}
+                <MDBInput
+                  wrapperClass='mb-4 mx-1 w-100'
+                  labelClass='text-white'
+                  label='Full name'
+                  id='fullName'
+                  type='text'
+                  size="lg"
+                  {...register("fullName", {
+                    required: true
+                  })}
+                />
+                {errors.fullName && <p>{errors.fullName.message}</p>}
+                <MDBInput
+                  wrapperClass='mb-4 mx-1 w-100'
+                  labelClass='text-white'
+                  label='Password'
+                  id='password'
+                  type='password'
+                  size="lg"
+                  {...register("password", {
+                    required: true
+                  })}
+                />
+                <MDBInput
+                  wrapperClass='mb-4 mx-1 w-100'
+                  labelClass='text-white'
+                  label='Re Password'
+                  id='rePassword'
+                  type='password'
+                  size="lg"
+                  {...register("confirmPassword", {
+                    required: true,
+                    validate: (val: string) => {
+                      if (watch('password') != val) {
+                        return 'Your password do not match'
+                      }
+                    },
+                  })}
+                />
+                {errors.confirmPassword && <span className="text-danger">{errors.confirmPassword.message}</span>}
+                <MDBBtn
+                  outline
+                  className='mx-1 px-5'
+                  color='white'
+                  size='lg'
+                  type="submit"
+                  block
+                >
+                  Signup
+                </MDBBtn>
+              </form>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
       </MDBRow>
-    </MDBContainer>
+    </MDBContainer >
   );
 }
 
