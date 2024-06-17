@@ -17,6 +17,7 @@ const Router = () => {
       password: "123",
       isLoggedIn: false,
     }
+
     dispatch(login(result))
   }, [])
 

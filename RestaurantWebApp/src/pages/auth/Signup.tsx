@@ -1,125 +1,104 @@
-import '@/assets/app/index.css'
 import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput
-}
-  from 'mdb-react-ui-kit';
+  CButton,
+  CCard,
+  CCardBody,
+  CCol,
+  CContainer,
+  CForm,
+  CFormInput,
+  CInputGroup,
+  CInputGroupText,
+  CRow,
+} from '@coreui/react'
+import CIcon from '@coreui/icons-react'
+import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useForm } from 'react-hook-form';
 import { ISignup } from './type/Signup.type';
 import { Link } from 'react-router-dom';
 
 function App() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<ISignup>({})
-
   const onSubmit = (data: ISignup) => {
     console.log(data.userName)
-
   }
 
   return (
-    <MDBContainer fluid>
-
-      <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-        <MDBCol col='12'>
-
-          <MDBCard
-            className='bg-dark text-white my-5 mx-auto'
-            style={{ borderRadius: '1rem', maxWidth: '400px' }}
-          >
-            <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
-
-              <h2 className="fw-bold mb-2 text-uppercase">
-                Signup
-              </h2>
-              <p className="text-white-50 mb-5">
-                Please enter your information
-              </p>
-              <form
-                className="w-100"
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <MDBInput
-                  wrapperClass='mb-4 mx-1 w-100'
-                  labelClass='text-white'
-                  label='User names'
-                  id='userName'
-                  type='text'
-                  size="lg"
-                  {...register("userName", {
-                    required: true
-                  })}
-                />
-                {errors.userName && <p>{errors.userName.message}</p>}
-                <MDBInput
-                  wrapperClass='mb-4 mx-1 w-100'
-                  labelClass='text-white'
-                  label='Full name'
-                  id='fullName'
-                  type='text'
-                  size="lg"
-                  {...register("fullName", {
-                    required: true
-                  })}
-                />
-                {errors.fullName && <p>{errors.fullName.message}</p>}
-                <MDBInput
-                  wrapperClass='mb-4 mx-1 w-100'
-                  labelClass='text-white'
-                  label='Password'
-                  id='password'
-                  type='password'
-                  size="lg"
-                  {...register("password", {
-                    required: true
-                  })}
-                />
-                <MDBInput
-                  wrapperClass='mb-4 mx-1 w-100'
-                  labelClass='text-white'
-                  label='Re Password'
-                  id='rePassword'
-                  type='password'
-                  size="lg"
-                  {...register("confirmPassword", {
-                    required: true,
-                    validate: (val: string) => {
-                      if (watch('password') != val) {
-                        return 'Your password do not match'
-                      }
-                    },
-                  })}
-                />
-                {errors.confirmPassword && <span className="text-danger">{errors.confirmPassword.message}</span>}
-                <MDBBtn
-                  outline
-                  className='mx-1 px-5'
-                  color='white'
-                  size='lg'
-                  type="submit"
-                  block
+    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+      <CContainer>
+        <CRow className="justify-content-center">
+          <CCol md={9} lg={7} xl={6}>
+            <CCard className="mx-4">
+              <CCardBody className="p-4">
+                <CForm
+                  onSubmit={handleSubmit(onSubmit)}
                 >
-                  Signup
-                </MDBBtn>
-              </form>
-              <div className="mt-2">
-                <p className="mb-0">
-                  Do you already account? {" "}
-                  <Link to="/login" className="text-white-50 fw-bold">
-                    Login
-                  </Link>
-                </p>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer >
-  );
+                  <h1>Register</h1>
+                  <p className="text-body-secondary">Create your account</p>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilUser} />
+                    </CInputGroupText>
+                    <CFormInput
+                      placeholder="Username"
+                      autoComplete="username"
+                      {...register("userName", {
+                        required: true
+                      })}
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>@</CInputGroupText>
+                    <CFormInput
+                      placeholder="Full name"
+                      autoComplete="fullName"
+                      {...register("fullName", {
+                        required: true
+                      })}
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilLockLocked} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="password"
+                      placeholder="Password"
+                      autoComplete="new-password"
+                      {...register("password", {
+                        required: true
+                      })}
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupText>
+                      <CIcon icon={cilLockLocked} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="password"
+                      placeholder="Repeat password"
+                      autoComplete="new-password"
+                      {...register("confirmPassword", {
+                        required: true,
+                        validate: (val: string) => {
+                          if (watch("password") != val) {
+                            return "Your password do not match"
+                          }
+                        }
+                      })}
+                    />
+                  </CInputGroup>
+                  {errors.confirmPassword && <span className="text-danger">{errors.confirmPassword.message}</span>}
+                  <div className="d-grid">
+                    <CButton color="success" type="submit">Create Account</CButton>
+                  </div>
+                </CForm>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
+      </CContainer>
+    </div>
+  )
 }
 
 export default App;
