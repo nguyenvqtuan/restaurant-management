@@ -1,6 +1,9 @@
 import { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
+import Dashboard from '@/pages/app/Dashboard'
+import Order from '@/pages/app/Order'
+import Menu from '@/pages/app/Menu'
 
 const Login = lazy(() =>
   import("@/pages/auth/Login")
@@ -31,13 +34,39 @@ const AppRouter = () => {
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route
-          path="/settings"
+          path="/"
           element={
             <PrivateRoute>
-              <Setting />
+              <Dashboard />
             </PrivateRoute>
           }
         />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/menu"
+          element={
+            <PrivateRoute>
+              <Menu />
+            </PrivateRoute>
+          }
+        >
+          <Route
+            path="order"
+            element={
+              <PrivateRoute>
+                <Order />
+              </PrivateRoute>
+            }
+          />
+        </Route>
+
         <Route Component={Login} path="/login" />
         <Route Component={Forgot} path="/forgot" />
         <Route Component={Signup} path="/signup" />

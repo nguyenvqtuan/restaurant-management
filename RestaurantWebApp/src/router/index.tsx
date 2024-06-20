@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/redux-hook'
 import { selectUserInfo, login } from '@/redux/slicers/userSlice'
 import AppRouter from "./AppRouter"
 import Other from '@/layout/Other'
+import BreadCrum from '@/components/BreadCrumb'
 
 const Router = () => {
   const userInfo = useAppSelector(selectUserInfo);
@@ -15,7 +16,7 @@ const Router = () => {
     const result = {
       username: "admin",
       password: "123",
-      isLoggedIn: false,
+      isLoggedIn: true,
     }
 
     dispatch(login(result))
@@ -24,15 +25,14 @@ const Router = () => {
   if (userInfo?.isLoggedIn)
     return (
       <Layout>
+        <BreadCrum />
         <AppRouter />
       </Layout>
     )
   else
     return (
       <Layout>
-        <Other>
-          <AppRouter />
-        </Other>
+        <AppRouter />
       </Layout>
     )
 }
