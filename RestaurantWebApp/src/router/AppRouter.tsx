@@ -34,7 +34,11 @@ const AppRouter = () => {
           <Route
             path={route.path}
             key={route.title}
-            element={<PrivateRoute> <route.element /> </PrivateRoute>}
+            element={
+              <PrivateRoute>
+                <route.element />
+              </PrivateRoute>
+            }
           >
           </Route>
         ))}

@@ -5,6 +5,8 @@ import { selectUserInfo, login } from '@/redux/slicers/userSlice'
 import AppRouter from "./AppRouter"
 import Other from '@/layout/Other'
 import BreadCrum from '@/components/BreadCrumb'
+import Header from '@/layout/app/Header'
+import Sidebar from '@/layout/app/Sidebar'
 
 const Router = () => {
   const userInfo = useAppSelector(selectUserInfo);
@@ -25,8 +27,13 @@ const Router = () => {
   if (userInfo?.isLoggedIn)
     return (
       <Layout>
-        <BreadCrum />
-        <AppRouter />
+        <Sidebar />
+        <div className="wrapper d-flex flex-column min-vh-100">
+          <Header />
+          <div className="body flex-grow-1">
+            <AppRouter />
+          </div>
+        </div>
       </Layout>
     )
   else
