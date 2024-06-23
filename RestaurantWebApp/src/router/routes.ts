@@ -1,8 +1,5 @@
 import { lazy } from "react";
 
-const Home = lazy(() => 
-  import("@/pages/app/Dashboard")
-)
 const Dashboard = lazy(() => 
   import("@/pages/app/Dashboard")
 )
@@ -15,12 +12,16 @@ const Order = lazy(() =>
   import("@/pages/app/Order")
 )
 
+const Setting = lazy(() => 
+  import("@/pages/Setting")
+)
+
 const routes = [
-  { path: '/', title: 'Home' },
-  { path: '/dashboard', title: 'DashBoard' },
-  { path: '/menu', title: 'Menu'},
-  { path: '/menu/order', title: 'Order'},
-  { path: '/menu/order/setting', title: 'Setting'}
+  { path: '/', title: 'Home', element: Dashboard },
+  { path: '/dashboard', title: 'DashBoard', element: Dashboard },
+  { path: '/menu', title: 'Menu', element: Menu},
+  { path: '/menu/order', title: 'Order', element: Order},
+  { path: '/menu/order/setting', title: 'Setting', element: Setting }
  
 ]
 

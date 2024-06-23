@@ -4,6 +4,7 @@ import PrivateRoute from './PrivateRoute'
 import Dashboard from '@/pages/app/Dashboard'
 import Order from '@/pages/app/Order'
 import Menu from '@/pages/app/Menu'
+import routes from './routes'
 
 const Login = lazy(() =>
   import("@/pages/auth/Login")
@@ -15,10 +16,6 @@ const Signup = lazy(() =>
 
 const Forgot = lazy(() =>
   import("@/pages/auth/Forgot")
-)
-
-const Setting = lazy(() =>
-  import("@/pages/Setting")
 )
 
 const Page404 = lazy(() =>
@@ -33,42 +30,14 @@ const AppRouter = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/menu"
-          element={
-            <PrivateRoute>
-              <Menu />
-            </PrivateRoute>
-          }
-        >
+        {routes.map((route) => (
           <Route
-            path="order"
-            element={
-              <PrivateRoute>
-                <Order />
-              </PrivateRoute>
-            }
+            path={route.path}
+            key={route.title}
+            element={<PrivateRoute> <route.element /> </PrivateRoute>}
           >
-            <Route path="settings" element={<Setting />} />
           </Route>
-        </Route>
-
+        ))}
         <Route Component={Login} path="/login" />
         <Route Component={Forgot} path="/forgot" />
         <Route Component={Signup} path="/signup" />
