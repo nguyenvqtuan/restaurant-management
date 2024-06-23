@@ -19,7 +19,8 @@ const routes = [
   { path: '/', title: 'Home' },
   { path: '/dashboard', title: 'DashBoard' },
   { path: '/menu', title: 'Menu'},
-  { path: '/menu/order', title: 'Order'}
+  { path: '/menu/order', title: 'Order'},
+  { path: '/menu/order/setting', title: 'Setting'}
  
 ]
 

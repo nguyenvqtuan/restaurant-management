@@ -64,7 +64,9 @@ const AppRouter = () => {
                 <Order />
               </PrivateRoute>
             }
-          />
+          >
+            <Route path="settings" element={<Setting />} />
+          </Route>
         </Route>
 
         <Route Component={Login} path="/login" />

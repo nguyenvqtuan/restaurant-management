@@ -14,7 +14,6 @@ const Breadcrumbs = () => {
   }
 
   const getBreadcrumbs = (location: string) => {
-    console.log(location)
     const breadcrumbs: any = []
     location.split('/').reduce((prev, curr, index, array) => {
       const currentPathname = `${prev}/${curr}`
@@ -22,7 +21,7 @@ const Breadcrumbs = () => {
       routeName &&
         breadcrumbs.push({
           pathname: currentPathname,
-          title: routeName,
+          title: index + 1 === array.length ? routeName : <Link to={currentPathname}> {routeName} </Link>,
           active: index + 1 === array.length ? true : false,
         })
       return currentPathname
