@@ -7,6 +7,7 @@ import Other from '@/layout/Other'
 import BreadCrum from '@/components/BreadCrumb'
 import Header from '@/layout/app/Header'
 import Sidebar from '@/layout/app/Sidebar'
+import Footer from '@/layout/app/Footer'
 
 const Router = () => {
   const userInfo = useAppSelector(selectUserInfo);
@@ -33,6 +34,7 @@ const Router = () => {
           <div className="body flex-grow-1">
             <AppRouter />
           </div>
+          <Footer />
         </div>
       </Layout>
     )
