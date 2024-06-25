@@ -1,6 +1,8 @@
+import Form from "@/layout/app/Form"
+
 const Order = () => {
   return (
-    <div>Order</div>
+    <Form />
   )
 }
 

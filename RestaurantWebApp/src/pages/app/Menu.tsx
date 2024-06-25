@@ -1,6 +1,8 @@
+import Table from "@/layout/app/Table"
+
 const Menu = () => {
   return (
-    <div>Menu</div>
+    <Table />
   )
 }
 
