@@ -11,8 +11,23 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import TableControl from '@/components/TableControl'
 
 const Table = () => {
+  const headers = [
+    {
+      title: "#"
+    },
+    {
+      title: "col1"
+    },
+    {
+      title: "col2"
+    },
+    {
+      title: "col3"
+    },
+  ]
   return (
     <CRow>
       <CCol xs={12}>
@@ -25,15 +40,7 @@ const Table = () => {
               Use <code>hover</code> property to enable a hover state on table rows within a{' '}
               <code>&lt;CTableBody&gt;</code>.
             </p>
-            <CTable hover>
-              <CTableHead>
-                <CTableRow>
-                  <CTableHeaderCell scope="col">#</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Class</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Heading</CTableHeaderCell>
-                  <CTableHeaderCell scope="col">Heading</CTableHeaderCell>
-                </CTableRow>
-              </CTableHead>
+            <TableControl headers={headers}>
               <CTableBody>
                 <CTableRow>
                   <CTableHeaderCell scope="row">1</CTableHeaderCell>
@@ -53,7 +60,8 @@ const Table = () => {
                   <CTableDataCell>@twitter</CTableDataCell>
                 </CTableRow>
               </CTableBody>
-            </CTable>
+            </TableControl>
+
           </CCardBody>
         </CCard>
       </CCol>
