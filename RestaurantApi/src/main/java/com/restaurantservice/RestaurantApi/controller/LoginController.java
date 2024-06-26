@@ -27,64 +27,80 @@ import com.restaurantservice.RestaurantApi.service.UserService;
 @RestController
 public class LoginController {
 
-	@Autowired
-	private UserService userService;
+    private final String URI_LOGIN = "/login";
+    private final String URI_SIGNUP = "/sign-up";
+    private final String URI_REFRESH_TOKEN = "/refresh-token";
 
-	@Autowired
-	private JwtService jwtService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private RefreshTokenService refreshTokenService;
+    @Autowired
+    private JwtService jwtService;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private RefreshTokenService refreshTokenService;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestBody UserDto userDto) {
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-		if (authentication.isAuthenticated()) {
-			JwtResponseDto token = buildJwt(userDto.getUserName());
-			return ResponseEntity.ok().body(token);
-		}
-		return ResponseEntity.badRequest().body("Login failed!");
-	}
+    /**
+     * @param userDto
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<?> login(@RequestBody UserDto userDto) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
 
-	@PostMapping("/sign-up")
-	public ResponseEntity<?> store(@RequestBody UserDto userDto) {
-		Optional<UserDto> res = userService.findByUserName(userDto.getUserName());
-		
-		if (res.isPresent()) new UserException(userDto.getUserName(), "existed!");
-		userService.store(userDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body("Sign up success!");
-	}
+        if (authentication.isAuthenticated()) {
+            JwtResponseDto token = buildJwt(userDto.getUserName());
+            return ResponseEntity.ok().body(token);
+        }
+        return ResponseEntity.badRequest().body("Login failed!");
+    }
 
-	@PostMapping("/refresh-token")
-	public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) {
-		String requestRefreshToken = refreshTokenDto.getToken();
+    /**
+     * @param userDto
+     * @return
+     */
+    @PostMapping("/sign-up")
+    public ResponseEntity<?> store(@RequestBody UserDto userDto) {
+        Optional<UserDto> res = userService.findByUserName(userDto.getUserName());
 
-		return refreshTokenService.findByToken(requestRefreshToken).map(refreshTokenService::verifyExpiration)
-				.map(refreshToken -> {
-					String token = jwtService.generateToken(userService.findById(refreshToken.getId()).get().getUserName());
-					return ResponseEntity.ok(new TokenRefreshResponseDto(token, requestRefreshToken));
-				})
-				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
+        if (res.isPresent()) throw new UserException(userDto.getUserName(), "existed!");
+        userService.store(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Sign up success!");
+    }
 
-	}
+    /**
+     * @param refreshTokenDto
+     * @return
+     */
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) {
+        String requestRefreshToken = refreshTokenDto.getToken();
 
-	private JwtResponseDto buildJwt(String userName) {
-		JwtResponseDto jwtResponse = new JwtResponseDto();
-		jwtResponse.setToken(jwtService.generateToken(userName));
-		jwtResponse.setUserName(userName);
+        return refreshTokenService.findByToken(requestRefreshToken).map(refreshTokenService::verifyExpiration)
+                .map(refreshToken -> {
+                    String token = jwtService.generateToken(userService.findById(refreshToken.getId()).get().getUserName());
+                    return ResponseEntity.ok(new TokenRefreshResponseDto(token, requestRefreshToken));
+                })
+                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
 
-		RefreshTokenDto refreshToken = buildRefreshToken(userName);
-		jwtResponse.setRefreshToken(refreshToken.getToken());
-		return jwtResponse;
-	}
+    }
 
-	private RefreshTokenDto buildRefreshToken(String userName) {
-		int userId = userService.findByUserName(userName).get().getId();
-		return refreshTokenService.createRefreshToken(userId);
-	}
+    private JwtResponseDto buildJwt(String userName) {
+        JwtResponseDto jwtResponse = new JwtResponseDto();
+        jwtResponse.setToken(jwtService.generateToken(userName));
+        jwtResponse.setUserName(userName);
+
+        RefreshTokenDto refreshToken = buildRefreshToken(userName);
+        jwtResponse.setRefreshToken(refreshToken.getToken());
+        return jwtResponse;
+    }
+
+    private RefreshTokenDto buildRefreshToken(String userName) {
+        int userId = userService.findByUserName(userName).get().getId();
+        return refreshTokenService.createRefreshToken(userId);
+    }
 }

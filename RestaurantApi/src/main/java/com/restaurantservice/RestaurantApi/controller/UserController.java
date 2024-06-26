@@ -26,53 +26,53 @@ import com.restaurantservice.RestaurantApi.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-	@Autowired
-	private UserService userService;
-	
-	@GetMapping("")
-	public ResponseEntity<?> findAll() {
-		List<UserDto> users = userService.findAll();
-		
-		return ResponseEntity.status(HttpStatus.OK).body(users);
-	}
-	
-	@PostMapping("")
-	public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
-		userService.findByUserName(userDto.getUserName())
-		.orElseThrow(() -> new UserException(userDto.getUserName(), "Not found!"));
-		
-		userService.updateFullNameAndBirthDate(userDto);
-		return ResponseEntity.status(HttpStatus.OK).body("Update success!");
-	}
-	
-	@PutMapping("/update-role")
-	public ResponseEntity<?> updateRole(@RequestParam String userName, 
-			@RequestParam String role) {
-		userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
-		userService.updateRole(userName, role);
-		
-		return ResponseEntity.status(HttpStatus.OK).body("Update role success!");
-	}
-	
-	@GetMapping("/list-role")
-	public ResponseEntity<?> listRole() {
-		return ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(UserRoleEnum.values()));
-	}
-	
-	@PutMapping("/{userName}/active")
-	public ResponseEntity<?> activeUser(@PathVariable String userName) {
-		userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
-		userService.activeUser(userName);
-		
-		return ResponseEntity.status(HttpStatus.OK).body("Active user success!");
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
-		userService.findById(id).orElseThrow(() -> new IdException(id, "Not found!"));
-		userService.delete(id);
-		
-		return ResponseEntity.status(HttpStatus.OK).body("Delete user success!");
+    @Autowired
+    private UserService userService;
 
-	}
+    @GetMapping("")
+    public ResponseEntity<?> findAll() {
+        List<UserDto> users = userService.findAll();
+
+        return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
+        userService.findByUserName(userDto.getUserName())
+                .orElseThrow(() -> new UserException(userDto.getUserName(), "Not found!"));
+
+        userService.updateFullNameAndBirthDate(userDto);
+        return ResponseEntity.status(HttpStatus.OK).body("Update success!");
+    }
+
+    @PutMapping("/update-role")
+    public ResponseEntity<?> updateRole(@RequestParam String userName,
+                                        @RequestParam String role) {
+        userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
+        userService.updateRole(userName, role);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Update role success!");
+    }
+
+    @GetMapping("/list-role")
+    public ResponseEntity<?> listRole() {
+        return ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(UserRoleEnum.values()));
+    }
+
+    @PutMapping("/{userName}/active")
+    public ResponseEntity<?> activeUser(@PathVariable String userName) {
+        userService.findByUserName(userName).orElseThrow(() -> new UserException(userName, "Not found!"));
+        userService.activeUser(userName);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Active user success!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        userService.findById(id).orElseThrow(() -> new IdException(id, "Not found!"));
+        userService.delete(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Delete user success!");
+
+    }
 }

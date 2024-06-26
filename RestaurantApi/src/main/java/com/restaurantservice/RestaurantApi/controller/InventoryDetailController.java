@@ -22,35 +22,35 @@ import com.restaurantservice.RestaurantApi.service.InventoryDetailService;
 @RequestMapping("/inventory/{inventoryId}/detail")
 public class InventoryDetailController {
 
-	@Autowired
-	private InventoryDetailService inventoryDetailService;
-	
-	@GetMapping("")
-	public ResponseEntity<?> findByInventoryId(@PathVariable int inventoryId) {
-		List<InventoryDetailDto> res = inventoryDetailService.findByInventoryId(inventoryId);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(res);
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<?> findById(@PathVariable int id) {
-		return inventoryDetailService.findById(id)
-		.map(e -> {
-			return ResponseEntity.status(HttpStatus.OK).body(e);
-		}).orElseThrow(() -> new IdException(id, "Not found!"));
-	}
-	
-	@PostMapping("")
-	public ResponseEntity<?> store(@RequestBody InventoryDetailDto inventoryDetailDto) {
-		inventoryDetailService.store(inventoryDetailDto);
-		String title = inventoryDetailDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
-		
-		return ResponseEntity.status(HttpStatus.OK).body(title + " success!");
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
-		inventoryDetailService.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Delete success!");
-	}
+    @Autowired
+    private InventoryDetailService inventoryDetailService;
+
+    @GetMapping("")
+    public ResponseEntity<?> findByInventoryId(@PathVariable int inventoryId) {
+        List<InventoryDetailDto> res = inventoryDetailService.findByInventoryId(inventoryId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable int id) {
+        return inventoryDetailService.findById(id)
+                .map(e -> {
+                    return ResponseEntity.status(HttpStatus.OK).body(e);
+                }).orElseThrow(() -> new IdException(id, "Not found!"));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> store(@RequestBody InventoryDetailDto inventoryDetailDto) {
+        inventoryDetailService.store(inventoryDetailDto);
+        String title = inventoryDetailDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
+
+        return ResponseEntity.status(HttpStatus.OK).body(title + " success!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        inventoryDetailService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Delete success!");
+    }
 }

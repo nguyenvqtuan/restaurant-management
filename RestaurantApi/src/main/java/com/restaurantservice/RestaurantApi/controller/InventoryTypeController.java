@@ -23,34 +23,34 @@ import com.restaurantservice.RestaurantApi.service.InventoryTypeService;
 @RequestMapping("/inventory-type")
 public class InventoryTypeController {
 
-	@Autowired
-	private InventoryTypeService inventoryTypeService;
-	
-	@GetMapping()
-	public ResponseEntity<?> findAll() {
-		List<InventoryTypeDto> res = inventoryTypeService.findAll();
-		return ResponseEntity.status(HttpStatus.OK).body(res);
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<?> findById(@PathVariable Integer id) {
-		Optional<InventoryTypeDto> res = inventoryTypeService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(res);
-	}
-	
-	@PostMapping()
-	public ResponseEntity<?> store(@RequestBody InventoryTypeDto inventoryTypeDto) {
-		inventoryTypeService.store(inventoryTypeDto);
-		String title = inventoryTypeDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
-		
-		return ResponseEntity.status(HttpStatus.OK).body(title + " success!");
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
-		inventoryTypeService.findById(id).orElseThrow(() -> new IdException(id, "Not found!"));
-		
-		inventoryTypeService.delete(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Delete success!");
-	}
+    @Autowired
+    private InventoryTypeService inventoryTypeService;
+
+    @GetMapping()
+    public ResponseEntity<?> findAll() {
+        List<InventoryTypeDto> res = inventoryTypeService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
+        Optional<InventoryTypeDto> res = inventoryTypeService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> store(@RequestBody InventoryTypeDto inventoryTypeDto) {
+        inventoryTypeService.store(inventoryTypeDto);
+        String title = inventoryTypeDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
+
+        return ResponseEntity.status(HttpStatus.OK).body(title + " success!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        inventoryTypeService.findById(id).orElseThrow(() -> new IdException(id, "Not found!"));
+
+        inventoryTypeService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Delete success!");
+    }
 }
