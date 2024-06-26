@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class JwtResponseDto {
 
-	private String token;
-	private String type = "Bearer";
-	private String refreshToken;
-	private String userName;
+    private String token;
+    private String type = "Bearer";
+    private String refreshToken;
+    private String userName;
 }

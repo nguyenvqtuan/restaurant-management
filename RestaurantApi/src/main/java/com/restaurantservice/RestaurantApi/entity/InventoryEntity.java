@@ -14,22 +14,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="inventory")
+@Table(name = "inventory")
 @Getter
 @Setter
 public class InventoryEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	private String name;
-	private long price;
-	private int quantity;
-	
-	@CreationTimestamp
-	private LocalDate createdAt;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@UpdateTimestamp
-	private LocalDate updatedAt;
+    private String name;
+    private long price;
+    private int quantity;
+
+    @CreationTimestamp
+    private LocalDate createdAt;
+
+    @UpdateTimestamp
+    private LocalDate updatedAt;
 }

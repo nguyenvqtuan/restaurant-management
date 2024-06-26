@@ -9,6 +9,7 @@ public interface MenuService {
     List<MenuDto> findAll();
 
     Optional<MenuDto> findById(Integer id);
+
     Optional<MenuDto> findByName(String name);
 
     void store(MenuDto menuDto);

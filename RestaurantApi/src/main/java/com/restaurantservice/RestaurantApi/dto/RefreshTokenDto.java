@@ -13,8 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RefreshTokenDto {
 
-	private int id;
-	private int userId;
-	private String token;
-	private Instant expiryDate;
+    private int id;
+    private int userId;
+    private String token;
+    private Instant expiryDate;
 }

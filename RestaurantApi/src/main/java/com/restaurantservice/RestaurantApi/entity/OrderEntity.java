@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="order_product")
+@Table(name = "order_product")
 @Getter
 @Setter
 public class OrderEntity {
@@ -17,27 +17,27 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private int userId;
 
-    @Column(name="inventory_id")
+    @Column(name = "inventory_id")
     private int inventoryId;
 
-    @Column(name="total")
+    @Column(name = "total")
     private long total;
 
     // CASH - CREDIT-CARD
-    @Column(name="payment_method")
+    @Column(name = "payment_method")
     private String paymentMethod;
 
-    @Column(updatable = false, name="created_at")
+    @Column(updatable = false, name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 }

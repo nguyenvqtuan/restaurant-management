@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.restaurantservice.RestaurantApi.entity.UserEntity;
 
 public class CustomUserDetails implements UserDetails {
-	
-	private static final long serialVersionUID = 1L;
-	private UserEntity user;
+
+    private static final long serialVersionUID = 1L;
+    private UserEntity user;
 
     public CustomUserDetails(UserEntity user) {
         this.user = user;
@@ -20,7 +20,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-    	SimpleGrantedAuthority role = new SimpleGrantedAuthority(user.getRole());
+        SimpleGrantedAuthority role = new SimpleGrantedAuthority(user.getRole());
         return Arrays.asList(role);
     }
 

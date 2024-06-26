@@ -10,16 +10,16 @@ import com.restaurantservice.RestaurantApi.entity.UserEntity;
 import com.restaurantservice.RestaurantApi.repository.UserRepository;
 
 @Component
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepo;
+    @Autowired
+    private UserRepository userRepo;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = userRepo.findByUserName(username)
-	        		.orElseThrow(() -> new UsernameNotFoundException("Could not find user"));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userRepo.findByUserName(username)
+            .orElseThrow(() -> new UsernameNotFoundException("Could not find user"));
 
-		return new CustomUserDetails(user);
-	}
+        return new CustomUserDetails(user);
+    }
 }

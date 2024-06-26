@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface OrderService {
 
     List<OrderDto> findAll();
+
     Optional<OrderDto> findById(Integer id);
+
     Optional<OrderDto> findByName(String name);
 
     void store(OrderDto orderDto);

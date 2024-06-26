@@ -13,13 +13,14 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface InventoryRepository extends JpaRepository<InventoryEntity, Integer>{
+public interface InventoryRepository extends JpaRepository<InventoryEntity, Integer> {
 
-	Optional<InventoryEntity> findById(Integer id);
-	Optional<InventoryEntity> findByName(String name);
-	
-	@Modifying
-	@Query("UPDATE InventoryEntity SET quantity = ?2 WHERE id = ?1")
-	void updateQuantity(Integer id, Integer quantity);
-	
+    Optional<InventoryEntity> findById(Integer id);
+
+    Optional<InventoryEntity> findByName(String name);
+
+    @Modifying
+    @Query("UPDATE InventoryEntity SET quantity = ?2 WHERE id = ?1")
+    void updateQuantity(Integer id, Integer quantity);
+
 }

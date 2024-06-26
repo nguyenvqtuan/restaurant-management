@@ -13,8 +13,8 @@ import lombok.Setter;
 @Data
 public class ErrorMessageDto {
 
-	private int statusCode;
-	private Date timestamp;
-	private String message;
-	private String description;
+    private int statusCode;
+    private Date timestamp;
+    private String message;
+    private String description;
 }

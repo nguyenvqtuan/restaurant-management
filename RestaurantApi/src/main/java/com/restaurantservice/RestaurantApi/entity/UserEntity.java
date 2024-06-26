@@ -15,30 +15,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @Getter
 @Setter
 public class UserEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id; 
-	
-	// Email
-	private String userName;
-	
-	private String password;
-	private String fullName;
-	private Date birthDate;
-	
-	private String role;
-	private boolean enabled;
-	
-	private String passwordResetToken;
-	
-	@CreationTimestamp
-	private LocalDate createdAt;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@UpdateTimestamp
-	private LocalDate updatedAt;
+    // Email
+    private String userName;
+
+    private String password;
+    private String fullName;
+    private Date birthDate;
+
+    private String role;
+    private boolean enabled;
+
+    private String passwordResetToken;
+
+    @CreationTimestamp
+    private LocalDate createdAt;
+
+    @UpdateTimestamp
+    private LocalDate updatedAt;
 }

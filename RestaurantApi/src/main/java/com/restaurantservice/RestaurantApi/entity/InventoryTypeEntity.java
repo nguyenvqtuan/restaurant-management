@@ -13,20 +13,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="inventory-type")
+@Table(name = "inventory-type")
 @Getter
 @Setter
 public class InventoryTypeEntity {
 
-	@Id
-	@GeneratedValue
-	private int id;
-	
-	private String name;
-	
-	@CreationTimestamp
-	private LocalDateTime createdAt;
-	
-	@UpdateTimestamp
-	private LocalDateTime updatedAt;
+    @Id
+    @GeneratedValue
+    private int id;
+
+    private String name;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

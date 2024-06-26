@@ -12,12 +12,12 @@ import com.restaurantservice.RestaurantApi.entity.RefreshTokenEntity;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity, Integer>{
+public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity, Integer> {
 
-	Optional<RefreshTokenEntity> findByToken(String token);
-	
-	@Transactional
-	@Modifying
-	@Query("DELETE FROM RefreshTokenEntity WHERE userId = ?1")
-	void deleteByUserId(int userId);
+    Optional<RefreshTokenEntity> findByToken(String token);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM RefreshTokenEntity WHERE userId = ?1")
+    void deleteByUserId(int userId);
 }

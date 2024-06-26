@@ -8,8 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 public class RestaurantApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RestaurantApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RestaurantApiApplication.class, args);
+    }
 
 }

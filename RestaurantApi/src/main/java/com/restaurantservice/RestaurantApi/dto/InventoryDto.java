@@ -13,12 +13,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InventoryDto {
 
-	private int id;
-	
-	private String name;
-	private long price;
-	private int quantity;
-	
-	private LocalDate createdAt;
-	private LocalDate updatedAt;
+    private int id;
+
+    private String name;
+    private long price;
+    private int quantity;
+
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 }

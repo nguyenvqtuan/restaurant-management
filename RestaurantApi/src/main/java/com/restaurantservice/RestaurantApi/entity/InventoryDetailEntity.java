@@ -13,27 +13,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="inventory_detail")
+@Table(name = "inventory_detail")
 @Getter
 @Setter
 public class InventoryDetailEntity {
 
-	@Id
-	@GeneratedValue
-	private int id;
-	private String name;
-	
-	// 0: char, 1: table
-	private int type;
-	
-	// 0: available, 1: using
-	private boolean status;
-	
-	private int inventoryId;
-	
-	@CreationTimestamp
-	private LocalDateTime createdAt;
-	
-	@UpdateTimestamp
-	private LocalDateTime updatedAt;
+    @Id
+    @GeneratedValue
+    private int id;
+    private String name;
+
+    // 0: char, 1: table
+    private int type;
+
+    // 0: available, 1: using
+    private boolean status;
+
+    private int inventoryId;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

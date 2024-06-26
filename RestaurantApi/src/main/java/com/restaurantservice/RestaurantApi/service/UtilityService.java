@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtilityService {
 
-	@Autowired
-	private Environment env;
-	
-	public String getFEPath() {
-		return env.getProperty("front-end.url");
-	}
+    @Autowired
+    private Environment env;
+
+    public String getFEPath() {
+        return env.getProperty("front-end.url");
+    }
 }

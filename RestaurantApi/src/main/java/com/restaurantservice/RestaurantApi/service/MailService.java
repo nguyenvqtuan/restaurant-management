@@ -11,24 +11,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class MailService {
-	private Environment env;
+    private Environment env;
 
-	@Autowired
-	private MailSender mailSender;
-	
-	@Autowired
-	public MailService(Environment env) {
-		this.env = env;
-	}
-	
-	public void sendMail(String emailAddress, String title, String body) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		
-		message.setFrom(env.getProperty("spring.mail.username"));
-		message.setTo(emailAddress);
-		message.setSubject(title);
-		message.setText(body);
-		
-		mailSender.send(message);
-	}
+    @Autowired
+    private MailSender mailSender;
+
+    @Autowired
+    public MailService(Environment env) {
+        this.env = env;
+    }
+
+    public void sendMail(String emailAddress, String title, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(env.getProperty("spring.mail.username"));
+        message.setTo(emailAddress);
+        message.setSubject(title);
+        message.setText(body);
+
+        mailSender.send(message);
+    }
 }

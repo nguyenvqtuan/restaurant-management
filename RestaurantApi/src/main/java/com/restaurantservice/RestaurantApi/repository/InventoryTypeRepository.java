@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.restaurantservice.RestaurantApi.entity.InventoryTypeEntity;
 
 @Repository
-public interface InventoryTypeRepository extends JpaRepository<InventoryTypeEntity, Integer>{
+public interface InventoryTypeRepository extends JpaRepository<InventoryTypeEntity, Integer> {
 
-	Optional<InventoryTypeEntity> findById(int id);
-	Optional<InventoryTypeEntity> findByName(String name);
-	List<InventoryTypeEntity> findAll();
+    Optional<InventoryTypeEntity> findById(int id);
+
+    Optional<InventoryTypeEntity> findByName(String name);
+
+    List<InventoryTypeEntity> findAll();
 }

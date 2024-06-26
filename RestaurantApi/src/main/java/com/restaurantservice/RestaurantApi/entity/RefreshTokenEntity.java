@@ -12,18 +12,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="refresh_token")
+@Table(name = "refresh_token")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RefreshTokenEntity {
 
-	@Id
-	@GeneratedValue
-	private int id;
-	
-	private int userId;
-	private String token;
-	private Instant expiryDate;
+    @Id
+    @GeneratedValue
+    private int id;
+
+    private int userId;
+    private String token;
+    private Instant expiryDate;
 }

@@ -23,11 +23,11 @@ public class FirebaseImageService {
 
     public String upload(MultipartFile multipartFile) {
         try {
-            String fileName = multipartFile.getOriginalFilename();                        // to get original file name
-            fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));  // to generated random string values for file name.
+            String fileName = multipartFile.getOriginalFilename(); // to get original file name
+            fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName)); // to generated random string values for file name.
 
-            File file = this.convertToFile(multipartFile, fileName);                      // to convert multipartFile to File
-            String URL = this.uploadFile(file, fileName);                                   // to get uploaded file link
+            File file = this.convertToFile(multipartFile, fileName); // to convert multipartFile to File
+            String URL = this.uploadFile(file, fileName); // to get uploaded file link
             file.delete();
             return URL;
         } catch (Exception e) {
