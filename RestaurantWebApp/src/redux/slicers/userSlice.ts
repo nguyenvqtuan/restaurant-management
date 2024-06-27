@@ -12,7 +12,7 @@ const initialState: UserState = {
     fullName: '',
     permission: [],
     token: '',
-    isLoggedIn: '',
+    isLoggedIn: false,
   }
 }
 

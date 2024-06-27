@@ -13,18 +13,6 @@ const Router = () => {
   const userInfo = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-
-    // TODO call api get user
-    const result = {
-      username: "admin",
-      password: "123",
-      isLoggedIn: true,
-    }
-
-    dispatch(login(result))
-  }, [])
-
   if (userInfo?.isLoggedIn)
     return (
       <Layout>

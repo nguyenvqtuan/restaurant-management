@@ -14,12 +14,20 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useForm } from 'react-hook-form';
 import { ISignup } from './type/Signup.type';
-import { Link } from 'react-router-dom';
+import useApi from '@/hooks/useApi';
+import { useNavigate } from 'react-router';
+
+const URI_SIGNUP = "/sign-up"
+const URI_LOGIN = "/login"
 
 function App() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<ISignup>({})
-  const onSubmit = (data: ISignup) => {
-    console.log(data.userName)
+  const navigate = useNavigate();
+  const onSubmit = async (data: ISignup) => {
+    const signup = await useApi.post(URI_SIGNUP, data).catch(e => {
+      alert(e.data.error.message)
+    });
+    navigate(URI_LOGIN)
   }
 
   return (

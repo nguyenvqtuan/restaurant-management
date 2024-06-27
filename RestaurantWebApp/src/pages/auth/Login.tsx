@@ -18,14 +18,23 @@ import { Link } from "react-router-dom";
 import { login } from "@/redux/slicers/userSlice";
 import { useAppDispatch } from "@/redux/redux-hook";
 import ILogin from "./type/Login.type";
+import useApi from '@/hooks/useApi';
+
+const URI_LOGIN = "/login"
 
 function App() {
   const { register, handleSubmit } = useForm<ILogin>({})
   const dispatch = useAppDispatch()
-  const onSubmit = (data: ILogin) => {
-    console.log(data)
-    // IF login success -> save to local storage
-    // dispatch(login(data))
+  const onSubmit = async (data: ILogin) => {
+    const loginInfo = await useApi.post(URI_LOGIN, data).catch(err => {
+      console.log(err)
+    })
+    if (loginInfo?.status == 200) {
+      const userInfo = loginInfo.data
+      // IF login success -> save to local storage
+      userInfo.isLoggedIn = true
+      dispatch(login(userInfo))
+    }
   }
 
   return (

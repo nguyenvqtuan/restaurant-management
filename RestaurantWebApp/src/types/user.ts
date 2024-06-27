@@ -3,7 +3,7 @@ export interface UserInfo {
   fullName?: string
   password?: string
   token: string
-  isLoggedIn: string
+  isLoggedIn: boolean
   permission: Permission[]
 }
 
