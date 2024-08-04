@@ -15,13 +15,13 @@ import userReducer from "@/redux/slicers/userSlice"
 import appReducer from "@/redux/slicers/appSlice"
 
 const reducers = combineReducers({
-  user: userReducer,
+  auth: userReducer,
   app: appReducer,
 })
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage: storage
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

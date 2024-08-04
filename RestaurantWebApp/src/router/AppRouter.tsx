@@ -1,9 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
-import Dashboard from '@/pages/app/Dashboard'
-import Order from '@/pages/app/Order'
-import Menu from '@/pages/app/Menu'
 import routes from './routes'
 import { CContainer } from '@coreui/react'
 

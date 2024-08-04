@@ -24,7 +24,7 @@ function App() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<ISignup>({})
   const navigate = useNavigate();
   const onSubmit = async (data: ISignup) => {
-    const signup = await useApi.post(URI_SIGNUP, data).catch(e => {
+    await useApi.post(URI_SIGNUP, data).catch(e => {
       alert(e.data.error.message)
     });
     navigate(URI_LOGIN)

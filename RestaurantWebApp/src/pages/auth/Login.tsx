@@ -11,29 +11,29 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react'
+import useApi from '@/hooks/useApi'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import ILogin from "./type/Login.type"
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { login } from "@/redux/slicers/userSlice";
-import { useAppDispatch } from "@/redux/redux-hook";
-import ILogin from "./type/Login.type";
-import useApi from '@/hooks/useApi';
+import { Link, useNavigate } from "react-router-dom"
+import { cilLockLocked, cilUser } from '@coreui/icons'
+import { login } from "@/redux/slicers/userSlice"
+import { useAppDispatch } from "@/redux/redux-hook"
 
 const URI_LOGIN = "/login"
 
 function App() {
-  const { register, handleSubmit } = useForm<ILogin>({})
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const { register, handleSubmit } = useForm<ILogin>({})
+
   const onSubmit = async (data: ILogin) => {
-    const loginInfo = await useApi.post(URI_LOGIN, data).catch(err => {
-      console.log(err)
-    })
+    const loginInfo = await useApi.post(URI_LOGIN, data)
     if (loginInfo?.status == 200) {
       const userInfo = loginInfo.data
-      // IF login success -> save to local storage
       userInfo.isLoggedIn = true
       dispatch(login(userInfo))
+      navigate("/dashboard")
     }
   }
 

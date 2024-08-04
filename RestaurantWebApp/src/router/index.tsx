@@ -1,17 +1,40 @@
 import { useEffect } from 'react'
 import { Layout } from 'antd'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-hook'
-import { selectUserInfo, login } from '@/redux/slicers/userSlice'
+import { useNavigate } from 'react-router'
 import AppRouter from "./AppRouter"
-import Other from '@/layout/Other'
-import BreadCrum from '@/components/BreadCrumb'
 import Header from '@/layout/app/Header'
 import Sidebar from '@/layout/app/Sidebar'
 import Footer from '@/layout/app/Footer'
+import usePrivateApi from '@/hooks/usePrivateApi'
+import { useAppDispatch, useAppSelector } from '@/redux/redux-hook'
+import { logout, selectUserInfo } from '@/redux/slicers/userSlice'
+
 
 const Router = () => {
-  const userInfo = useAppSelector(selectUserInfo);
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const userInfo = useAppSelector(selectUserInfo)
+
+  useEffect(() => {
+    usePrivateApi.interceptors.request.use(
+      (config) => {
+        if (userInfo) {
+          config.headers.Authorization = `Bearer ${userInfo.token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    )
+    usePrivateApi.interceptors.response.use(response => response, error => {
+      if (error.response.status === 403) {
+        dispatch(logout())
+        navigate('/login')
+      }
+    });
+  }, [dispatch, navigate, userInfo])
+
 
   if (userInfo?.isLoggedIn)
     return (

@@ -4,10 +4,8 @@ import {
   CCardHeader,
   CCol,
   CRow,
-  CTable,
   CTableBody,
   CTableDataCell,
-  CTableHead,
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
@@ -28,6 +26,7 @@ const Table = () => {
       title: "col3"
     },
   ]
+
   return (
     <CRow>
       <CCol xs={12}>

@@ -1,9 +1,7 @@
-import React, { FC } from 'react'
 import { Link } from 'react-router-dom';
-import { Location } from "history";
 import routes from "@/router/routes"
 import { Breadcrumb } from "antd";
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const Breadcrumbs = () => {
   const currentLocation = useLocation().pathname
