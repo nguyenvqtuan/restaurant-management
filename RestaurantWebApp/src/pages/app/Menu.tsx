@@ -18,7 +18,7 @@ const Menu = () => {
   }]
 
   const getMenu = async () => {
-    const data = usePrivateApi.get(URI_MENU)
+    const data = await usePrivateApi.get(URI_MENU)
     setMenus(data.data)
   }
 
