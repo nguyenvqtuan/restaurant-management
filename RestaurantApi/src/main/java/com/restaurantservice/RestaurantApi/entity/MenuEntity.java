@@ -15,13 +15,14 @@ import java.time.LocalDateTime;
 public class MenuEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
     @Column(name="name")
     private String name;
 
-    @Column(name="image")
-    private String image;
+    @Column(name="file_name")
+    private String fileName;
 
     @Column(name="description")
     private String description;

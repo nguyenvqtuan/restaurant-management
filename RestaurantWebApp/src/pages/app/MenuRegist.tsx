@@ -12,8 +12,13 @@ const MenuRegist = () => {
   const navigate = useNavigate()
 
   const regist = async (data: IMenuRegist) => {
-    console.log('hellosdfasasd')
-    const menu = await usePrivateApi.post(URI_MENU_REGIST, data)
+    data.image = data.image_list[0]
+    console.log(data.image_list)
+    const menu = await usePrivateApi.post(URI_MENU_REGIST, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
     if (menu?.status === 200) {
       navigate("/menu")
       toast.success('Reigst menu success')
@@ -28,7 +33,9 @@ const MenuRegist = () => {
             <strong>Menu regist</strong>
           </CCardHeader>
           <CCardBody>
-            <CForm onSubmit={handleSubmit(regist)}>
+            <CForm
+              onSubmit={handleSubmit(regist)}
+            >
               <div className="row">
                 <div className="col-6 mb-3">
                   <CFormLabel htmlFor="inputName">Name</CFormLabel>
@@ -44,7 +51,9 @@ const MenuRegist = () => {
                   <CFormInput
                     type="file"
                     id="inputImage"
-                    {...register('image')}
+                    accept='image/*'
+                    multiple={false}
+                    {...register('image_list')}
                   />
                 </div>
               </div>
@@ -69,8 +78,16 @@ const MenuRegist = () => {
                 </div>
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="exampleFormControlTextarea1">Description</CFormLabel>
-                <CFormTextarea id="exampleFormControlTextarea1" rows={3}></CFormTextarea>
+                <CFormLabel
+                  htmlFor="exampleFormControlTextarea1"
+                >
+                  Description
+                </CFormLabel>
+                <CFormTextarea
+                  id="exampleFormControlTextarea1"
+                  rows={3}
+                  {...register('description')}
+                ></CFormTextarea>
               </div>
               <CButton type="submit" color="primary" className="mt-3" active tabIndex={-1}>
                 Regist menu

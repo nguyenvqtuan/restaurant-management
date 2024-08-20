@@ -27,7 +27,9 @@ public class MenuController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> store(@RequestBody MenuDto menuDto) {
+    public ResponseEntity<?> store(@ModelAttribute MenuDto menuDto) {
+        String fileName = firebaseService.upload(menuDto.getImage());
+        menuDto.setFileName(fileName);
         menuService.store(menuDto);
         return ResponseEntity.status(HttpStatus.OK).body("Handle success!");
     }
@@ -41,7 +43,7 @@ public class MenuController {
     @PostMapping("/upload-image")
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
         String fileName = firebaseService.upload(file);
-        return  ResponseEntity.status(HttpStatus.OK).body(fileName);
+        return ResponseEntity.status(HttpStatus.OK).body(fileName);
     }
 
     @PostMapping("/delete-image")

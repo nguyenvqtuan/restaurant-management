@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
+import { CImage, CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
 import Table from "@/components/TableControl"
 import usePrivateApi from "@/hooks/usePrivateApi"
 import { IMenuItem } from "./types/MenuType"
@@ -10,11 +10,21 @@ const Menu = () => {
 
   const [menus, setMenus] = useState<IMenuItem[]>()
   const headers = [{
-    title: "col1"
+    title: "No"
   }, {
-    title: "col2"
+    title: "Name"
   }, {
-    title: "col3"
+    title: "Description"
+  }, {
+    title: "Ordered"
+  }, {
+    title: "Quantity"
+  }, {
+    title: "Image"
+  }, {
+    title: "Create at"
+  }, {
+    title: "Updated at"
   }]
 
   const getMenu = async () => {
@@ -30,10 +40,12 @@ const Menu = () => {
     <Table headers={headers}>
       <CTableBody>
         {
-          menus?.map((item: IMenuItem) => (
-            <CTableRow>
+          menus?.map((item: IMenuItem, index: number) => (
+            <CTableRow
+              key={item.id}
+            >
               <CTableHeaderCell scope="row">
-                1
+                {index}
               </CTableHeaderCell>
               <CTableDataCell>
                 {item.name}
@@ -48,10 +60,17 @@ const Menu = () => {
                 {item.quantity}
               </CTableDataCell>
               <CTableDataCell>
-                {item.createdAt}
+                <CImage
+                  src={item.file_name}
+                  thumbnail={true}
+                  className="img-fluid img-thumbnail"
+                />
               </CTableDataCell>
               <CTableDataCell>
-                {item.updatedAt}
+                {item.created_at}
+              </CTableDataCell>
+              <CTableDataCell>
+                {item.updated_at}
               </CTableDataCell>
             </CTableRow>
           ))

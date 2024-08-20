@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -18,6 +19,12 @@ public class MenuDto {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("image")
+    private MultipartFile image;
+
+    @JsonProperty("file_name")
+    private String fileName;
+
     @JsonProperty("description")
     private String description;
 
@@ -26,4 +33,10 @@ public class MenuDto {
 
     @JsonProperty("ordered")
     private int ordered;
+
+    @JsonProperty("created_at")
+    private String createdAt;
+
+    @JsonProperty("updated_at")
+    private String updatedAt;
 }

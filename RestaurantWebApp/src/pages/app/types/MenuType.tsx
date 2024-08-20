@@ -4,6 +4,7 @@ export interface IMenuItem {
   description: string
   quantity: number
   ordered: number
-  createdAt: string
-  updatedAt: string
+  file_name: string
+  created_at: string
+  updated_at: string
 }

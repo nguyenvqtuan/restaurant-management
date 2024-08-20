@@ -19,6 +19,9 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuRepository menuRepo;
 
+    @Autowired
+    private FirebaseImageService firebaseImageService;
+
     @Override
     public List<MenuDto> findAll() {
         return menuRepo.findAll().stream().map(this::convert).toList();
