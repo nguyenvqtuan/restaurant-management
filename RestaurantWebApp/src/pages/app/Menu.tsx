@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react"
 import { CImage, CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
-import Table from "@/components/TableControl"
+import Table from "@/components/Table/TableControl"
+import TableLoader from "@/components/Table/TableLoader"
 import usePrivateApi from "@/hooks/usePrivateApi"
 import { IMenuItem } from "./types/MenuType"
+
 
 const URI_MENU = "/menu"
 
 const Menu = () => {
 
   const [menus, setMenus] = useState<IMenuItem[]>()
+  const [loading, setLoading] = useState(true)
   const headers = [{
     title: "No"
   }, {
@@ -28,18 +31,33 @@ const Menu = () => {
   }]
 
   const getMenu = async () => {
-    const data = await usePrivateApi.get(URI_MENU)
+    const data = await usePrivateApi.get(URI_MENU).then((data) => {
+      setLoading(false)
+      return data
+    })
     setMenus(data.data)
+
   }
 
   useEffect(() => {
     getMenu();
   }, [])
 
+  // if (loading) return (
+  //   <TableLoader />
+  // )
+
   return (
     <Table headers={headers}>
       <CTableBody>
         {
+          loading &&
+          <TableLoader
+            colSpan={8}
+          />
+        }
+        {
+          !loading &&
           menus?.map((item: IMenuItem, index: number) => (
             <CTableRow
               key={item.id}

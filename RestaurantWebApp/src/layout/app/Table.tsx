@@ -9,7 +9,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import TableControl from '@/components/TableControl'
+import TableControl from '@/components/TableControl/TableControl'
 
 const Table = () => {
   const headers = [
