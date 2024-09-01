@@ -1,19 +1,20 @@
-import { CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow } from '@coreui/react'
+import { CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow } from '@coreui/react'
 import { IMenuRegist } from '../auth/type/Menu.type'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
+import ButtonLoading from '@/components/Button/ButtonLoading'
 import usePrivateApi from '@/hooks/usePrivateApi'
 
 const URI_MENU_REGIST = '/menu'
 
 const MenuRegist = () => {
-  const { register, handleSubmit } = useForm<IMenuRegist>({})
+  const { register, handleSubmit, formState } = useForm<IMenuRegist>({})
+  const { isSubmitting } = formState;
   const navigate = useNavigate()
 
   const regist = async (data: IMenuRegist) => {
     data.image = data.image_list[0]
-    console.log(data.image_list)
     const menu = await usePrivateApi.post(URI_MENU_REGIST, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -21,7 +22,7 @@ const MenuRegist = () => {
     })
     if (menu?.status === 200) {
       navigate("/menu")
-      toast.success('Reigst menu success')
+      toast.success('Regist menu success')
     }
   }
 
@@ -89,9 +90,10 @@ const MenuRegist = () => {
                   {...register('description')}
                 ></CFormTextarea>
               </div>
-              <CButton type="submit" color="primary" className="mt-3" active tabIndex={-1}>
-                Regist menu
-              </CButton>
+              <ButtonLoading
+                isSubmit={isSubmitting}
+                value="Submit"
+              />
             </CForm>
           </CCardBody>
         </CCard>
