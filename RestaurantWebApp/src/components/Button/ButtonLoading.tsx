@@ -7,8 +7,13 @@ const ButtonLoading = (props: ButtonLoadingProps) => {
 
   return (
     <button disabled={isSubmit} className="btn btn-primary mr-1">
-      {isSubmit && <span className="spinner-border spinner-border-sm mr-1"></span>}
-      {value}
+      {
+        isSubmit &&
+        <span className="spinner-border spinner-border-sm mr-2"></span>
+      }
+      {
+        value
+      }
     </button>
   )
 }
