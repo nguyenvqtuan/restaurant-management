@@ -12,6 +12,14 @@ const MenuRegist = lazy(() =>
   import("@/pages/app/MenuRegist")
 )
 
+const Category= lazy(() => 
+  import("@/pages/app/Category")
+)
+
+const CategoryRegist = lazy(() => 
+  import("@/pages/app/CategoryRegist")
+)
+
 const Order = lazy(() =>
   import("@/pages/app/Order")
 )
@@ -25,6 +33,8 @@ const routes = [
   { path: '/dashboard', title: 'DashBoard', element: Dashboard },
   { path: '/menu', title: 'Menu', element: Menu},
   { path: '/menu/regist', title: 'Menu-regist', element: MenuRegist},
+  { path: '/category', title: 'Category', element: Category},
+  { path: '/category/regist', title: 'Category-regist', element: CategoryRegist},
   { path: '/menu/order', title: 'Order', element: Order},
   { path: '/menu/order/setting', title: 'Setting', element: Setting }
 ]

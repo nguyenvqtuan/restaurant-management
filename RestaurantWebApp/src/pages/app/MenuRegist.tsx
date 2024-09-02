@@ -1,5 +1,5 @@
 import { CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow } from '@coreui/react'
-import { IMenuRegist } from '../auth/type/Menu.type'
+import { IMenuRegist } from './type/Menu.type'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
@@ -7,7 +7,7 @@ import FileInput from '@/components/Input/FileInput'
 import ButtonLoading from '@/components/Button/ButtonLoading'
 import usePrivateApi from '@/hooks/usePrivateApi'
 
-const URI_MENU_REGIST = '/menu'
+const URI_MENU = '/menu'
 
 const MenuRegist = () => {
   const { control, register, handleSubmit, formState } = useForm<IMenuRegist>({})
@@ -15,16 +15,17 @@ const MenuRegist = () => {
   const navigate = useNavigate()
 
   const regist = async (data: IMenuRegist) => {
-    console.log(data);
-    const menu = await usePrivateApi.post(URI_MENU_REGIST, data, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    if (menu?.status === 200) {
-      navigate("/menu")
-      toast.success('Regist menu success')
-    }
+    console.log(data, 'data');
+
+    // const menu = await usePrivateApi.post(URI_MENU, data, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data'
+    //   }
+    // })
+    // if (menu?.status === 200) {
+    //   navigate("/menu")
+    //   toast.success('Regist menu success')
+    // }
   }
 
   return (
@@ -44,8 +45,24 @@ const MenuRegist = () => {
                   <CFormInput
                     type="text"
                     id="inputName"
+                    className="mb-3"
                     placeholder="Input name menu"
                     {...register('name')}
+                  />
+                  <CFormLabel htmlFor="inputQuantity">Quantity</CFormLabel>
+                  <CFormInput
+                    type="number"
+                    id="inputQuantity"
+                    className="mb-3"
+                    placeholder="Input quantity"
+                    {...register('quantity')}
+                  />
+                  <CFormLabel htmlFor="inputOrdered">Ordered</CFormLabel>
+                  <CFormInput
+                    type="number"
+                    id="inputOrdered"
+                    placeholder="Input ordered"
+                    {...register('ordered')}
                   />
                 </div>
                 <div className="col-6 mb-3">
@@ -58,26 +75,6 @@ const MenuRegist = () => {
                         value={value ? URL.createObjectURL(value) : null}
                       />
                     )}
-                  />
-                </div>
-              </div>
-              <div className='row'>
-                <div className="col-6 mb-3">
-                  <CFormLabel htmlFor="inputQuantity">Quantity</CFormLabel>
-                  <CFormInput
-                    type="number"
-                    id="inputQuantity"
-                    placeholder="Input quantity"
-                    {...register('quantity')}
-                  />
-                </div>
-                <div className="col-6 mb-3">
-                  <CFormLabel htmlFor="inputOrdered">Ordered</CFormLabel>
-                  <CFormInput
-                    type="number"
-                    id="inputOrdered"
-                    placeholder="Input ordered"
-                    {...register('ordered')}
                   />
                 </div>
               </div>
@@ -101,7 +98,7 @@ const MenuRegist = () => {
           </CCardBody>
         </CCard>
       </CCol>
-    </CRow>
+    </CRow >
   )
 }
 

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
 import { CImage, CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
+import { IMenuItem } from "./type/Menu.type"
 import Table from "@/components/Table/TableControl"
 import TableLoader from "@/components/Table/TableLoader"
 import usePrivateApi from "@/hooks/usePrivateApi"
-import { IMenuItem } from "./types/MenuType"
-
 
 const URI_MENU = "/menu"
 
@@ -42,10 +41,6 @@ const Menu = () => {
   useEffect(() => {
     getMenu();
   }, [])
-
-  // if (loading) return (
-  //   <TableLoader />
-  // )
 
   return (
     <Table headers={headers}>
