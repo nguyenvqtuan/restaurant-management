@@ -1,32 +1,47 @@
-import { CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow } from '@coreui/react'
-import { IMenuRegist } from './type/Menu.type'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
+import { CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow } from '@coreui/react'
+import { IMenuRegist } from './type/Menu.type'
+import { ICategoryItem } from './type/Category.type'
 import { toast } from 'react-toastify'
 import FileInput from '@/components/Input/FileInput'
 import ButtonLoading from '@/components/Button/ButtonLoading'
 import usePrivateApi from '@/hooks/usePrivateApi'
 
 const URI_MENU = '/menu'
+const URI_CATEGORY = '/category'
 
 const MenuRegist = () => {
+  const [categories, setCategories] = useState<ICategoryItem[]>([])
   const { control, register, handleSubmit, formState } = useForm<IMenuRegist>({})
   const { isSubmitting } = formState;
   const navigate = useNavigate()
 
   const regist = async (data: IMenuRegist) => {
-    console.log(data, 'data');
-
-    // const menu = await usePrivateApi.post(URI_MENU, data, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // })
-    // if (menu?.status === 200) {
-    //   navigate("/menu")
-    //   toast.success('Regist menu success')
-    // }
+    console.log(data, 'data')
+    const menu = await usePrivateApi.post(URI_MENU, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    if (menu?.status === 200) {
+      navigate("/menu")
+      toast.success('Regist menu success')
+    }
   }
+
+  const getCategories = async () => {
+    const data = await usePrivateApi.get(URI_CATEGORY);
+    if (data?.status === 200) {
+      setCategories(data.data)
+    }
+  }
+
+  useEffect(() => {
+    getCategories()
+  }, [])
+
 
   return (
     <CRow>
@@ -41,6 +56,22 @@ const MenuRegist = () => {
             >
               <div className="row">
                 <div className="col-6 mb-3">
+                  <CFormLabel htmlFor="inputName">Category</CFormLabel>
+                  <select
+                    className="form-select"
+                    aria-label="Default select example"
+                    {...register('category_id')}
+                  >
+                    <option>Open this select menu</option>
+                    {
+
+                      categories?.map((item: ICategoryItem) => (
+                        <option value={item.id}>
+                          {item.name}
+                        </option>
+                      ))
+                    }
+                  </select>
                   <CFormLabel htmlFor="inputName">Name</CFormLabel>
                   <CFormInput
                     type="text"

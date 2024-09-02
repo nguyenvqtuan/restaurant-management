@@ -28,8 +28,10 @@ public class MenuController {
 
     @PostMapping()
     public ResponseEntity<?> store(@ModelAttribute MenuDto menuDto) {
-        String fileName = firebaseService.upload(menuDto.getImage());
-        menuDto.setFileName(fileName);
+        if (menuDto.getImage() != null) {
+            String fileName = firebaseService.upload(menuDto.getImage());
+            menuDto.setFileName(fileName);
+        }
         menuService.store(menuDto);
         return ResponseEntity.status(HttpStatus.OK).body("Handle success!");
     }

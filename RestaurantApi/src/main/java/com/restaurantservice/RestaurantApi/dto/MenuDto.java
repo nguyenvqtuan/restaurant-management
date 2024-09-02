@@ -34,6 +34,9 @@ public class MenuDto {
     @JsonProperty("ordered")
     private int ordered;
 
+    @JsonProperty("category_id")
+    private int categoryId;
+
     @JsonProperty("created_at")
     private String createdAt;
 

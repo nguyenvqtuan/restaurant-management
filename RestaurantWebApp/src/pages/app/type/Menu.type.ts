@@ -6,6 +6,7 @@ export interface IMenuRegist {
   image: File
   quantity: number
   ordered: number
+  category_id: number
 }
 
 export interface IMenuItem {

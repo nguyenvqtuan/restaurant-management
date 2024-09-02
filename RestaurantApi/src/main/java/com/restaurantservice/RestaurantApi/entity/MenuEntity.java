@@ -33,6 +33,9 @@ public class MenuEntity {
     @Column(name="ordered")
     private int ordered;
 
+    @Column(name="category_id")
+    private Integer categoryId;
+
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
