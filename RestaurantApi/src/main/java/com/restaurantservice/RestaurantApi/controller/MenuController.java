@@ -33,7 +33,7 @@ public class MenuController {
             menuDto.setFileName(fileName);
         }
         menuService.store(menuDto);
-        return ResponseEntity.status(HttpStatus.OK).body("Handle success!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Handle success!");
     }
 
     @DeleteMapping("/{id}")

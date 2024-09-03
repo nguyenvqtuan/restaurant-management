@@ -25,7 +25,7 @@ public class CategoryController {
     @PostMapping()
     public ResponseEntity<?> store(@RequestBody CategoryDto categoryDto) {
         categoryService.store(categoryDto);
-        return ResponseEntity.status(HttpStatus.OK).body("Handle success!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Handle success!");
     }
 
     @DeleteMapping("/{id}")

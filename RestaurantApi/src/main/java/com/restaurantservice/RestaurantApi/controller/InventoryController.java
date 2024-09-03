@@ -45,7 +45,9 @@ public class InventoryController {
 
     @PostMapping("")
     public ResponseEntity<?> store(@RequestBody InventoryDto inventoryDto) {
-        inventoryTypeService.findByName(inventoryDto.getName()).orElseThrow(() -> new InventoryException(inventoryDto.getName(), "Not found!"));
+        inventoryTypeService.findByName(inventoryDto.getName()).ifPresent((user) -> {
+            throw new InventoryException(inventoryDto.getName(), "Not found!");
+        });
 
         inventoryService.store(inventoryDto);
         String title = inventoryDto.getId() != 0 ? ControllerFiled.UPDATE : ControllerFiled.INSERT;
