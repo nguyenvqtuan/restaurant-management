@@ -20,6 +20,14 @@ const CategoryRegist = lazy(() =>
   import("@/pages/app/CategoryRegist")
 )
 
+const Inventory = lazy(() => 
+  import("@/pages/app/Inventory")
+)
+
+const InventoryRegist = lazy(() => 
+  import("@/pages/app/InventoryRegist")
+)
+
 const Order = lazy(() =>
   import("@/pages/app/Order")
 )
@@ -35,6 +43,8 @@ const routes = [
   { path: '/menu/regist', title: 'Menu-regist', element: MenuRegist},
   { path: '/category', title: 'Category', element: Category},
   { path: '/category/regist', title: 'Category-regist', element: CategoryRegist},
+  { path: '/inventory', title: 'Invenroy', element: Inventory},
+  { path: '/inventory/regist', title: 'Inventory-regist', element: InventoryRegist},
   { path: '/menu/order', title: 'Order', element: Order},
   { path: '/menu/order/setting', title: 'Setting', element: Setting }
 ]

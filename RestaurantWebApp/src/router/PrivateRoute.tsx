@@ -10,7 +10,7 @@ interface Props {
 const PrivateRoute = ({ children }: Props) => {
   const userInfo = useAppSelector(selectUserInfo)
 
-  return userInfo.isLoggedIn === true ? (
+  return userInfo?.isLoggedIn === true ? (
     children
   ) : (
     <Navigate to="/login" replace state={{ path: location.pathname }} />

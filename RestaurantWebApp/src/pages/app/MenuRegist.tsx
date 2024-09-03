@@ -5,9 +5,9 @@ import { CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CFo
 import { IMenuRegist } from './type/Menu.type'
 import { ICategoryItem } from './type/Category.type'
 import { toast } from 'react-toastify'
+import usePrivateApi from '@/hooks/usePrivateApi'
 import FileInput from '@/components/Input/FileInput'
 import ButtonLoading from '@/components/Button/ButtonLoading'
-import usePrivateApi from '@/hooks/usePrivateApi'
 
 const URI_MENU = '/menu'
 const URI_CATEGORY = '/category'
@@ -33,7 +33,7 @@ const MenuRegist = () => {
 
   const getCategories = async () => {
     const data = await usePrivateApi.get(URI_CATEGORY);
-    if (data?.status === 200) {
+    if (data?.status === 201) {
       setCategories(data.data)
     }
   }

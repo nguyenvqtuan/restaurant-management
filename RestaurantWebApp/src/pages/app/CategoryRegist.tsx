@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import { ICategoryRegist } from './type/Category.type'
-import ButtonLoading from '@/components/Button/ButtonLoading'
 import usePrivateApi from '@/hooks/usePrivateApi'
+import ButtonLoading from '@/components/Button/ButtonLoading'
 
 const URI_CATEGORY = '/category'
 
@@ -14,9 +14,8 @@ const CategoryRegist = () => {
   const navigate = useNavigate()
 
   const regist = async (data: ICategoryRegist) => {
-    console.log(data, 'data')
     const category = await usePrivateApi.post(URI_CATEGORY, data)
-    if (category?.status === 200) {
+    if (category?.status === 201) {
       navigate("/category")
       toast.success('Regist category success')
     }
