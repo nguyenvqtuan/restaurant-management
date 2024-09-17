@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { CButton, CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
-import { IInventoryItem } from "./type/Inventory.type"
+import { CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
 import Table from "@/components/Table/TableControl"
 import TableLoader from "@/components/Table/TableLoader"
+import ButtonIcon from "@/components/Button/ButtonIcon"
 import usePrivateApi from "@/hooks/usePrivateApi"
 import { useNavigate } from "react-router"
+import { IInventoryItem } from "./type/Inventory.type"
 
 const URI_INVENTORY = "/inventory"
 
@@ -25,6 +26,7 @@ const Inventory = () => {
   }]
 
   const getInventory = async () => {
+    setLoading(true)
     const data = await usePrivateApi.get(URI_INVENTORY).then((data) => {
       setLoading(false)
       return data
@@ -41,8 +43,8 @@ const Inventory = () => {
     nagative(`/inventory/${id}`)
   }
 
-  const deleteInventory = async () => {
-    const data = await usePrivateApi.delete(URI_INVENTORY)
+  const deleteInventory = async (id: number) => {
+    const data = await usePrivateApi.delete(`${URI_INVENTORY}/${id}`)
 
     if (data.status === 200) {
       getInventory();
@@ -77,22 +79,16 @@ const Inventory = () => {
                 {item.quantity}
               </CTableDataCell>
               <CTableDataCell>
-                <CButton
-                  type="button"
-                  color="info"
-                  className="mx-1"
-                  onClick={() => redirectDetail(item.id)}
-                >
-                  Edit
-                </CButton>
-                <CButton
-                  type="button"
-                  color="danger"
-                  className="mx-1"
-                  onClick={() => deleteInventory}
-                >
-                  Delete
-                </CButton>
+                <ButtonIcon
+                  type="edit"
+                  buttonClass="mx-1"
+                  handleClick={() => redirectDetail(item.id)}
+                />
+                <ButtonIcon
+                  type="delete"
+                  buttonClass="mx-1"
+                  handleClick={() => deleteInventory(item.id)}
+                />
               </CTableDataCell>
             </CTableRow>
           ))

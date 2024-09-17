@@ -1,12 +1,12 @@
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CRow } from '@coreui/react'
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
-import { IInventoryRegist } from './type/Inventory.type'
-import usePrivateApi from '@/hooks/usePrivateApi'
+import Dialog from '@/components/Dialog/Dialog'
 import ButtonLoading from '@/components/Button/ButtonLoading'
 import useDialog from '@/hooks/useDialog'
-import Dialog from '@/components/Dialog/Dialog'
+import usePrivateApi from '@/hooks/usePrivateApi'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router'
+import { IInventoryRegist } from './type/Inventory.type'
 
 const URI_INVENTORY = '/inventory'
 
