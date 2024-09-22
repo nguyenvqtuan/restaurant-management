@@ -1,28 +1,18 @@
-import { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import PrivateRoute from './PrivateRoute'
-import routes from './routes'
-import { CContainer } from '@coreui/react'
+import { Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import routes from './routes';
+import { CContainer } from '@coreui/react';
 
-const Login = lazy(() =>
-  import("@/pages/auth/Login")
-)
+const Login = lazy(() => import('@/pages/auth/Login'));
 
-const Signup = lazy(() =>
-  import("@/pages/auth/Signup")
-)
+const Signup = lazy(() => import('@/pages/auth/Signup'));
 
-const Forgot = lazy(() =>
-  import("@/pages/auth/Forgot")
-)
+const Forgot = lazy(() => import('@/pages/auth/Forgot'));
 
-const Page404 = lazy(() =>
-  import("@/pages/Page404")
-)
+const Page404 = lazy(() => import('@/pages/Page404'));
 
-const PageLoader = lazy(() =>
-  import("@/components/PageLoader")
-)
+const PageLoader = lazy(() => import('@/components/PageLoader'));
 
 const AppRouter = () => {
   return (
@@ -38,8 +28,7 @@ const AppRouter = () => {
                   <route.element />
                 </PrivateRoute>
               }
-            >
-            </Route>
+            ></Route>
           ))}
           <Route Component={Login} path="/login" />
           <Route Component={Forgot} path="/forgot" />
@@ -48,7 +37,7 @@ const AppRouter = () => {
         </Routes>
       </Suspense>
     </CContainer>
-  )
-}
+  );
+};
 
-export default AppRouter
+export default AppRouter;

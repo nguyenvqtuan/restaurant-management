@@ -9,26 +9,31 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilLockLocked, cilUser } from '@coreui/icons';
 import { useForm } from 'react-hook-form';
 import { ISignup } from './type/Signup.type';
 import useApi from '@/hooks/useApi';
 import { useNavigate } from 'react-router';
 
-const URI_SIGNUP = "/sign-up"
-const URI_LOGIN = "/login"
+const URI_SIGNUP = '/sign-up';
+const URI_LOGIN = '/login';
 
 function App() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<ISignup>({})
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<ISignup>({});
   const navigate = useNavigate();
   const onSubmit = async (data: ISignup) => {
-    await useApi.post(URI_SIGNUP, data).catch(e => {
-      alert(e.data.error.message)
+    await useApi.post(URI_SIGNUP, data).catch((e) => {
+      alert(e.data.error.message);
     });
-    navigate(URI_LOGIN)
-  }
+    navigate(URI_LOGIN);
+  };
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
@@ -37,9 +42,7 @@ function App() {
           <CCol md={9} lg={7} xl={6}>
             <CCard className="mx-4">
               <CCardBody className="p-4">
-                <CForm
-                  onSubmit={handleSubmit(onSubmit)}
-                >
+                <CForm onSubmit={handleSubmit(onSubmit)}>
                   <h1>Register</h1>
                   <p className="text-body-secondary">Create your account</p>
                   <CInputGroup className="mb-3">
@@ -49,8 +52,8 @@ function App() {
                     <CFormInput
                       placeholder="Username"
                       autoComplete="username"
-                      {...register("userName", {
-                        required: true
+                      {...register('userName', {
+                        required: true,
                       })}
                     />
                   </CInputGroup>
@@ -59,8 +62,8 @@ function App() {
                     <CFormInput
                       placeholder="Full name"
                       autoComplete="fullName"
-                      {...register("fullName", {
-                        required: true
+                      {...register('fullName', {
+                        required: true,
                       })}
                     />
                   </CInputGroup>
@@ -72,8 +75,8 @@ function App() {
                       type="password"
                       placeholder="Password"
                       autoComplete="new-password"
-                      {...register("password", {
-                        required: true
+                      {...register('password', {
+                        required: true,
                       })}
                     />
                   </CInputGroup>
@@ -85,19 +88,25 @@ function App() {
                       type="password"
                       placeholder="Repeat password"
                       autoComplete="new-password"
-                      {...register("confirmPassword", {
+                      {...register('confirmPassword', {
                         required: true,
                         validate: (val: string) => {
-                          if (watch("password") != val) {
-                            return "Your password do not match"
+                          if (watch('password') != val) {
+                            return 'Your password do not match';
                           }
-                        }
+                        },
                       })}
                     />
                   </CInputGroup>
-                  {errors.confirmPassword && <span className="text-danger">{errors.confirmPassword.message}</span>}
+                  {errors.confirmPassword && (
+                    <span className="text-danger">
+                      {errors.confirmPassword.message}
+                    </span>
+                  )}
                   <div className="d-grid">
-                    <CButton color="success" type="submit">Create Account</CButton>
+                    <CButton color="success" type="submit">
+                      Create Account
+                    </CButton>
                   </div>
                 </CForm>
               </CCardBody>
@@ -106,7 +115,7 @@ function App() {
         </CRow>
       </CContainer>
     </div>
-  )
+  );
 }
 
 export default App;

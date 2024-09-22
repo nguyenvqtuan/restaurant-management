@@ -1,90 +1,85 @@
-import { useEffect, useState } from "react"
-import { CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
-import { toast } from 'react-toastify'
-import Table from "@/components/Table/TableControl"
-import TableLoader from "@/components/Table/TableLoader"
-import ButtonIcon from "@/components/Button/ButtonIcon"
-import usePrivateApi from "@/hooks/usePrivateApi"
-import { useNavigate } from "react-router"
-import { IInventoryItem } from "./type/Inventory.type"
-import Dialog from "@/components/Dialog/Dialog"
-import useDialog from "@/hooks/useDialog"
+import { useEffect, useState } from 'react';
+import {
+  CTableBody,
+  CTableDataCell,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react';
+import { toast } from 'react-toastify';
+import Table from '@/components/Table/TableControl';
+import TableLoader from '@/components/Table/TableLoader';
+import ButtonIcon from '@/components/Button/ButtonIcon';
+import usePrivateApi from '@/hooks/usePrivateApi';
+import { useNavigate } from 'react-router';
+import { IInventoryItem } from './type/Inventory.type';
+import Dialog from '@/components/Dialog/Dialog';
+import useDialog from '@/hooks/useDialog';
 
-const URI_INVENTORY = "/inventory"
+const URI_INVENTORY = '/inventory';
 
 const Inventory = () => {
-  const [inventories, setInventories] = useState<IInventoryItem[]>()
+  const [inventories, setInventories] = useState<IInventoryItem[]>();
   const { isOpen, content, openDialog, closeDialog } = useDialog();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const nagative = useNavigate();
-  const headers = [{
-    title: "No"
-  }, {
-    title: "Name"
-  }, {
-    title: "Price"
-  }, {
-    title: "Quantity"
-  }, {
-    title: "#"
-  }]
+  const headers = [
+    {
+      title: 'No',
+    },
+    {
+      title: 'Name',
+    },
+    {
+      title: 'Price',
+    },
+    {
+      title: 'Quantity',
+    },
+    {
+      title: '#',
+    },
+  ];
 
   const getInventory = async () => {
-    setLoading(true)
+    setLoading(true);
     const data = await usePrivateApi.get(URI_INVENTORY).then((data) => {
-      setLoading(false)
-      return data
-    })
+      setLoading(false);
+      return data;
+    });
 
-    setInventories(data.data)
-  }
+    setInventories(data.data);
+  };
 
   useEffect(() => {
     getInventory();
-  }, [])
+  }, []);
 
   const redirectDetail = (id: number) => {
-    nagative(`/inventory/${id}`)
-  }
+    nagative(`/inventory/${id}`);
+  };
 
   const deleteInventory = async (id: number) => {
-    const data = await usePrivateApi.delete(`${URI_INVENTORY}/${id}`)
+    const data = await usePrivateApi.delete(`${URI_INVENTORY}/${id}`);
 
     if (data.status === 200) {
-      toast.success('Delete inventory success')
+      toast.success('Delete inventory success');
       getInventory();
     }
     closeDialog();
-  }
+  };
 
   return (
     <Table headers={headers}>
       <CTableBody>
-        {
-          loading &&
-          <TableLoader
-            colSpan={5}
-          />
-        }
-        {
-          !loading &&
+        {loading && <TableLoader colSpan={5} />}
+        {!loading &&
           inventories?.map((item: IInventoryItem, index: number) => (
-            <CTableRow
-              key={item.id}
-            >
-              <CTableHeaderCell scope="row">
-                {index + 1}
-              </CTableHeaderCell>
-              <CTableDataCell>
-                {item.name}
-              </CTableDataCell>
-              <CTableDataCell>
-                {item.price}
-              </CTableDataCell>
-              <CTableDataCell>
-                {item.quantity}
-              </CTableDataCell>
+            <CTableRow key={item.id}>
+              <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+              <CTableDataCell>{item.name}</CTableDataCell>
+              <CTableDataCell>{item.price}</CTableDataCell>
+              <CTableDataCell>{item.quantity}</CTableDataCell>
               <CTableDataCell>
                 <ButtonIcon
                   type="edit"
@@ -106,11 +101,10 @@ const Inventory = () => {
                 />
               </CTableDataCell>
             </CTableRow>
-          ))
-        }
+          ))}
       </CTableBody>
-    </Table >
-  )
-}
+    </Table>
+  );
+};
 
-export default Inventory
+export default Inventory;

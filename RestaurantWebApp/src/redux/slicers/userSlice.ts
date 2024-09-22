@@ -1,30 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "@/redux/index"
-import { UserInfo } from "@/types/user";
+import { createSlice } from '@reduxjs/toolkit';
+import type { RootState } from '@/redux/index';
+import { UserInfo } from '@/types/user';
 
 export interface UserState {
-  user: UserInfo
+  user: UserInfo;
 }
 
 const initialState: UserState = {
-  user: {} as UserInfo
-}
+  user: {} as UserInfo,
+};
 
 export const userSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     login: (state, action) => {
-      state.user = action.payload
+      state.user = action.payload;
     },
     logout: (state) => {
-      state.user = {} as UserInfo
-    }
-  }
-})
+      state.user = {} as UserInfo;
+    },
+  },
+});
 
-export const { login, logout } = userSlice.actions
+export const { login, logout } = userSlice.actions;
 
-export const selectUserInfo = (state: RootState) => state.auth.user
+export const selectUserInfo = (state: RootState) => state.auth.user;
 
-export default userSlice.reducer 
+export default userSlice.reducer;

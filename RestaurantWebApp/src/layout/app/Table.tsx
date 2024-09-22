@@ -8,24 +8,24 @@ import {
   CTableDataCell,
   CTableHeaderCell,
   CTableRow,
-} from '@coreui/react'
-import TableControl from '@/components/TableControl/TableControl'
+} from '@coreui/react';
+import TableControl from '@/components/TableControl/TableControl';
 
 const Table = () => {
   const headers = [
     {
-      title: "#"
+      title: '#',
     },
     {
-      title: "col1"
+      title: 'col1',
     },
     {
-      title: "col2"
+      title: 'col2',
     },
     {
-      title: "col3"
+      title: 'col3',
     },
-  ]
+  ];
 
   return (
     <CRow>
@@ -36,8 +36,8 @@ const Table = () => {
           </CCardHeader>
           <CCardBody>
             <p className="text-body-secondary small">
-              Use <code>hover</code> property to enable a hover state on table rows within a{' '}
-              <code>&lt;CTableBody&gt;</code>.
+              Use <code>hover</code> property to enable a hover state on table
+              rows within a <code>&lt;CTableBody&gt;</code>.
             </p>
             <TableControl headers={headers}>
               <CTableBody>
@@ -60,12 +60,11 @@ const Table = () => {
                 </CTableRow>
               </CTableBody>
             </TableControl>
-
           </CCardBody>
         </CCard>
       </CCol>
-    </CRow >
-  )
-}
+    </CRow>
+  );
+};
 
-export default Table
+export default Table;

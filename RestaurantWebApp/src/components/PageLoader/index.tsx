@@ -1,5 +1,5 @@
-import { CContainer, CRow, CCol } from "@coreui/react";
-import { Spin } from "antd";
+import { CContainer, CRow, CCol } from '@coreui/react';
+import { Spin } from 'antd';
 
 const PageLoader = () => {
   return (
@@ -12,6 +12,6 @@ const PageLoader = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 export default PageLoader;

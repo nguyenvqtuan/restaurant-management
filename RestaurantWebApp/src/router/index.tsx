@@ -1,19 +1,18 @@
-import { useEffect } from 'react'
-import { Layout } from 'antd'
-import { useNavigate } from 'react-router'
-import AppRouter from "./AppRouter"
-import Header from '@/layout/app/Header'
-import Sidebar from '@/layout/app/Sidebar'
-import Footer from '@/layout/app/Footer'
-import usePrivateApi from '@/hooks/usePrivateApi'
-import { useAppDispatch, useAppSelector } from '@/redux/redux-hook'
-import { logout, selectUserInfo } from '@/redux/slicers/userSlice'
-
+import { useEffect } from 'react';
+import { Layout } from 'antd';
+import { useNavigate } from 'react-router';
+import AppRouter from './AppRouter';
+import Header from '@/layout/app/Header';
+import Sidebar from '@/layout/app/Sidebar';
+import Footer from '@/layout/app/Footer';
+import usePrivateApi from '@/hooks/usePrivateApi';
+import { useAppDispatch, useAppSelector } from '@/redux/redux-hook';
+import { logout, selectUserInfo } from '@/redux/slicers/userSlice';
 
 const Router = () => {
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
-  const userInfo = useAppSelector(selectUserInfo)
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const userInfo = useAppSelector(selectUserInfo);
 
   useEffect(() => {
     usePrivateApi.interceptors.request.use(
@@ -26,15 +25,17 @@ const Router = () => {
       (error) => {
         return Promise.reject(error);
       }
-    )
-    usePrivateApi.interceptors.response.use(response => response, error => {
-      if (error.response.status === 403) {
-        dispatch(logout())
-        navigate('/login')
+    );
+    usePrivateApi.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response.status === 403) {
+          dispatch(logout());
+          navigate('/login');
+        }
       }
-    });
-  }, [dispatch, navigate, userInfo])
-
+    );
+  }, [dispatch, navigate, userInfo]);
 
   if (userInfo?.isLoggedIn)
     return (
@@ -48,13 +49,13 @@ const Router = () => {
           <Footer />
         </div>
       </Layout>
-    )
+    );
   else
     return (
       <Layout>
         <AppRouter />
       </Layout>
-    )
-}
+    );
+};
 
-export default Router
+export default Router;

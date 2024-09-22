@@ -10,32 +10,32 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
-import useApi from '@/hooks/useApi'
-import CIcon from '@coreui/icons-react'
-import ILogin from "./type/Login.type"
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom"
-import { cilLockLocked, cilUser } from '@coreui/icons'
-import { login } from "@/redux/slicers/userSlice"
-import { useAppDispatch } from "@/redux/redux-hook"
+} from '@coreui/react';
+import useApi from '@/hooks/useApi';
+import CIcon from '@coreui/icons-react';
+import ILogin from './type/Login.type';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { cilLockLocked, cilUser } from '@coreui/icons';
+import { login } from '@/redux/slicers/userSlice';
+import { useAppDispatch } from '@/redux/redux-hook';
 
-const URI_LOGIN = "/login"
+const URI_LOGIN = '/login';
 
 function App() {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const { register, handleSubmit } = useForm<ILogin>({})
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<ILogin>({});
 
   const onSubmit = async (data: ILogin) => {
-    const loginInfo = await useApi.post(URI_LOGIN, data)
+    const loginInfo = await useApi.post(URI_LOGIN, data);
     if (loginInfo?.status == 200) {
-      const userInfo = loginInfo.data
-      userInfo.isLoggedIn = true
-      dispatch(login(userInfo))
-      navigate("/dashboard")
+      const userInfo = loginInfo.data;
+      userInfo.isLoggedIn = true;
+      dispatch(login(userInfo));
+      navigate('/dashboard');
     }
-  }
+  };
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
@@ -45,12 +45,8 @@ function App() {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm
-                    onSubmit={handleSubmit(onSubmit)}
-                  >
-                    <h1>
-                      Login
-                    </h1>
+                  <CForm onSubmit={handleSubmit(onSubmit)}>
+                    <h1>Login</h1>
                     <p className="text-body-secondary">
                       Sign In to your account
                     </p>
@@ -61,8 +57,8 @@ function App() {
                       <CFormInput
                         placeholder="Username"
                         autoComplete="username"
-                        {...register("userName", {
-                          required: true
+                        {...register('userName', {
+                          required: true,
                         })}
                       />
                     </CInputGroup>
@@ -74,18 +70,14 @@ function App() {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
-                        {...register("password", {
-                          required: true
+                        {...register('password', {
+                          required: true,
                         })}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton
-                          color="primary"
-                          className="px-4"
-                          type="submit"
-                        >
+                        <CButton color="primary" className="px-4" type="submit">
                           Login
                         </CButton>
                       </CCol>
@@ -98,20 +90,27 @@ function App() {
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+              <CCard
+                className="text-white bg-primary py-5"
+                style={{ width: '44%' }}
+              >
                 <CCardBody className="text-center">
                   <div>
                     <h2>
-                      <Link to="/signup" >
-                        Sign up
-                      </Link>
+                      <Link to="/signup">Sign up</Link>
                     </h2>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
                     </p>
                     <Link to="/signup">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
+                      <CButton
+                        color="primary"
+                        className="mt-3"
+                        active
+                        tabIndex={-1}
+                      >
                         Register Now!
                       </CButton>
                     </Link>

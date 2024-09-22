@@ -1,77 +1,72 @@
-import { useEffect, useState } from "react"
-import { CImage, CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
-import { IMenuItem } from "./type/Menu.type"
-import Table from "@/components/Table/TableControl"
-import TableLoader from "@/components/Table/TableLoader"
-import usePrivateApi from "@/hooks/usePrivateApi"
+import { useEffect, useState } from 'react';
+import {
+  CImage,
+  CTableBody,
+  CTableDataCell,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react';
+import { IMenuItem } from './type/Menu.type';
+import Table from '@/components/Table/TableControl';
+import TableLoader from '@/components/Table/TableLoader';
+import usePrivateApi from '@/hooks/usePrivateApi';
 
-const URI_MENU = "/menu"
+const URI_MENU = '/menu';
 
 const Menu = () => {
-
-  const [menus, setMenus] = useState<IMenuItem[]>()
-  const [loading, setLoading] = useState(true)
-  const headers = [{
-    title: "No"
-  }, {
-    title: "Name"
-  }, {
-    title: "Description"
-  }, {
-    title: "Ordered"
-  }, {
-    title: "Quantity"
-  }, {
-    title: "Image"
-  }, {
-    title: "Create at"
-  }, {
-    title: "Updated at"
-  }]
+  const [menus, setMenus] = useState<IMenuItem[]>();
+  const [loading, setLoading] = useState(true);
+  const headers = [
+    {
+      title: 'No',
+    },
+    {
+      title: 'Name',
+    },
+    {
+      title: 'Description',
+    },
+    {
+      title: 'Ordered',
+    },
+    {
+      title: 'Quantity',
+    },
+    {
+      title: 'Image',
+    },
+    {
+      title: 'Create at',
+    },
+    {
+      title: 'Updated at',
+    },
+  ];
 
   const getMenu = async () => {
     const data = await usePrivateApi.get(URI_MENU).then((data) => {
-      setLoading(false)
-      return data
-    })
-    setMenus(data.data)
-
-  }
+      setLoading(false);
+      return data;
+    });
+    setMenus(data.data);
+  };
 
   useEffect(() => {
     getMenu();
-  }, [])
+  }, []);
 
   return (
     <Table headers={headers}>
       <CTableBody>
-        {
-          loading &&
-          <TableLoader
-            colSpan={8}
-          />
-        }
-        {
-          !loading &&
+        {loading && <TableLoader colSpan={8} />}
+        {!loading &&
           menus?.map((item: IMenuItem, index: number) => (
-            <CTableRow
-              key={item.id}
-            >
-              <CTableHeaderCell scope="row">
-                {index}
-              </CTableHeaderCell>
-              <CTableDataCell>
-                {item.name}
-              </CTableDataCell>
-              <CTableDataCell>
-                {item.description}
-              </CTableDataCell>
-              <CTableDataCell>
-                {item.ordered}
-              </CTableDataCell>
-              <CTableDataCell>
-                {item.quantity}
-              </CTableDataCell>
+            <CTableRow key={item.id}>
+              <CTableHeaderCell scope="row">{index}</CTableHeaderCell>
+              <CTableDataCell>{item.name}</CTableDataCell>
+              <CTableDataCell>{item.description}</CTableDataCell>
+              <CTableDataCell>{item.ordered}</CTableDataCell>
+              <CTableDataCell>{item.quantity}</CTableDataCell>
               <CTableDataCell>
                 <CImage
                   src={item.file_name}
@@ -79,18 +74,13 @@ const Menu = () => {
                   className="img-fluid img-thumbnail"
                 />
               </CTableDataCell>
-              <CTableDataCell>
-                {item.created_at}
-              </CTableDataCell>
-              <CTableDataCell>
-                {item.updated_at}
-              </CTableDataCell>
+              <CTableDataCell>{item.created_at}</CTableDataCell>
+              <CTableDataCell>{item.updated_at}</CTableDataCell>
             </CTableRow>
-          ))
-        }
+          ))}
       </CTableBody>
-    </Table >
-  )
-}
+    </Table>
+  );
+};
 
-export default Menu
+export default Menu;

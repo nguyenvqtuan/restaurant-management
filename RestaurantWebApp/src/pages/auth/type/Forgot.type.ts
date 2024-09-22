@@ -1,3 +1,3 @@
 export interface IForgot {
-  userName: string
+  userName: string;
 }

@@ -1,17 +1,12 @@
-import {
-  CTable,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow
-} from "@coreui/react"
+import { CTable, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react';
 
 interface TableProps {
-  headers: Header[]
-  children: JSX.Element
+  headers: Header[];
+  children: JSX.Element;
 }
 
 interface Header {
-  title: string
+  title: string;
 }
 
 const index = ({ headers, children }: TableProps) => {
@@ -19,7 +14,7 @@ const index = ({ headers, children }: TableProps) => {
     <CTable hover>
       <CTableHead>
         <CTableRow>
-          {headers.map(header => (
+          {headers.map((header) => (
             <CTableHeaderCell scope="col" key={header.title}>
               {header.title}
             </CTableHeaderCell>
@@ -28,7 +23,7 @@ const index = ({ headers, children }: TableProps) => {
       </CTableHead>
       {children}
     </CTable>
-  )
-}
+  );
+};
 
-export default index
+export default index;

@@ -1,21 +1,18 @@
 interface ButtonLoadingProps {
-  isSubmit?: boolean
-  value?: string
+  isSubmit?: boolean;
+  value?: string;
 }
 const ButtonLoading = (props: ButtonLoadingProps) => {
-  const { isSubmit, value } = props
+  const { isSubmit, value } = props;
 
   return (
     <button disabled={isSubmit} className="btn btn-primary mr-1">
-      {
-        isSubmit &&
+      {isSubmit && (
         <span className="spinner-border spinner-border-sm mr-2"></span>
-      }
-      {
-        value
-      }
+      )}
+      {value}
     </button>
-  )
-}
+  );
+};
 
-export default ButtonLoading
+export default ButtonLoading;

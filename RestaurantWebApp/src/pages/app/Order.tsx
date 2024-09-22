@@ -1,9 +1,7 @@
-import Form from "@/layout/app/Form"
+import Form from '@/layout/app/Form';
 
 const Order = () => {
-  return (
-    <Form />
-  )
-}
+  return <Form />;
+};
 
-export default Order
+export default Order;

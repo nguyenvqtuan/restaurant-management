@@ -1,46 +1,56 @@
-import { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router'
-import { CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow } from '@coreui/react'
-import { IMenuRegist } from './type/Menu.type'
-import { ICategoryItem } from './type/Category.type'
-import { toast } from 'react-toastify'
-import usePrivateApi from '@/hooks/usePrivateApi'
-import FileInput from '@/components/Input/FileInput'
-import ButtonLoading from '@/components/Button/ButtonLoading'
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import {
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CForm,
+  CFormInput,
+  CFormLabel,
+  CFormTextarea,
+  CRow,
+} from '@coreui/react';
+import { IMenuRegist } from './type/Menu.type';
+import { ICategoryItem } from './type/Category.type';
+import { toast } from 'react-toastify';
+import usePrivateApi from '@/hooks/usePrivateApi';
+import FileInput from '@/components/Input/FileInput';
+import ButtonLoading from '@/components/Button/ButtonLoading';
 
-const URI_INVENTORY = '/inventory'
+const URI_INVENTORY = '/inventory';
 
 const InventoryDetailRegist = () => {
-  const [inventories, setInventories] = useState<IInventoryDetailItem[]>([])
-  const { control, register, handleSubmit, formState } = useForm<IInventoryDetailRegist>({})
+  const [inventories, setInventories] = useState<IInventoryDetailItem[]>([]);
+  const { control, register, handleSubmit, formState } =
+    useForm<IInventoryDetailRegist>({});
   const { isSubmitting } = formState;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const regist = async (data: IMenuRegist) => {
-    console.log(data, 'data')
+    console.log(data, 'data');
     const menu = await usePrivateApi.post(URI_INVENTORY, data, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     if (menu?.status === 200) {
-      navigate("/menu")
-      toast.success('Regist menu success')
+      navigate('/menu');
+      toast.success('Regist menu success');
     }
-  }
+  };
 
   const getInventories = async () => {
     const data = await usePrivateApi.get(URI_INVENTORY);
     if (data?.status === 201) {
-      setCategories(data.data)
+      setCategories(data.data);
     }
-  }
+  };
 
   useEffect(() => {
-    getCategories()
-  }, [])
-
+    getCategories();
+  }, []);
 
   return (
     <CRow>
@@ -50,9 +60,7 @@ const InventoryDetailRegist = () => {
             <strong>Menu regist</strong>
           </CCardHeader>
           <CCardBody>
-            <CForm
-              onSubmit={handleSubmit(regist)}
-            >
+            <CForm onSubmit={handleSubmit(regist)}>
               <div className="row">
                 <div className="col-6 mb-3">
                   <CFormLabel htmlFor="inputName">Category</CFormLabel>
@@ -62,14 +70,9 @@ const InventoryDetailRegist = () => {
                     {...register('category_id')}
                   >
                     <option>Open this select menu</option>
-                    {
-
-                      categories?.map((item: ICategoryItem) => (
-                        <option value={item.id}>
-                          {item.name}
-                        </option>
-                      ))
-                    }
+                    {categories?.map((item: ICategoryItem) => (
+                      <option value={item.id}>{item.name}</option>
+                    ))}
                   </select>
                   <CFormLabel htmlFor="inputName">Name</CFormLabel>
                   <CFormInput
@@ -109,9 +112,7 @@ const InventoryDetailRegist = () => {
                 </div>
               </div>
               <div className="mb-3">
-                <CFormLabel
-                  htmlFor="exampleFormControlTextarea1"
-                >
+                <CFormLabel htmlFor="exampleFormControlTextarea1">
                   Description
                 </CFormLabel>
                 <CFormTextarea
@@ -120,16 +121,13 @@ const InventoryDetailRegist = () => {
                   {...register('description')}
                 ></CFormTextarea>
               </div>
-              <ButtonLoading
-                isSubmit={isSubmitting}
-                value="Submit"
-              />
+              <ButtonLoading isSubmit={isSubmitting} value="Submit" />
             </CForm>
           </CCardBody>
         </CCard>
       </CCol>
-    </CRow >
-  )
-}
+    </CRow>
+  );
+};
 
-export default InventoryDetailRegist
+export default InventoryDetailRegist;

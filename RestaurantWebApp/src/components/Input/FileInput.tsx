@@ -1,13 +1,13 @@
-import { CFormInput, CFormLabel } from "@coreui/react"
-import { useState } from "react"
+import { CFormInput, CFormLabel } from '@coreui/react';
+import { useState } from 'react';
 
 interface InputFileProps {
-  onChange?: any
-  value?: string | null
+  onChange?: any;
+  value?: string | null;
 }
 
 const FileInput = (props: InputFileProps) => {
-  const { onChange, value } = props
+  const { onChange, value } = props;
   const [imagePreview, setImagePreview] = useState(value || null);
 
   const handleChange = (event: any) => {
@@ -25,25 +25,18 @@ const FileInput = (props: InputFileProps) => {
   return (
     <>
       <CFormLabel htmlFor="inputName">Name</CFormLabel>
-      <CFormInput
-        type="file"
-        accept="image/*"
-        onChange={handleChange}
-      />
+      <CFormInput type="file" accept="image/*" onChange={handleChange} />
       <div className="mt-2 border" style={{ height: '150px', width: '200px' }}>
-        {
-          imagePreview &&
+        {imagePreview && (
           <img
             src={imagePreview}
             alt="Preview"
             style={{ width: '200px', height: '150px' }}
           />
-        }
+        )}
       </div>
     </>
+  );
+};
 
-  )
-
-}
-
-export default FileInput
+export default FileInput;

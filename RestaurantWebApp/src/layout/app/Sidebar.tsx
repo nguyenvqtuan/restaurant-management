@@ -10,26 +10,24 @@ import {
   CSidebarHeader,
   CSidebarNav,
   CSidebarToggler,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilCloudDownload, cilLayers, cilPuzzle, cilSpeedometer } from '@coreui/icons'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import {
+  cilCloudDownload,
+  cilLayers,
+  cilPuzzle,
+  cilSpeedometer,
+} from '@coreui/icons';
 
 const Sidebar = () => {
   return (
-    <CSidebar
-      className="border-end"
-      colorScheme="dark"
-      position="fixed"
-    >
+    <CSidebar className="border-end" colorScheme="dark" position="fixed">
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand>
           <CIcon customClassName="sidebar-brand-full" />
           <CIcon customClassName="sidebar-brand-narrow" />
         </CSidebarBrand>
-        <CCloseButton
-          className="d-lg-none"
-          dark
-        />
+        <CCloseButton className="d-lg-none" dark />
       </CSidebarHeader>
       <CSidebarNav>
         <CNavTitle>Restaurant admin</CNavTitle>
@@ -40,9 +38,7 @@ const Sidebar = () => {
         <CNavItem href="#">
           <CIcon customClassName="nav-icon" icon={cilSpeedometer} />
           Inventory
-          <CBadge color="primary ms-auto">
-            NEW
-          </CBadge>
+          <CBadge color="primary ms-auto">NEW</CBadge>
         </CNavItem>
         <CNavGroup
           toggler={
@@ -77,7 +73,7 @@ const Sidebar = () => {
         <CSidebarToggler />
       </CSidebarFooter>
     </CSidebar>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

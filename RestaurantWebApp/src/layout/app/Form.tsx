@@ -7,8 +7,8 @@ import {
   CFormInput,
   CFormLabel,
   CFormTextarea,
-  CRow
-} from '@coreui/react'
+  CRow,
+} from '@coreui/react';
 
 const Form = () => {
   return (
@@ -21,7 +21,9 @@ const Form = () => {
           <CCardBody>
             <CForm>
               <div className="mb-3">
-                <CFormLabel htmlFor="exampleFormControlInput1">Email address</CFormLabel>
+                <CFormLabel htmlFor="exampleFormControlInput1">
+                  Email address
+                </CFormLabel>
                 <CFormInput
                   type="email"
                   id="exampleFormControlInput1"
@@ -29,15 +31,20 @@ const Form = () => {
                 />
               </div>
               <div className="mb-3">
-                <CFormLabel htmlFor="exampleFormControlTextarea1">Example textarea</CFormLabel>
-                <CFormTextarea id="exampleFormControlTextarea1" rows={3}></CFormTextarea>
+                <CFormLabel htmlFor="exampleFormControlTextarea1">
+                  Example textarea
+                </CFormLabel>
+                <CFormTextarea
+                  id="exampleFormControlTextarea1"
+                  rows={3}
+                ></CFormTextarea>
               </div>
             </CForm>
           </CCardBody>
         </CCard>
       </CCol>
     </CRow>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;

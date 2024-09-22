@@ -1,8 +1,8 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 const useDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [content, setContent] = useState<string>("");
+  const [content, setContent] = useState<string>('');
 
   const openDialog = useCallback((content: string) => {
     setContent(content);
@@ -11,7 +11,7 @@ const useDialog = () => {
 
   const closeDialog = useCallback(() => {
     setIsOpen(false);
-    setContent("");
+    setContent('');
   }, []);
 
   return {
