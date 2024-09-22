@@ -1,8 +1,6 @@
-import { CButton, CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CRow } from '@coreui/react'
+import { CCard, CCardBody, CCardHeader, CCol, CForm, CFormInput, CFormLabel, CRow } from '@coreui/react'
 import { toast } from 'react-toastify'
-import Dialog from '@/components/Dialog/Dialog'
 import ButtonLoading from '@/components/Button/ButtonLoading'
-import useDialog from '@/hooks/useDialog'
 import usePrivateApi from '@/hooks/usePrivateApi'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
@@ -14,7 +12,6 @@ const InventoryRegist = () => {
   const { register, handleSubmit, formState } = useForm<IInventoryRegist>({})
   const { isSubmitting } = formState;
   const navigate = useNavigate()
-  const { isOpen, content, openDialog, closeDialog } = useDialog();
 
   const regist = async (data: IInventoryRegist) => {
     const inventory = await usePrivateApi.post(URI_INVENTORY, data)
@@ -27,10 +24,7 @@ const InventoryRegist = () => {
   return (
     <CRow>
       <CCol xs={12}>
-        <CButton color="primary" onClick={() => openDialog('test')}>
-          Launch demo modal
-        </CButton>
-        <Dialog title='test' isOpen={isOpen} content={content} closeDialog={closeDialog} />
+
         <CCard className="mb-4">
           <CCardHeader>
             <strong>Inventory regist</strong>

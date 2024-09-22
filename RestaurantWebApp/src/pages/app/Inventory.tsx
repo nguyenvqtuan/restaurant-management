@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react"
 import { CTableBody, CTableDataCell, CTableHeaderCell, CTableRow } from "@coreui/react"
+import { toast } from 'react-toastify'
 import Table from "@/components/Table/TableControl"
 import TableLoader from "@/components/Table/TableLoader"
 import ButtonIcon from "@/components/Button/ButtonIcon"
 import usePrivateApi from "@/hooks/usePrivateApi"
 import { useNavigate } from "react-router"
 import { IInventoryItem } from "./type/Inventory.type"
+import Dialog from "@/components/Dialog/Dialog"
+import useDialog from "@/hooks/useDialog"
 
 const URI_INVENTORY = "/inventory"
 
 const Inventory = () => {
   const [inventories, setInventories] = useState<IInventoryItem[]>()
+  const { isOpen, content, openDialog, closeDialog } = useDialog();
   const [loading, setLoading] = useState(true)
+
   const nagative = useNavigate();
   const headers = [{
     title: "No"
@@ -47,8 +52,10 @@ const Inventory = () => {
     const data = await usePrivateApi.delete(`${URI_INVENTORY}/${id}`)
 
     if (data.status === 200) {
+      toast.success('Delete inventory success')
       getInventory();
     }
+    closeDialog();
   }
 
   return (
@@ -87,7 +94,15 @@ const Inventory = () => {
                 <ButtonIcon
                   type="delete"
                   buttonClass="mx-1"
-                  handleClick={() => deleteInventory(item.id)}
+                  handleClick={() => openDialog('Delete')}
+                />
+                <Dialog
+                  title="Delete inventory"
+                  type="confirm"
+                  isOpen={isOpen}
+                  content={content}
+                  confirmDialog={() => deleteInventory(item.id)}
+                  closeDialog={closeDialog}
                 />
               </CTableDataCell>
             </CTableRow>
